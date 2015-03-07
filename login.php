@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en"> <!--<![endif]-->
+<html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<title>PKI - STRATOS</title>
@@ -10,9 +10,6 @@
 		<?php
 			$username = $_POST['name'];
 			$passwd = $_POST['email'];
-			#echo $username;
-			#echo "<br>";
-			#echo $passwd;
 			$con = mysqli_connect("127.0.0.1","root","section80","test");
 			if(mysqli_connect_errno($con))
 			{
@@ -27,14 +24,10 @@
 				if(!$result || mysqli_num_rows($result) <= 0)
 				{
 					header("Location: index.php");
-					#echo "<br>Error - Login failed<br>";
 				}
 				else
 				{
 					header("Location: welcome.php");
-					#echo "<br>";
-					#echo "login accepted!";
-					#echo "<br>";
 				}
 			}
 		?>
