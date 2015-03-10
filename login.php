@@ -9,7 +9,7 @@
 	<body>
 		<?php
 			$username = $_POST['name'];
-			$passwd = $_POST['email'];
+			$passwd = $_POST['passwd'];
 			$con = mysqli_connect("127.0.0.1","root","section80","test");
 			if(mysqli_connect_errno($con))
 			{
