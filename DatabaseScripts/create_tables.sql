@@ -2,7 +2,7 @@
 
 -- Person Instance
 
-CREATE TABLE IF EXISTS `StPrsnInst` (
+CREATE TABLE IF NOT EXISTS `StPrsnInst` (
   `pid`									bigint(20)		NOT NULL		AUTO_INCREMENT
 , `fname`								varchar(32)		NOT NULL
 , `lname`								varchar(32)		NOT NULL
@@ -18,7 +18,7 @@ CREATE TABLE IF EXISTS `StPrsnInst` (
 
 -- User Instance (Person with a login)
 
-CREATE TABLE IF EXISTS `StUserInst` (
+CREATE TABLE IF NOT EXISTS `StUserInst` (
   `pid`									bigint(20)		NOT NULL
 , `user`								varchar(16)		NOT NULL
 , `pass`								varchar(32)		NOT NULL
@@ -34,7 +34,7 @@ CREATE TABLE IF EXISTS `StUserInst` (
 
 -- Phone Instance
 
-CREATE TABLE IF EXISTS `StPhneInst` (
+CREATE TABLE IF NOT EXISTS `StPhneInst` (
   `pid`									bigint(20)		NOT NULL
 , `type`								varchar(4)		NOT NULL
 , `intl`								varchar(1)						DEFAULT NULL
@@ -52,7 +52,7 @@ CREATE TABLE IF EXISTS `StPhneInst` (
 
 -- Lifecycle Configuration
 
-CREATE TABLE IF EXISTS `StLfeCyclConf` (
+CREATE TABLE IF NOT EXISTS `StLfeCyclConf` (
   `life_cycl_id`						tinyint(4)		NOT NULL
 , `name`								varchar(16)		NOT NULL
 , `r`									tinyint(4)		NOT NULL
@@ -70,7 +70,7 @@ CREATE TABLE IF EXISTS `StLfeCyclConf` (
 
 -- Priority Configuration
 
-CREATE TABLE IF EXISTS `StPriConf` (
+CREATE TABLE IF NOT EXISTS `StPriConf` (
   `priority`							tinyint(4)		NOT NULL
 , `name`								varchar(16)		NOT NULL
 , `r`									tinyint(4)		NOT NULL
@@ -88,7 +88,7 @@ CREATE TABLE IF EXISTS `StPriConf` (
 
 -- (Affected,Severity) -> Priority 
 
-CREATE TABLE IF EXISTS `StPriMtxConf` (
+CREATE TABLE IF NOT EXISTS `StPriMtxConf` (
   `aff_level`							tinyint(4)		NOT NULL
 , `severity`							tinyint(4)		NOT NULL
 , `priority`							tinyint(4)		NOT NULL
@@ -106,7 +106,7 @@ CREATE TABLE IF EXISTS `StPriMtxConf` (
 
 -- Ticket instance
 
-CREATE TABLE IF EXISTS `StTktInst` (
+CREATE TABLE IF NOT EXISTS `StTktInst` (
   `tid`									bigint(20)		NOT NULL
 , `opener`								bigint(20)		NOT NULL
 , `assignee`							bigint(20)		NOT NULL
@@ -134,7 +134,7 @@ CREATE TABLE IF EXISTS `StTktInst` (
 
 -- Ticket comment instance
 
-CREATE TABLE IF EXISTS `StTktCmntInst` (
+CREATE TABLE IF NOT EXISTS `StTktCmntInst` (
   `tid`									bigint(20)		NOT NULL
 , `commenter`							bigint(20)
 , `text`								varchar(2048)	NOT NULL
@@ -150,7 +150,7 @@ CREATE TABLE IF EXISTS `StTktCmntInst` (
 
 -- Equipment instance
 
-CREATE TABLE IF EXISTS `StEqpInst` (
+CREATE TABLE IF NOT EXISTS `StEqpInst` (
   `eid`									bigint(20)		NOT NULL										AUTO_INCREMENT
 , `name`								varchar(64)		NOT NULL
 , `vendor`								varchar(64)
@@ -171,7 +171,7 @@ CREATE TABLE IF EXISTS `StEqpInst` (
 
 -- Software instance
 
-CREATE TABLE IF EXISTS `StSftInst` (
+CREATE TABLE IF NOT EXISTS `StSftInst` (
   `sid`									bigint(20)		NOT NULL
 , `name`								varchar(64)		NOT NULL
 , `logl_del`							tinyint(1)		NOT NULL		DEFAULT '0'
@@ -185,7 +185,7 @@ CREATE TABLE IF EXISTS `StSftInst` (
 
 -- Software-Equipment
 
-CREATE TABLE IF EXISTS `StSftToEqpInst` (
+CREATE TABLE IF NOT EXISTS `StSftToEqpInst` (
   `sid`									bigint(20)		NOT NULL
 , `eid`									bigint(20)		NOT NULL
 , CONSTRAINT `StSftEqpToSftFrgnKey`				FOREIGN KEY (`sid`)				REFERENCES `StSftInst` (`sid`) ON DELETE CASCADE
