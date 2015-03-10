@@ -15,7 +15,7 @@
 						<input type="text" placeholder="Username" required="" id="username" name="name" />
 					</div>
 					<div>
-						<input type="password" placeholder="Password" required="" id="password" name="email" />
+						<input type="password" placeholder="Password" required="" id="password" name="passwd" />
 					</div>
 					<div>
 						<input type="submit" value="Log in" />
