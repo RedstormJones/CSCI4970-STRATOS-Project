@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `StLfeCyclConf` (
 , `r`									tinyint(4)		NOT NULL
 , `g`									tinyint(4)		NOT NULL
 , `b`									tinyint(4)		NOT NULL
+, `is_timed`							tinyint(1)		NOT NULL		DEFAULT '0'
 , `logl_del`							tinyint(1)		NOT NULL		DEFAULT '0'
 , `last_mdfd_user`						varchar(32)						DEFAULT NULL
 , `last_mdfd_tmst`						datetime		NOT NULL		DEFAULT CURRENT_TIMESTAMP		ON UPDATE CURRENT_TIMESTAMP
