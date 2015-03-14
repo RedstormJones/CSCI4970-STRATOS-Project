@@ -24,7 +24,22 @@
                 <textarea id="description" placeholder="Enter details about the ticket" name="des"></textarea>
 
                 <label for="textfield">Customer:</label>
-                <input type="text" name="Customer" id="Customer">
+                <select name="select" id="select" size="1">
+                    <option value="Please Select">Please Select</option>
+                     <!--<!Manually making dropdown because need to display more than one column -->
+                    <?php
+                    $con = mysqli_connect("127.0.0.1", "root", "", "stratos");
+                        if (mysqli_connect_errno($con)) {
+                            echo "Failed to connect to MySQL DB: " . mysqli_connect_errno();
+                        } else {
+                            $query = "SELECT * FROM  stprsninst";
+                            $result = mysqli_query($con, $query);
+                            while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                                echo "<option value=\"{$row[pid]}\">{$row[fname]} {$row[lname]}</option>\n";
+                            }
+                        }                    
+                    ?>
+                </select>
 
                 <label for="select">Assign To:</label>
                 <select name="select" id="select" size="1">
@@ -41,35 +56,27 @@
                     getMenu('category', 'cid', 'name');
                     ?>
                 </select>  
-                <label for="textfield"> Affected Level:</label>
-            <labelc>
-                <input type="radio" name="AffectedLevelRadio" value="Low" id="AffectedLevelRadio_0">
-                Low</labelc>
-            <labelc>
-                <input type="radio" name="AffectedLevelRadio" value="Medium" id="AffectedLevelRadio_1">
-                Medium</labelc>
-            <labelc>
-                <input type="radio" name="AffectedLevelRadio" value="High" id="AffectedLevelRadio_2">
-                High</labelc>
-            <br><br>
+                <label for="select">Affected Level:</label>
+                <select name="select" id="select" size="1">
+                    <option value="Please Select">Please Select</option>
+                    <?php
+                    getMenu('stafflvlconf', 'aff_level', 'name');
+                    ?>
+                </select>
 
-            <label for="textfield"> Severity:</label>
-            <labelc>
-                <input type="radio" name="SeverityRadio" value="Low" id="SeverityRadio_0">
-                Low</labelc>
-            <labelc>
-                <input type="radio" name="SeverityRadio" value="Medium" id="SeverityRadio_1">
-                Medium</labelc>
-            <labelc>
-                <input type="radio" name="SeverityRadio" value="High" id="SeverityRadio_2">
-                High</labelc>      
-            <br><br>
+                <label for="select">Severity:</label>
+                <select name="select" id="select" size="1">
+                    <option value="Please Select">Please Select</option>
+                    <?php
+                    getMenu('stsvrlvlconf', 'severity', 'name');
+                    ?>
+                </select>
 
             <label for="textfield">Location:</label>
             <input type="text" placeholder="Enter Room Number" name="location" id="location">
 
-            <label for="textfield">Due:</label>
-            <input type="text" placeholder="Enter Date" name="date" id="date">        
+            <label for="textfield">Estimated Hours:</label>
+            <input type="number" placeholder="Enter Hours" name="estHrs" id="estHrs">        
             <br>
             <labelc>
                 <input type="submit" class="button" value="Add Ticket" id="add" name="action">
@@ -82,7 +89,6 @@
 </html>
 
 <?php
-
 function getMenu($table, $column1, $column2) {
     $con = mysqli_connect("127.0.0.1", "root", "", "stratos");
     if (mysqli_connect_errno($con)) {
