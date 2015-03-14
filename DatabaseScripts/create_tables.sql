@@ -1,9 +1,19 @@
 -- --------------------------------------------------------
 
+-- Unique keys
+
+CREATE TABLE IF NOT EXISTS `StNxtPriKeyInst` (
+  `table`								varchar(32)		NOT NULL
+, `key`									smallint(20)	NOT NULL
+, PRIMARY KEY (`table`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Next available id for a table';
+
+-- --------------------------------------------------------
+
 -- Person Instance
 
 CREATE TABLE IF NOT EXISTS `StPrsnInst` (
-  `pid`									bigint(20)		NOT NULL
+  `pid`									smallint(6)		NOT NULL
 , `fname`								varchar(32)		NOT NULL
 , `lname`								varchar(32)		NOT NULL
 , `email`								varchar(64)						DEFAULT NULL
@@ -18,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `StPrsnInst` (
 -- User Instance (Person with a login)
 
 CREATE TABLE IF NOT EXISTS `StUserInst` (
-  `pid`									bigint(20)		NOT NULL
+  `pid`									smallint(6)		NOT NULL
 , `user`								varchar(16)		NOT NULL
 , `pass`								varchar(32)		NOT NULL
 , `logl_del`							tinyint(1)		NOT NULL		DEFAULT '0'
@@ -33,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `StUserInst` (
 -- Phone Instance
 
 CREATE TABLE IF NOT EXISTS `StPhneInst` (
-  `pid`									bigint(20)		NOT NULL
+  `pid`									smallint(6)		NOT NULL
 , `type`								varchar(4)		NOT NULL
 , `intl`								varchar(1)						DEFAULT NULL
 , `area`								varchar(3)		NOT NULL
@@ -50,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `StPhneInst` (
 -- Lifecycle Configuration
 
 CREATE TABLE IF NOT EXISTS `StLfeCyclConf` (
-  `life_cycl_id`						tinyint(4)		NOT NULL
+  `life_cycl_id`						smallint(6)		NOT NULL
 , `name`								varchar(16)		NOT NULL
 , `r`									tinyint(4)		NOT NULL
 , `g`									tinyint(4)		NOT NULL
@@ -68,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `StLfeCyclConf` (
 -- Priority Configuration
 
 CREATE TABLE IF NOT EXISTS `StPriConf` (
-  `priority`							tinyint(4)		NOT NULL
+  `priority`							smallint(6)		NOT NULL
 , `name`								varchar(16)		NOT NULL
 , `r`									tinyint(4)		NOT NULL
 , `g`									tinyint(4)		NOT NULL
@@ -85,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `StPriConf` (
 -- Affected Level configuration
 
 CREATE TABLE IF NOT EXISTS `StAffLvlConf` (
-  `aff_level`							tinyint(4)		NOT NULL
+  `aff_level`							smallint(6)		NOT NULL
 , `name`								varchar(32)		NOT NULL
 , `logl_del`							tinyint(1)		NOT NULL		DEFAULT '0'
 , `last_mdfd_user`						varchar(32)						DEFAULT NULL
@@ -99,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `StAffLvlConf` (
 -- Severity configuration
 
 CREATE TABLE IF NOT EXISTS `StSvrLvlConf` (
-  `severity`							tinyint(4)		NOT NULL
+  `severity`							smallint(6)		NOT NULL
 , `name`								varchar(32)		NOT NULL
 , `logl_del`							tinyint(1)		NOT NULL		DEFAULT '0'
 , `last_mdfd_user`						varchar(32)						DEFAULT NULL
@@ -113,9 +123,9 @@ CREATE TABLE IF NOT EXISTS `StSvrLvlConf` (
 -- (Affected,Severity) -> Priority 
 
 CREATE TABLE IF NOT EXISTS `StPriMtxConf` (
-  `aff_level`							tinyint(4)		NOT NULL
-, `severity`							tinyint(4)		NOT NULL
-, `priority`							tinyint(4)		NOT NULL
+  `aff_level`							smallint(6)		NOT NULL
+, `severity`							smallint(6)		NOT NULL
+, `priority`							smallint(6)		NOT NULL
 , `logl_del`							tinyint(1)		NOT NULL		DEFAULT '0'
 , `last_mdfd_user`						varchar(32)						DEFAULT NULL
 , `last_mdfd_tmst`						datetime		NOT NULL		DEFAULT CURRENT_TIMESTAMP		ON UPDATE CURRENT_TIMESTAMP
@@ -129,17 +139,32 @@ CREATE TABLE IF NOT EXISTS `StPriMtxConf` (
 
 -- --------------------------------------------------------
 
+-- Category configuration
+
+CREATE TABLE IF NOT EXISTS `StCatgConf` (
+  `cid`									smallint(6)		NOT NULL
+, `name`								varchar(32)		NOT NULL
+, `logl_del`							tinyint(1)		NOT NULL		DEFAULT '0'
+, `last_mdfd_user`						varchar(32)						DEFAULT NULL
+, `last_mdfd_tmst`						datetime		NOT NULL		DEFAULT CURRENT_TIMESTAMP		ON UPDATE CURRENT_TIMESTAMP
+, PRIMARY KEY (`cid`)
+, UNIQUE KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Category of a ticket';
+
+-- --------------------------------------------------------
+
 -- Ticket instance
 
 CREATE TABLE IF NOT EXISTS `StTktInst` (
-  `tid`									bigint(20)		NOT NULL
-, `opener`								bigint(20)		NOT NULL
-, `assignee`							bigint(20)		NOT NULL
-, `aff_level`							tinyint(4)		NOT NULL
-, `severity`							tinyint(4)		NOT NULL
+  `tid`									smallint(6)		NOT NULL
+, `opener`								smallint(6)		NOT NULL
+, `assignee`							smallint(6)		NOT NULL
+, `aff_level`							smallint(6)		NOT NULL
+, `severity`							smallint(6)		NOT NULL
 , `title`								varchar(512)	NOT NULL
 , `description`							varchar(2048)
-, `life_cycl_id`						tinyint(4)		NOT NULL
+, `catg`								smallint(6)		NOT NULL
+, `life_cycl_id`						smallint(6)		NOT NULL
 , `insrt_tmst`							datetime		NOT NULL
 , `expct_hours`							decimal(3,2)	NOT NULL
 , `last_open_time`						decimal(5,2)	NOT NULL
@@ -151,6 +176,7 @@ CREATE TABLE IF NOT EXISTS `StTktInst` (
 , CONSTRAINT `StTktAsgnToPrsnFrgnKey`			FOREIGN KEY (`assignee`)		REFERENCES `StPrsnInst` (`pid`)
 , CONSTRAINT `StTktToPriMtxFrgnKey`				FOREIGN KEY (`aff_level`,`severity`) 
 																				REFERENCES `StPriMtxConf` (`aff_level`,`severity`)
+, CONSTRAINT `StTktCatgToCatgFrgnKey`			FOREIGN KEY (`catg`)			REFERENCES `StCatgConf` (`cid`)
 , CONSTRAINT `StTktLfeCyclToLfeCyclFrgnKey`		FOREIGN KEY (`life_cycl_id`)	REFERENCES `StLfeCyclConf` (`life_cycl_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tickets for tasks';
 
@@ -159,8 +185,8 @@ CREATE TABLE IF NOT EXISTS `StTktInst` (
 -- Ticket comment instance
 
 CREATE TABLE IF NOT EXISTS `StTktCmntInst` (
-  `tid`									bigint(20)		NOT NULL
-, `commenter`							bigint(20)
+  `tid`									smallint(6)		NOT NULL
+, `commenter`							smallint(6)
 , `text`								varchar(2048)	NOT NULL
 , `logl_del`							tinyint(1)		NOT NULL		DEFAULT '0'
 , `last_mdfd_user`						varchar(32)						DEFAULT NULL
@@ -174,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `StTktCmntInst` (
 -- Equipment instance
 
 CREATE TABLE IF NOT EXISTS `StEqpInst` (
-  `eid`									bigint(20)		NOT NULL
+  `eid`									smallint(6)		NOT NULL
 , `name`								varchar(64)		NOT NULL
 , `vendor`								varchar(64)
 , `model`								varchar(64)
@@ -194,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `StEqpInst` (
 -- Software instance
 
 CREATE TABLE IF NOT EXISTS `StSftInst` (
-  `sid`									bigint(20)		NOT NULL
+  `sid`									smallint(6)		NOT NULL
 , `name`								varchar(64)		NOT NULL
 , `logl_del`							tinyint(1)		NOT NULL		DEFAULT '0'
 , `last_mdfd_user`						varchar(32)						DEFAULT NULL
@@ -207,8 +233,8 @@ CREATE TABLE IF NOT EXISTS `StSftInst` (
 -- Software-Equipment
 
 CREATE TABLE IF NOT EXISTS `StSftToEqpInst` (
-  `sid`									bigint(20)		NOT NULL
-, `eid`									bigint(20)		NOT NULL
+  `sid`									smallint(6)		NOT NULL
+, `eid`									smallint(6)		NOT NULL
 , CONSTRAINT `StSftEqpToSftFrgnKey`				FOREIGN KEY (`sid`)				REFERENCES `StSftInst` (`sid`) ON DELETE CASCADE
 , CONSTRAINT `StSftEqpToEqpFrgnKey`				FOREIGN KEY (`eid`)				REFERENCES `StEqpInst` (`eid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Software installed on equipment';
