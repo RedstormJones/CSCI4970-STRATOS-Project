@@ -7,6 +7,9 @@ INSERT INTO `StNxtPriKeyInst` ( `table`, `key` ) VALUES ( 'StAffLvlConf', 3 );
 INSERT INTO `StNxtPriKeyInst` ( `table`, `key` ) VALUES ( 'StSvrLvlConf', 3 );
 INSERT INTO `StNxtPriKeyInst` ( `table`, `key` ) VALUES ( 'StPriConf', 5 );
 INSERT INTO `StNxtPriKeyInst` ( `table`, `key` ) VALUES ( 'StCatgConf', 49 );
+INSERT INTO `StNxtPriKeyInst` ( `table`, `key` ) VALUES ( 'StTktInst', 0 );
+INSERT INTO `StNxtPriKeyInst` ( `table`, `key` ) VALUES ( 'StEqpInst', 0 );
+INSERT INTO `StNxtPriKeyInst` ( `table`, `key` ) VALUES ( 'StSftInst', 0 );
 
 --
 -- Person entities
