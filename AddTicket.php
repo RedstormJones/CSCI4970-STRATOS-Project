@@ -24,7 +24,7 @@
                 <textarea id="description" placeholder="Enter details about the ticket" name="des"></textarea>
 
                 <label for="textfield">Customer:</label>
-                <select name="select" id="select" size="1">
+                <select name="cust" id="select" size="1">
                     <option value="Please Select">Please Select</option>
                      <!--<!Manually making dropdown because need to display more than one column -->
                     <?php
@@ -42,7 +42,7 @@
                 </select>
 
                 <label for="select">Assign To:</label>
-                <select name="select" id="select" size="1">
+                <select name="assignee" id="select" size="1">
                     <option value="Please Select">Please Select</option>
                     <?php
                     getMenu('stuserinst', 'pid', 'user');
@@ -50,14 +50,14 @@
                 </select> 
 
                 <label for="select">Category:</label>
-                <select name="select" id="select" size="1">
+                <select name="category" id="select" size="1">
                     <option value="Please Select">Please Select</option>
                     <?php
-                    getMenu('category', 'cid', 'name');
+                    getMenu('stcatgconf', 'cid', 'name');
                     ?>
                 </select>  
                 <label for="select">Affected Level:</label>
-                <select name="select" id="select" size="1">
+                <select name="affLvl" id="select" size="1">
                     <option value="Please Select">Please Select</option>
                     <?php
                     getMenu('stafflvlconf', 'aff_level', 'name');
@@ -65,7 +65,7 @@
                 </select>
 
                 <label for="select">Severity:</label>
-                <select name="select" id="select" size="1">
+                <select name="sev" id="select" size="1">
                     <option value="Please Select">Please Select</option>
                     <?php
                     getMenu('stsvrlvlconf', 'severity', 'name');
