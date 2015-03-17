@@ -188,6 +188,7 @@ CREATE TABLE IF NOT EXISTS `StTktCmntInst` (
   `tid`									smallint(6)		NOT NULL
 , `commenter`							smallint(6)
 , `text`								varchar(2048)	NOT NULL
+, `ord`									smallint(6)		NOT NULL
 , `logl_del`							tinyint(1)		NOT NULL		DEFAULT '0'
 , `last_mdfd_user`						varchar(32)						DEFAULT NULL
 , `last_mdfd_tmst`						datetime		NOT NULL		DEFAULT CURRENT_TIMESTAMP		ON UPDATE CURRENT_TIMESTAMP
