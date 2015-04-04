@@ -10,5 +10,4 @@
 
     $tcontr->showAllTickets();
 
-    #$tview->renderTickets();
 ?>

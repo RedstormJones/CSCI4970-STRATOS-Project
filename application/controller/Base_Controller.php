@@ -2,7 +2,6 @@
 
 class Base_Controller
 {
-	protected $db;
 	protected $model;
 	protected $view;
 

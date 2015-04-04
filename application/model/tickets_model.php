@@ -11,6 +11,14 @@ class Tickets_Model Extends Base_Model
 		return $query->fetchAll();
 	}
 
+	public function getMenu($table)
+	{
+		$sql = "SELECT * FROM " . $table;
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		return $query->fetchAll();
+	}
+
 	public function addTicket()
 	{
 		$sql = "";

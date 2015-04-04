@@ -30,8 +30,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
 	color: #000;
 	font: 14px Arial;
-	margin: 0 auto;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	position: relative;
 }
 h1{ font-size:28px;}
@@ -495,7 +495,7 @@ h3 {
     margin-top: 10px;
     font-weight: bold;
 }
-.dark-matter input[type="text"], .dark-matter input[type="email"], .dark-matter textarea, .dark-matter select {
+.dark-matter input[type="text"], .dark-matter input[type="email"], .dark-matter input[type="number"], .dark-matter textarea, .dark-matter select {
     border: none;
     color: #525252;
     height: 25px;
@@ -505,7 +505,7 @@ h3 {
     margin-top: 2px;
     outline: 0 none;
     padding: 5px 0px 5px 5px;
-    width: 70%;
+    width: 100%;
     border-radius: 2px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -524,12 +524,13 @@ h3 {
     height: 35px;
     color: #525252;
     line-height: 25px;
+    margin-left: 15%;
 }
 .dark-matter textarea{
     font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
     height:100px;
     padding: 5px 0px 0px 5px;
-    width: 70%;
+    width: 100%;
     display: block;
 }
 .dark-matter .button {
