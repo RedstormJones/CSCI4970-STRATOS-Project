@@ -4,6 +4,21 @@ include "Base_View.php";
 
 class Tickets_View Extends Base_View
 {
+    
+    public function renderTicket($tid, $title, $cname, $pname, $lname, $insrt_tmst, $last_mdfd_tmst)
+    {
+        echo "<tr>";
+            echo '<td>' . ($tid) . '</td>';
+            echo '<td>' . ($title) . '</td>';
+            echo '<td>' . ($cname) . '</td>';
+            echo '<td>' . ($pname) . '</td>';
+            echo '<td>' . ($lname) . '</td>';
+            echo '<td>' . ($insrt_tmst) . '</td>';
+            echo '<td>' . ($last_mdfd_tmst) . '</td>';
+        echo "</tr>";
+    }
+
+
 	public function renderTickets($ticketlist)
 	{
         $body = '<h3 title="All Active Tickets">All Active Tickets</h3>';
