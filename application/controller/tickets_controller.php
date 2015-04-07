@@ -5,16 +5,9 @@ class Tickets_Controller Extends Base_Controller
 {
 	public function showAllTickets()
 	{
-<<<<<<< HEAD
-		$alltickets = $this->model->showAllTickets();
-		$rows = array();
-
-		foreach($alltickets as $ticket)
-=======
 		$ticket_objects = $this->model->showAllTickets();
 		$rows = array();
 		foreach( $ticket_objects as $ticket )
->>>>>>> 67432b73f1cee9192a6257ce15ec2413c75523aa
 		{
 			$tid			= isset($ticket->tid) ? $ticket->tid : "";
 			$title			= isset($ticket->title) ? $ticket->title : "";

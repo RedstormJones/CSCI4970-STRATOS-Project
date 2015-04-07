@@ -3,32 +3,11 @@ include "Base_View.php";
 
 class Tickets_View Extends Base_View
 {
-<<<<<<< HEAD
-    public function renderTicket($tid, $title, $cname, $pname, $lname, $insrt_tmst, $last_mdfd_tmst)
-    {
-        echo "<tr>";
-            echo '<td>' . ($tid) . '</td>';
-            echo '<td>' . ($title) . '</td>';
-            echo '<td>' . ($cname) . '</td>';
-            echo '<td>' . ($pname) . '</td>';
-            echo '<td>' . ($lname) . '</td>';
-            echo '<td>' . ($insrt_tmst) . '</td>';
-            echo '<td>' . ($last_mdfd_tmst) . '</td>';
-        echo "</tr>";
-    }
-
-
 	public function renderTickets($ticketlist)
 	{
         $body = '<h3 "All Active Tickets">All Active Tickets</h3>';
-=======
-
-    public function renderTickets($ticketlist)
-    {
-        $body = '<h3 title="All Active Tickets">All Active Tickets</h3>';
->>>>>>> 67432b73f1cee9192a6257ce15ec2413c75523aa
+        #$body = '<h3 title="All Active Tickets">All Active Tickets</h3>';
         $body .= "<br><br><br>";
-
         $body .= '<table>
             <tr>
                 <th>Ticket#</th>
@@ -44,17 +23,10 @@ class Tickets_View Extends Base_View
             foreach($ticketlist as $ticket)
             {
                 $body .= "<tr>";
-<<<<<<< HEAD
-                    foreach($ticket as $cell)
-                    {
-                        $body .= '<td>' . $cell . '</td>';
-                    }
-=======
-		foreach($ticket as $cell)
-		{
-			$body .= '<td>' . $cell . '</td>';
-		}
->>>>>>> 67432b73f1cee9192a6257ce15ec2413c75523aa
+                foreach($ticket as $cell)
+                {
+                    $body .= '<td>' . $cell . '</td>';
+                }
                 $body .= "</tr>";
             }
             $body .= '</tbody>
