@@ -10,4 +10,5 @@
 
     $tcontr->showAllTickets();
 
+    handleURL($tcontr);
 ?>

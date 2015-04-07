@@ -17,7 +17,7 @@ class Base_View
 				    </head>';
 			echo   '<body>
 						<div id="header">';
-							echo '<img src="/public/imgs/Header.jpg" alt="Header" width=100% height=70px>';
+							echo '<img src="/public/imgs/Header.jpg" alt="Header" width=100% height=7%>';
 							#require APP . 'view\_templates\header.php';
 				echo   '</div>
 						<div id="bottom">

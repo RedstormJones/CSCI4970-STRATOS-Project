@@ -38,15 +38,53 @@ class Tickets_Model Extends Base_Model
 					t.logl_del = FALSE 
 				ORDER BY 
 					t.tid ASC";
+		$this->sql_InsertTicket = "
+				INSERT INTO 
+					`StTktInst` 
+						( `tid`
+						, `opener`
+						, `assignee`
+						, `aff_level`
+						, `severity`
+						, `title`
+						, `description`
+						, `catg`
+						, `life_cycl_id`
+						, `insrt_tmst`
+						, `expct_hours`
+						, `last_open_time`
+						, `logl_del`
+						, `last_mdfd_user`
+						, `last_mdfd_tmst` 
+					    ) 
+				VALUES 
+						( :tid
+						, :opener
+						, :assignee
+						, :aff_level
+						, :severity
+						, :title
+						, :description
+						, :catg
+						, :life_cycl_id
+						, CURRENT_TIME
+						, :expct_hours
+						, 0
+						, FALSE
+						, :last_mdfd_user
+						, CURRENT_TIME
+						);";
+
 		$this->query_ShowAllTickets = $this->db->prepare($this->sql_ShowAllTickets);
+		$this->query_InsertTicket = $this->db->prepare($this->sql_InsertTicket);
 	}
 
 	public function showAllTickets()
 	{
-		
 		$this->query_ShowAllTickets->execute();
 		return $this->query_ShowAllTickets->fetchAll();
 	}
+
 
 	public function getMenu($table)
 	{
@@ -56,9 +94,25 @@ class Tickets_Model Extends Base_Model
 		return $query->fetchAll();
 	}
 
-	public function addTicket()
+
+	public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $location, $estTime)
 	{
-		$sql = "";
+		$tid = $this->GetAndUpdateNextKey('sttktinst');
+		$result = $this->query_InsertTicket->execute(
+			array( ':tid'				=> $tid
+				 , ':opener'			=> 0
+				 , ':assignee'			=> $assignee
+				 , ':aff_level'			=> $affLvl
+				 , ':severity'			=> $severity
+				 , ':title'				=> $title
+				 , ':description'		=> $description
+				 , ':catg'				=> $category
+				 , ':life_cycl_id'		=> 0
+				 , ':expct_hours'		=> $estTime
+				 , ':last_mdfd_user'	=> 'Jvosik'
+				 )
+			);
+		return $result;
 	}
 }
 
