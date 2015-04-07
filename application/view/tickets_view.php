@@ -4,23 +4,9 @@ include "Base_View.php";
 
 class Tickets_View Extends Base_View
 {
-    
-    public function renderTicket($tid, $title, $cname, $pname, $lname, $insrt_tmst, $last_mdfd_tmst)
+
+    public function renderTickets($ticketlist)
     {
-        echo "<tr>";
-            echo '<td>' . ($tid) . '</td>';
-            echo '<td>' . ($title) . '</td>';
-            echo '<td>' . ($cname) . '</td>';
-            echo '<td>' . ($pname) . '</td>';
-            echo '<td>' . ($lname) . '</td>';
-            echo '<td>' . ($insrt_tmst) . '</td>';
-            echo '<td>' . ($last_mdfd_tmst) . '</td>';
-        echo "</tr>";
-    }
-
-
-	public function renderTickets($ticketlist)
-	{
         $body = '<h3 title="All Active Tickets">All Active Tickets</h3>';
         $body .= "<br><br><br>";
 
@@ -39,13 +25,10 @@ class Tickets_View Extends Base_View
             foreach($ticketlist as $ticket)
             {
                 $body .= "<tr>";
-                    $body .= '<td>' . (isset($ticket->tid) ? $ticket->tid : "") . '</td>';
-                    $body .= '<td>' . (isset($ticket->title) ? $ticket->title : "") . '</td>';
-                    $body .= '<td>' . (isset($ticket->cname) ? $ticket->cname : "") . '</td>';
-                    $body .= '<td>' . (isset($ticket->pname) ? $ticket->pname : "") . '</td>';
-                    $body .= '<td>' . (isset($ticket->lname) ? $ticket->lname : "") . '</td>';
-                    $body .= '<td>' . (isset($ticket->insrt_tmst) ? $ticket->insrt_tmst : "") . '</td>';
-                    $body .= '<td>' . (isset($ticket->last_mdfd_tmst) ? $ticket->last_mdfd_tmst : "") . '</td>';
+		foreach($ticket as $cell)
+		{
+			$body .= '<td>' . $cell . '</td>';
+		}
                 $body .= "</tr>";
             }
             $body .= '</tbody>
@@ -59,7 +42,7 @@ class Tickets_View Extends Base_View
         $body .= '</div>';
 
         $this->renderBody($body);
-	}
+    }
 
 
     public function getMenu($table, $col1, $col2, $selectName, $name)
