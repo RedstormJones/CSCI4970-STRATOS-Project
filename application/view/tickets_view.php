@@ -3,6 +3,7 @@ include "Base_View.php";
 
 class Tickets_View Extends Base_View
 {
+<<<<<<< HEAD
     public function renderTicket($tid, $title, $cname, $pname, $lname, $insrt_tmst, $last_mdfd_tmst)
     {
         echo "<tr>";
@@ -20,6 +21,12 @@ class Tickets_View Extends Base_View
 	public function renderTickets($ticketlist)
 	{
         $body = '<h3 "All Active Tickets">All Active Tickets</h3>';
+=======
+
+    public function renderTickets($ticketlist)
+    {
+        $body = '<h3 title="All Active Tickets">All Active Tickets</h3>';
+>>>>>>> 67432b73f1cee9192a6257ce15ec2413c75523aa
         $body .= "<br><br><br>";
 
         $body .= '<table>
@@ -37,10 +44,17 @@ class Tickets_View Extends Base_View
             foreach($ticketlist as $ticket)
             {
                 $body .= "<tr>";
+<<<<<<< HEAD
                     foreach($ticket as $cell)
                     {
                         $body .= '<td>' . $cell . '</td>';
                     }
+=======
+		foreach($ticket as $cell)
+		{
+			$body .= '<td>' . $cell . '</td>';
+		}
+>>>>>>> 67432b73f1cee9192a6257ce15ec2413c75523aa
                 $body .= "</tr>";
             }
             $body .= '</tbody>
@@ -54,7 +68,7 @@ class Tickets_View Extends Base_View
         $body .= '</div>';
 
         $this->renderBody($body);
-	}
+    }
 
 
     public function getMenu($table, $col1, $col2, $selectName, $name)
