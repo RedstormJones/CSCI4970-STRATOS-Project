@@ -10,8 +10,8 @@ echo '<div id="cssmenu">
             </li>
             <li class="has-sub"><a href=""><span>Inventory</span></a>
                 <ul> 
-                    <li><a href=""><span>Hardware</span></a></li>
-                    <li><a href=""><span>Software</span></a></li>
+                    <li><a href="/application/view/hardware/hardware_index.php"><span>Hardware</span></a></li>
+                    <li><a href="/application/view/software/software_index.php"><span>Software</span></a></li>
                 </ul>
             </li>
             <li class="has-sub"><a href=""><span>Analytics</span></a>
