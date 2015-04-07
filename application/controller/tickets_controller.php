@@ -5,8 +5,20 @@ class Tickets_Controller Extends Base_Controller
 {
 	public function showAllTickets()
 	{
-		$alltickets = $this->model->showAllTickets();
-		$this->view->renderTickets($alltickets);
+		$ticket_objects = $this->model->showAllTickets();
+		$rows = array();
+		foreach( $ticket_objects as $ticket )
+		{
+			$tid			= isset($ticket->tid) ? $ticket->tid : "";
+			$title			= isset($ticket->title) ? $ticket->title : "";
+			$cname			= isset($ticket->cname) ? $ticket->cname : "";
+			$pname			= isset($ticket->pname) ? $ticket->pname : "";
+			$lname			= isset($ticket->lname) ? $ticket->lname : "";
+			$insrt_tmst		= isset($ticket->insrt_tmst) ? $ticket->insrt_tmst : "";
+			$last_mdfd_tmst = isset($ticket->last_mdfd_tmst) ? $ticket->last_mdfd_tmst : "";
+			$rows[] = array( $tid, $title, $cname, $pname, $lname, $insrt_tmst, $last_mdfd_tmst );
+		}
+		$this->view->renderTickets($rows);
 	}
 
 	public function showTicketForm()
