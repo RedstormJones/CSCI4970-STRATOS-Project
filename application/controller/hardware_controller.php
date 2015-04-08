@@ -22,6 +22,47 @@ class Hardware_Controller Extends Base_Controller
 		}
 		$this->view->renderHardware($rows);
 	}
+        
+        public function showHardwareForm()
+	{
+		$this->view->renderForm();
+	}
+        
+        public function validate_input($data)
+        {
+            if(!$data)
+            {
+                    return "";
+            }
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+        
+        public function validateHardware()
+	{
+            if ($_SERVER["REQUEST_METHOD"] == "POST") 
+             {
+                 $name = $this->validate_input($_POST["name"]);
+                 $vendor = $this->validate_input($_POST["vendor"]);
+                 $model = $this->validate_input($_POST["model"]);
+                 $serial = $this->validate_input($_POST["serial"]);
+                 $type = $this->validate_input($_POST["type"]);
+                 $loc = $this->validate_input($_POST["loc"]);
+                 $status = $this->validate_input($_POST["status"]);
+             }
+
+             $result = $this->model->addHardware($name, $vendor, $model, $serial, $type, $loc, $status);
+             if(!$result)
+             {
+                 renderBody("Error: New hardware insert failed in database");
+             }
+             else
+             {
+                     header("Location: hardware_index.php");
+             }
+	}
 }
 
 ?>
