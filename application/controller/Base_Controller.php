@@ -11,6 +11,11 @@ class Base_Controller
 		$this->view = $view;
 	}
 
+	public function noAction()
+	{
+		$this->view->renderBody("ERR: No action");
+	}
+
 	public function renderBody($body)
 	{
 		$this->view->renderBody($body);

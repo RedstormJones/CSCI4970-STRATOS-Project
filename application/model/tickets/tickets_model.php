@@ -1,5 +1,6 @@
 <?php
-include "Base_Model.php";
+require_once('../../globals.php');
+require APP . 'model\Base_Model.php';
 
 class Tickets_Model Extends Base_Model
 {

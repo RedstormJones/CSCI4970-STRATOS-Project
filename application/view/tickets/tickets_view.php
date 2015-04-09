@@ -1,5 +1,5 @@
 <?php
-include "Base_View.php";
+include "..\Base_View.php";
 
 class Tickets_View Extends Base_View
 {
@@ -33,7 +33,7 @@ class Tickets_View Extends Base_View
         </table>
         <br><br>';
         $body .= '<div style="text-align: center">';
-            $body .= '<form action="addtickets.php">';
+            $body .= '<form action="tickets_index.php">';
             $body .= '<input type="hidden" name="action" value="showTicketForm">';
             $body .= '<input type=submit class="button" value="Add Ticket">';
             $body .= '</form>';
@@ -77,7 +77,7 @@ class Tickets_View Extends Base_View
     public function renderForm($cust_menu, $assign_menu, $categ_menu, $aff_menu, $sev_menu)
     {
         $body = "<br><br><br>";
-        $body .= '<form id="Add" name="AddTicket" method="post" class="dark-matter" action="addtickets.php">
+        $body .= '<form id="Add" name="AddTicket" method="post" class="dark-matter" action="tickets_index.php">
                     <h1>Ticket Adding Form
                         <span>Please fill all the fields.</span>
                     </h1>

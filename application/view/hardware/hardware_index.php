@@ -1,13 +1,13 @@
 <?php
     require_once('../../globals.php');
-    require APP . 'model\Hardware_model.php';
-    require APP . 'controller\Hardware_controller.php';
-    require APP . 'view\Hardware_view.php';
+    require APP . 'model\hardware\Hardware_model.php';
+    require APP . 'controller\hardware\Hardware_controller.php';
+    require APP . 'view\hardware\Hardware_view.php';
 
-    $tmodel = new Hardware_Model();
-    $tview = new Hardware_View();
-    $tcontr = new Hardware_Controller($tmodel, $tview);
+    $hmodel = new Hardware_Model();
+    $hview = new Hardware_View();
+    $hcontr = new Hardware_Controller($hmodel, $hview);
 
-    $tcontr->showAllHardware();
+    handleURL($hcontr);
 
 ?>

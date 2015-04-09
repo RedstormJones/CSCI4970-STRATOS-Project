@@ -1,8 +1,14 @@
 <?php
-include "Base_Controller.php";
+require_once('../../globals.php');
+require APP . 'controller\Base_Controller.php';
 
 class Tickets_Controller Extends Base_Controller
 {
+    public function noAction()
+    {
+        $this->showAllTickets();
+    }
+
 	public function showAllTickets()
 	{
 		$ticket_objects = $this->model->showAllTickets();

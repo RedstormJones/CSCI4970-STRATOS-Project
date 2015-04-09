@@ -1,5 +1,6 @@
 <?php
-include "Base_View.php";
+require_once('../../globals.php');
+require APP . 'view\Base_View.php';
 
 class Hardware_View Extends Base_View
 {
@@ -35,7 +36,7 @@ class Hardware_View Extends Base_View
         </table>
         <br><br>';
         $body .= '<div style="text-align: center">';
-            $body .= '<form action="addhardware.php">';
+            $body .= '<form action="hardware_index.php">';
             $body .= '<input type="hidden" name="action" value="showHardwareForm">';
             $body .= '<input type=submit class="button" value="Add Hardware">';
             $body .= '</form>';
@@ -46,8 +47,8 @@ class Hardware_View Extends Base_View
 
     public function renderForm()
     {
-        $body = "<br><br><br>";
-        $body .= '<form id="Add" name="AddHardware" method="post" class="dark-matter" action="addhardware.php">
+        $body = "<br><br><br>"; 
+        $body .= '<form id="Add" name="AddHardware" method="post" class="dark-matter" action="hardware_index.php">
                     <h1>Hardware Adding Form
                         <span>Please fill all the fields.</span>
                     </h1>

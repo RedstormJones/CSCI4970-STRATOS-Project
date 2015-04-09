@@ -1,8 +1,10 @@
 <?php
-include "Base_View.php";
+include "..\Base_View.php";
+
 
 class Software_View Extends Base_View
 {
+
     public function renderSoftware($softwarelist)
     {
         $body = '<h3 title="All Active Software">All Active Software</h3>';
@@ -30,7 +32,7 @@ class Software_View Extends Base_View
         </table>
         <br><br>';
         $body .= '<div style="text-align: center">';
-            $body .= '<form action="addsoftware.php">';
+            $body .= '<form action="software_index.php">';
             $body .= '<input type="hidden" name="action" value="showSoftwareForm">';
             $body .= '<input type=submit class="button" value="Add Software">';
             $body .= '</form>';
@@ -42,7 +44,7 @@ class Software_View Extends Base_View
     public function renderForm()
     {
         $body = "<br><br><br>";
-        $body .= '<form id="Add" name="AddSoftware" method="post" class="dark-matter" action="addsoftware.php">
+        $body .= '<form id="Add" name="AddSoftware" method="post" class="dark-matter" action="software_index.php">
                     <h1>Software Adding Form
                         <span>Please fill all the fields.</span>
                     </h1>
@@ -56,7 +58,6 @@ class Software_View Extends Base_View
                 </form>';
         $this->renderBody($body);
     }
-
 }
 
 ?>

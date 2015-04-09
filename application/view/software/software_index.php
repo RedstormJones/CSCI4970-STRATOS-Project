@@ -1,13 +1,13 @@
 <?php
     require_once('../../globals.php');
-    require APP . 'model\Software_model.php';
-    require APP . 'controller\Software_controller.php';
-    require APP . 'view\Software_view.php';
+    require APP . 'model\software\Software_model.php';
+    require APP . 'controller\software\Software_controller.php';
+    require APP . 'view\software\Software_view.php';
 
-    $tmodel = new Software_Model();
-    $tview = new Software_View();
-    $tcontr = new Software_Controller($tmodel, $tview);
+    $smodel = new Software_Model();
+    $sview = new Software_View();
+    $scontr = new Software_Controller($smodel, $sview);
 
-    $tcontr->showAllSoftware();
+    handleURL($scontr);
 
 ?>
