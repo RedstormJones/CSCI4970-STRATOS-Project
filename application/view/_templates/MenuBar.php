@@ -16,7 +16,7 @@ echo '<div id="cssmenu">
             </li>
             <li class="has-sub"><a href=""><span>Analytics</span></a>
                 <ul> 
-                    <li><a href=""><span>Metrics</span></a></li>
+                    <li><a href="/application/view/metrics/metrics_index.php"><span>Metrics</span></a></li>
                     <li><a href=""><span>Configuration</span></a></li>
                 </ul>
             </li>

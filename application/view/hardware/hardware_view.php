@@ -1,5 +1,4 @@
 <?php
-require_once('../../globals.php');
 require APP . 'view\Base_View.php';
 
 class Hardware_View Extends Base_View

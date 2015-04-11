@@ -4,7 +4,7 @@ require APP . 'model\Base_Model.php';
 
 class Hardware_Model Extends Base_Model
 {
-	public function __construct()
+  public function __construct()
 	{
 		parent::__construct();
 		$this->sql_ShowAllHardware = "
@@ -22,14 +22,19 @@ class Hardware_Model Extends Base_Model
                     `StEqpInst`
                 WHERE
                     logl_del = FALSE;";
-        $this->query_ShowAllHardware = $this->db->prepare($this->sql_ShowAllHardware);
-    }
+    $this->query_ShowAllHardware = $this->db->prepare($this->sql_ShowAllHardware);
+  }
 
-    public function showAllHardware()
-    {
-        $this->query_ShowAllHardware->execute();
-        return $this->query_ShowAllHardware->fetchAll();
-    }
+  public function showAllHardware()
+  {
+      $this->query_ShowAllHardware->execute();
+      return $this->query_ShowAllHardware->fetchAll();
+  }
+
+  public function addHardware($name, $vendor, $model, $serial, $type, $loc, $status)
+  {
+
+  }
 }
 
 ?>

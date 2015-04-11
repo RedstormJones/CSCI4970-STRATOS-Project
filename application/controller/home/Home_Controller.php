@@ -6,7 +6,7 @@ class Home_Controller Extends Base_Controller
 {
     public function noAction()
     {
-        $this->view->renderBody("Hey World");
+        $this->view->renderHome('<h3 "STRATOS - Schedule">STRATOS - Schedule</h3>');
     }
 
 }

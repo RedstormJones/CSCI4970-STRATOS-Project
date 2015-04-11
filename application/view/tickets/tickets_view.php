@@ -6,7 +6,6 @@ class Tickets_View Extends Base_View
 	public function renderTickets($ticketlist)
 	{
         $body = '<h3 "All Active Tickets">All Active Tickets</h3>';
-        #$body = '<h3 title="All Active Tickets">All Active Tickets</h3>';
         $body .= "<br><br><br>";
         $body .= '<table>
             <tr>

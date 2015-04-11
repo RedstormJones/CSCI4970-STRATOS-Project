@@ -26,6 +26,11 @@ class Software_Model Extends Base_Model
         $this->query_ShowAllSoftware->execute();
         return $this->query_ShowAllSoftware->fetchAll();
     }
+
+	public function addSoftware($name)
+	{
+
+	}
 }
 
 ?>

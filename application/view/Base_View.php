@@ -18,7 +18,6 @@ class Base_View
 			echo   '<body>
 						<div id="header">';
 							echo '<img src="/public/imgs/Header.jpg" alt="Header" width=100% height=7%>';
-							#require APP . 'view\_templates\header.php';
 				echo   '</div>
 						<div id="bottom">
 							<div id="menu">';
@@ -30,8 +29,6 @@ class Base_View
 						</div>
 					</body>
 				</html>';
-		#require APP . 'view\_templates\theBetterPage.php';
-		#$this->overwrite("<html>Hello World</html>");
 	}
 
 	public function getbody()
