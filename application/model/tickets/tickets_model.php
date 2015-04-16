@@ -38,7 +38,9 @@ class Tickets_Model Extends Base_Model
 				WHERE 
 					t.logl_del = FALSE 
 				ORDER BY 
-					t.tid ASC";
+					t.tid ASC
+				LIMIT
+					:start, 10";
 		$this->sql_InsertTicket = "
 				INSERT INTO 
 					`StTktInst` 
@@ -80,8 +82,9 @@ class Tickets_Model Extends Base_Model
 		$this->query_InsertTicket = $this->db->prepare($this->sql_InsertTicket);
 	}
 
-	public function showAllTickets()
+	public function showAllTickets($start)
 	{
+		$this->query_ShowAllTickets->bindParam(':start',$start,PDO::PARAM_INT);
 		$this->query_ShowAllTickets->execute();
 		return $this->query_ShowAllTickets->fetchAll();
 	}

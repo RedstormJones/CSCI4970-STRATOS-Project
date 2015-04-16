@@ -6,12 +6,12 @@ class Tickets_Controller Extends Base_Controller
 {
     public function noAction()
     {
-        $this->showAllTickets();
+        $this->showAllTickets( 0 );
     }
 
-	public function showAllTickets()
+	public function showAllTickets( $start )
 	{
-		$ticket_objects = $this->model->showAllTickets();
+		$ticket_objects = $this->model->showAllTickets($start);
 		$rows = array();
 		foreach( $ticket_objects as $ticket )
 		{
@@ -24,10 +24,29 @@ class Tickets_Controller Extends Base_Controller
 			$last_mdfd_tmst = isset($ticket->last_mdfd_tmst) ? $ticket->last_mdfd_tmst : "";
 			$rows[] = array( $tid, $title, $cname, $pname, $lname, $insrt_tmst, $last_mdfd_tmst );
 		}
-		$this->view->renderTickets($rows);
+		$this->view->renderTickets($rows, $start);
 	}
 
-	public function showTicketForm()
+    public function Next()
+    {
+        $start = (int)getParam( 'start' , 0 );
+        $prev_displayed = getParam( 'displayed', '10' );
+        if ( $prev_displayed == '10' )
+        {
+            $start += 10; 
+        }
+
+        $this->showAllTickets( $start );
+    }
+
+    public function Previous()
+    {
+        $start = (int)getParam( 'start' , 10 ) - 10;
+        if ( $start < 0 ) $start = 0;
+        $this->showAllTickets( $start );
+    }
+
+	public function Add_Ticket()
 	{
 		$cust_menu = $this->model->getMenu("stprsninst");
 		$assign_menu = $this->model->getMenu("stuserinst");

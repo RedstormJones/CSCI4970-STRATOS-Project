@@ -9,5 +9,4 @@
     $hcontr = new Hardware_Controller($hmodel, $hview);
 
     handleURL($hcontr);
-
 ?>

@@ -5,27 +5,20 @@ define('APP', ROOT . 'application' . DIRECTORY_SEPARATOR);
 include 'DBconnect.php';
 
 
+function getParam($param, $default = '' )
+{
+    $result = $default;
+    if      ( isset($_GET[$param])  ) $result = $_GET[$param];
+    else if ( isset($_POST[$param]) ) $result = $_POST[$param];
+
+    return $result;
+}
+
 function handleURL($contr)
 {
-    if( (isset($_GET['action']) && !empty($_GET['action'])) 
-    	|| ((isset($_POST['action'])) && !empty($_POST['action'])) )
-    {
-    	$func = "";
-    	if(isset($_GET['action'])) 
-    	{
-    		$func = $_GET['action'];
-    	}
-    	else
-    	{
-    		$func = $_POST['action'];
-    	}
-        $contr->{$func}();
-    }
-    else
-    {
-        $contr->noAction();
-		#header("Location: view\home\home_index.php");
-    }
+    $func = getParam('action' , 'noAction');
+    $func = str_replace(' ', '_', $func);
+    $contr->{$func}();
 }
 
 ?>

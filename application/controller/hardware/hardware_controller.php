@@ -2,6 +2,7 @@
 require_once('../../globals.php');
 require APP . 'controller\Base_Controller.php';
 
+
 class Hardware_Controller Extends Base_Controller
 {
     public function noAction()

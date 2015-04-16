@@ -7,28 +7,36 @@ class Base_View
 		#$this->renderHome();
 	}
 
-	public function renderBody($body)
+	public function _render($body)
 	{
 		echo   '<html>
 				    <head>
 				        <meta charset="utf-8"/>
 				        <title>PKI - STRATOS</title>
 				        <link rel="stylesheet" type="text/css" href="/public/css/style.css" /> 
-				    </head>';
-			echo   '<body>
-						<div id="header">';
-							echo '<img src="/public/imgs/Header.jpg" alt="Header" width=100% height=7%>';
-				echo   '</div>
+				    </head>
+				    <body> ' . 
+				    	$body .
+				    ' </body>
+			    </html>';
+	}
+
+	public function renderBody($body)
+	{
+		$render = '';
+
+			$render .=   '<div id="header">';
+					$render .= '<img src="/public/imgs/Header.jpg" alt="Header" width=100% height=7%>';
+			$render .=   '</div>
 						<div id="bottom">
 							<div id="menu">';
 								require APP . 'view\_templates\MenuBar.php';
-								echo '<div id="body" class="pagebody">';
-									echo $body;
-								echo '</div>
+								$render .= '<div id="body" class="pagebody">';
+									$render .= $body;
+								$render .= '</div>
 							</div>
-						</div>
-					</body>
-				</html>';
+						</div>';
+		$this->_render($render);
 	}
 
 	public function getbody()

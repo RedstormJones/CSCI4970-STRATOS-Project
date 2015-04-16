@@ -3,7 +3,7 @@ include "..\Base_View.php";
 
 class Tickets_View Extends Base_View
 {
-	public function renderTickets($ticketlist)
+	public function renderTickets($ticketlist, $start)
 	{
         $body = '<h3 "All Active Tickets">All Active Tickets</h3>';
         $body .= "<br><br><br>";
@@ -33,8 +33,11 @@ class Tickets_View Extends Base_View
         <br><br>';
         $body .= '<div style="text-align: center">';
             $body .= '<form action="tickets_index.php">';
-            $body .= '<input type="hidden" name="action" value="showTicketForm">';
-            $body .= '<input type=submit class="button" value="Add Ticket">';
+            $body .= '<input type="hidden" name="start" value="'. $start .'">';
+            $body .= '<input type="hidden" name="displayed" value="' . count($ticketlist) . '">';
+            $body .= '<input type=submit class="button" value="Previous" name="action">';
+            $body .= '<input type=submit class="button" value="Add Ticket" name="action">';
+            $body .= '<input type=submit class="button" value="Next" name="action">';
             $body .= '</form>';
         $body .= '</div>';
 
