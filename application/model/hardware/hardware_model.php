@@ -21,9 +21,11 @@ class Hardware_Model Extends Base_Model
                             FROM
                                 `StEqpInst`
                             WHERE
-                                logl_del = FALSE;";
+                                logl_del = FALSE
+                            LIMIT
+                                :start, 10;";
 
-        $this->sql_InsertTicket = "
+        $this->sql_InsertHardware = "
                         INSERT INTO 
                                 `StEqpInst` 
                                         ( `eid`
@@ -49,11 +51,12 @@ class Hardware_Model Extends Base_Model
                                         );";
 
         $this->query_ShowAllHardware = $this->db->prepare($this->sql_ShowAllHardware);
-        $this->query_InsertTicket = $this->db->prepare($this->sql_InsertTicket);
+        $this->query_InsertHardware = $this->db->prepare($this->sql_InsertHardware);
     }
 
-    public function showAllHardware()
+    public function showAllHardware($start)
     {
+        $this->query_ShowAllHardware->bindParam(':start',$start,PDO::PARAM_INT);
         $this->query_ShowAllHardware->execute();
         return $this->query_ShowAllHardware->fetchAll();
     }
@@ -70,7 +73,7 @@ class Hardware_Model Extends Base_Model
     {
         
         $eid = $this->GetAndUpdateNextKey('steqpinst');
-        $result = $this->query_InsertTicket->execute(
+        $result = $this->query_InsertHardware->execute(
                 array( ':eid'			=> $eid
                          , ':name'                  => $name
                          , ':vendor'		=> $vendor

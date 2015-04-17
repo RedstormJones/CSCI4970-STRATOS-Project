@@ -17,9 +17,11 @@ class Software_Model Extends Base_Model
                             FROM
                                 `StSftInst`
                             WHERE
-                                `logl_del` = FALSE;";
+                                `logl_del` = FALSE
+                            LIMIT
+                                 :start, 10;";
 
-            $this->sql_InsertTicket = "
+            $this->sql_InsertSoftware = "
                             INSERT INTO 
                                     `StSftInst` 
                                             ( `sid`
@@ -35,11 +37,12 @@ class Software_Model Extends Base_Model
                                             );";
                 
         $this->query_ShowAllSoftware = $this->db->prepare($this->sql_ShowAllSoftware);
-        $this->query_InsertTicket = $this->db->prepare($this->sql_InsertTicket);
+        $this->query_InsertSoftware = $this->db->prepare($this->sql_InsertSoftware);
     }
 
-    public function showAllSoftware()
+    public function showAllSoftware($start)
     {
+        $this->query_ShowAllSoftware->bindParam(':start',$start,PDO::PARAM_INT);
         $this->query_ShowAllSoftware->execute();
         return $this->query_ShowAllSoftware->fetchAll();
     }
@@ -56,9 +59,9 @@ class Software_Model Extends Base_Model
     {
         $sid = $this->GetAndUpdateNextKey('stsftinst');
         $last_mdfd_user = 'TestDataLoad';
-        $result = $this->query_InsertTicket->execute(
+        $result = $this->query_InsertSoftware->execute(
                 array( ':sid'			=> $sid
-                         , ':name'                  => $name
+                         , ':name'              => $name
                          , ':last_mdfd_user'	=> $last_mdfd_user)
                          );
         return $result;

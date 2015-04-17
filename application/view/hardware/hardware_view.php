@@ -3,7 +3,7 @@ require APP . 'view\Base_View.php';
 
 class Hardware_View Extends Base_View
 {
-    public function renderHardware($hardwarelist)
+    public function renderHardware($hardwarelist, $start)
     {
         $body = '<h3 title="All Active Hardware">All Active Hardware</h3>';
         $body .= "<br><br><br>";
@@ -36,8 +36,11 @@ class Hardware_View Extends Base_View
         <br><br>';
         $body .= '<div style="text-align: center">';
             $body .= '<form action="hardware_index.php">';
-            $body .= '<input type="hidden" name="action" value="showHardwareForm">';
-            $body .= '<input type=submit class="button" value="Add Hardware">';
+            $body .= '<input type="hidden" name="start" value="'. $start .'">';
+            $body .= '<input type="hidden" name="displayed" value="' . count($hardwarelist) . '">';
+            $body .= '<input type=submit class="button" value="Previous" name="action">';
+            $body .= '<input type=submit class="button" value="Add Hardware" name="action">';
+            $body .= '<input type=submit class="button" value="Next" name="action">';
             $body .= '</form>';
         $body .= '</div>';
 
