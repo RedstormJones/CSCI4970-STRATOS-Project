@@ -83,9 +83,7 @@ class Tickets_View Extends Base_View
                     $body .= $this->renderDropdown("affLvl"     , "Affected Level:" , $affectedLevels);
                     $body .= $this->renderDropdown("sev"        , "Severity:"       , $severityLevels);
 
-                    $body .= '<label for="textfield">Location:</label>
-                                <input type="text" placeholder="Enter Room Number" name="location" id="location">
-                            <label for="textfield">Estimated Hours:</label>
+                    $body .= '<label for="textfield">Estimated Hours:</label>
                                 <input type="number" placeholder="Enter Hours" name="estHrs" id="estHrs">
                             <br><br><br>
                             <labelc>';
