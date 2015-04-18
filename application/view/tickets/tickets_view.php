@@ -3,8 +3,8 @@ include "..\Base_View.php";
 
 class Tickets_View Extends Base_View
 {
-	public function renderTickets($ticketlist, $start)
-	{
+    public function renderTickets($ticketlist, $start)
+    {
         $body = '<h3 "All Active Tickets">All Active Tickets</h3>';
         $body .= "<br><br><br>";
         $body .= '<table>
@@ -45,38 +45,25 @@ class Tickets_View Extends Base_View
     }
 
 
-    public function getMenu($table, $col1, $col2, $selectName, $name)
+    public function renderDropdown($elementName, $label, $tuples)
     {
-        $b = '<label style="margin-left: 15%" for="select">' . $name . '</label>';
-        $b .= '<select name="' . $selectName . '" id="select" size="1">
-                    <option value="Please Select">Please Select</option>
-                    <!--<!Manually making dropdown because need to display more than one column -->';
-        foreach($table as $t)
+        $b = '<label style="margin-left: 15%" for="select">' . $label . '</label>';
+        $b .= '<select name="' . $elementName . '" id="select" size="1">
+                    <option value="Please Select">Please Select</option>';
+
+        foreach($tuples as $tuple)
         {
-            $b .= "<option value=" . $t->$col1 . ">" . $t->$col2 . "</option>";
+            $value = $tuple[0];
+            $display = $tuple[1];
+            $b .= "<option value=" . $value . ">" . $display . "</option>";
         }
+
         $b .= "</select>";
         return $b;
     }
 
 
-    public function getMenu2($table, $col1, $col2, $col3, $selectName, $name)
-    {
-        $b = '<label style="margin-left: 15%" for="select">' . $name . '</label>';
-        $b .= '<select name="' . $selectName . '" id="select" size="1">
-                    <option value="Please Select">Please Select</option>
-                    <!--<!Manually making dropdown because need to display more than one column -->';
-        foreach($table as $t)
-        {
-            $b .= "<option value=" . $t->$col1 . ">" . $t->$col2;
-            $b .= " " . $t->$col3 . "</option>";
-        }
-        $b .= "</select>";
-        return $b;
-    }
-
-
-    public function renderForm($cust_menu, $assign_menu, $categ_menu, $aff_menu, $sev_menu)
+    public function renderForm($persons, $users, $categories, $affectedLevels, $severityLevels)
     {
         $body = "<br><br><br>";
         $body .= '<form id="Add" name="AddTicket" method="post" class="dark-matter" action="tickets_index.php">
@@ -85,24 +72,25 @@ class Tickets_View Extends Base_View
                     </h1>
                     <p>
                     <label for="textfield">Title:</label>
-                    <input type="text" required="" placeholder="Enter Subject" name="title" id="title">
+                    <input type="text" placeholder="Enter Subject" name="title" id="title">
 
                     <label for="textfield">Description:</label>
                     <textarea id="description" placeholder="Enter details about the ticket" name="des"></textarea>';
                     
-                    $body .= $this->getMenu2($cust_menu, "pid", "fname", "lname", "cust", "Customer:");
-                    $body .= $this->getMenu($assign_menu, "pid", "user", "assignee", "Assign To:");
-                    $body .= $this->getMenu($categ_menu, "cid", "name", "category", "Category:");
-                    $body .= $this->getMenu($aff_menu, "aff_level", "name", "affLvl", "Affected Level:");
-                    $body .= $this->getMenu($sev_menu, "severity", "name", "sev", "Severity:");
+                    $body .= $this->renderDropdown("cust"       , "Customer:"       , $persons);
+                    $body .= $this->renderDropdown("assignee"   , "Assign To:"      , $users);
+                    $body .= $this->renderDropdown("cid"        , "Category:"       , $categories);
+                    $body .= $this->renderDropdown("affLvl"     , "Affected Level:" , $affectedLevels);
+                    $body .= $this->renderDropdown("sev"        , "Severity:"       , $severityLevels);
+
                     $body .= '<label for="textfield">Location:</label>
-                                <input type="text" required="" placeholder="Enter Room Number" name="location" id="location">
+                                <input type="text" placeholder="Enter Room Number" name="location" id="location">
                             <label for="textfield">Estimated Hours:</label>
-                                <input type="number" required="" placeholder="Enter Hours" name="estHrs" id="estHrs">
+                                <input type="number" placeholder="Enter Hours" name="estHrs" id="estHrs">
                             <br><br><br>
                             <labelc>';
                         $body .= '<input type="hidden" name="action" value="validateTicket">';
-                        $body .= '<input type="submit" style="margin-left: 180px" class="button" value="Add Ticket">';
+                        $body .= '<input type="submit" class="button" value="Add Ticket">';
                     $body .= '</labelc>
                 </form>';
         $this->renderBody($body);
