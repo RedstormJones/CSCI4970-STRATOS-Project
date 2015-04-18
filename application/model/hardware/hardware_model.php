@@ -74,6 +74,7 @@ class Hardware_Model Extends Base_Model
         
         $eid = $this->GetAndUpdateNextKey('steqpinst');
         $result = $this->query_InsertHardware->execute(
+<<<<<<< HEAD
                 array( ':eid'     => $eid
                          , ':name'                  => $name
                          , ':vendor'    => $vendor
@@ -82,6 +83,16 @@ class Hardware_Model Extends Base_Model
                          , ':type'      => $type
                          , ':loc'                   => $loc
                          , ':status'    => $status
+=======
+                array( ':eid'			=> $eid
+                         , ':name'                  => $name
+                         , ':vendor'		=> $vendor
+                         , ':model'         	=> $model
+                         , ':serial'		=> $serial
+                         , ':type'			=> $type
+                         , ':loc'                   => $loc
+                         , ':status'		=> $status
+>>>>>>> 41949a12e8bab9623cd29faa3707bd33756ae8d7
                          )
                 );
         return $result;

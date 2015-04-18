@@ -5,8 +5,13 @@ require APP . 'model\Base_Model.php';
 
 class Software_Model Extends Base_Model
 {
+<<<<<<< HEAD
     public function __construct()
     {
+=======
+	public function __construct()
+	{
+>>>>>>> 41949a12e8bab9623cd29faa3707bd33756ae8d7
             parent::__construct();
             $this->sql_ShowAllSoftware = "
                             SELECT
@@ -60,11 +65,20 @@ class Software_Model Extends Base_Model
         $sid = $this->GetAndUpdateNextKey('stsftinst');
         $last_mdfd_user = 'TestDataLoad';
         $result = $this->query_InsertSoftware->execute(
+<<<<<<< HEAD
                 array( ':sid'           => $sid
                          , ':name'              => $name
                          , ':last_mdfd_user'    => $last_mdfd_user)
                          );
         return $result;
+=======
+                array( ':sid'			=> $sid
+                         , ':name'              => $name
+                         , ':last_mdfd_user'	=> $last_mdfd_user)
+                         );
+        return $result;
+
+>>>>>>> 41949a12e8bab9623cd29faa3707bd33756ae8d7
     }
 }
 ?>
