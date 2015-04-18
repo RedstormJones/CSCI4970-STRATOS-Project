@@ -472,6 +472,7 @@ h3 {
 .dark-matter h1 {
     padding: 0px 0px 10px 40px;
     display: block;
+    color: #D3D3D3;
     border-bottom: 1px solid #444;
     margin: -10px -30px 30px -30px;
 }
