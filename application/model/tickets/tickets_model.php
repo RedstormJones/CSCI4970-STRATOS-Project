@@ -151,7 +151,7 @@ class Tickets_Model Extends Base_Model
     }
 
 
-    public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $location, $estTime)
+    public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $estTime)
     {
         $tid = $this->GetAndUpdateNextKey('sttktinst');
         $result = $this->query_InsertTicket->execute(
