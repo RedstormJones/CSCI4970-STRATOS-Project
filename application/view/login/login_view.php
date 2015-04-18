@@ -7,8 +7,8 @@ class Login_View Extends Base_View
 {
 	public function showLogin()
 	{
-		$body = 
-			'<div class="container">
+		echo '<link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+				<div class="container">
 					<section id="content">
 						<form action="login_index.php" method="post">
 							<h1>PKI LOGIN</h1>
@@ -24,7 +24,5 @@ class Login_View Extends Base_View
 						</form><!-- form -->
 					</section><!-- content -->
 				</div><!-- container -->';
-		#echo $body;
-		$this->_render($body);
 	}
 }

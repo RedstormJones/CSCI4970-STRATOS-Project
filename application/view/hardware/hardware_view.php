@@ -3,7 +3,7 @@ require APP . 'view\Base_View.php';
 
 class Hardware_View Extends Base_View
 {
-    public function renderHardware($hardwarelist)
+    public function renderHardware($hardwarelist, $start)
     {
         $body = '<h3 title="All Active Hardware">All Active Hardware</h3>';
         $body .= "<br><br><br>";
@@ -36,8 +36,11 @@ class Hardware_View Extends Base_View
         <br><br>';
         $body .= '<div style="text-align: center">';
             $body .= '<form action="hardware_index.php">';
-            $body .= '<input type="hidden" name="action" value="showHardwareForm">';
-            $body .= '<input type=submit class="button" value="Add Hardware">';
+            $body .= '<input type="hidden" name="start" value="'. $start .'">';
+            $body .= '<input type="hidden" name="displayed" value="' . count($hardwarelist) . '">';
+            $body .= '<input type=submit class="button" value="Previous" name="action">';
+            $body .= '<input type=submit class="button" value="Add Hardware" name="action">';
+            $body .= '<input type=submit class="button" value="Next" name="action">';
             $body .= '</form>';
         $body .= '</div>';
 
@@ -53,10 +56,10 @@ class Hardware_View Extends Base_View
                     </h1>
                     <p>
                     <label for="textfield">Name:</label>
-                    <input type="text" placeholder="Enter Name" name="name" id="title">
+                    <input type="text" required="" placeholder="Enter Name" name="name" id="title">
                     
                     <label for="textfield">Vendor:</label>
-                    <input type="text" placeholder="Enter Vendor" name="vendor" id="vendor">
+                    <input type="text" required="" placeholder="Enter Vendor" name="vendor" id="vendor">
                     
                     <label for="textfield">Model:</label>
                     <input type="text" placeholder="Enter Model" name="model" id="model">
@@ -68,7 +71,7 @@ class Hardware_View Extends Base_View
                     <input type="text" placeholder="Enter Type" name="type" id="type">
                     
                     <label for="textfield">Location:</label>
-                    <input type="text" placeholder="Enter Location" name="loc" id="loc">
+                    <input type="text" required="" placeholder="Enter Location" name="loc" id="loc">
                     
                     <label style="margin-left: 15%" for="select">Status</label>
                     <select name="status" id="select" size="1">
@@ -79,7 +82,7 @@ class Hardware_View Extends Base_View
 
                     
             $body .= '<input type="hidden" name="action" value="validateHardware">';
-            $body .= '<input type="submit" class="button" value="Add Hardware">';
+            $body .= '<input type="submit" style="margin-left: 35%" class="button" value="Add Hardware">';
             $body .= '</labelc>
                 </form>';
         $this->renderBody($body);

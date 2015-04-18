@@ -5,7 +5,7 @@ include "..\Base_View.php";
 class Software_View Extends Base_View
 {
 
-    public function renderSoftware($softwarelist)
+    public function renderSoftware($softwarelist, $start)
     {
         $body = '<h3 title="All Active Software">All Active Software</h3>';
         $body .= "<br><br><br>";
@@ -33,8 +33,11 @@ class Software_View Extends Base_View
         <br><br>';
         $body .= '<div style="text-align: center">';
             $body .= '<form action="software_index.php">';
-            $body .= '<input type="hidden" name="action" value="showSoftwareForm">';
-            $body .= '<input type=submit class="button" value="Add Software">';
+            $body .= '<input type="hidden" name="start" value="'. $start .'">';
+            $body .= '<input type="hidden" name="displayed" value="' . count($softwarelist) . '">';
+            $body .= '<input type="submit" class="button" value="Previous" name="action">';
+            $body .= '<input type="submit" class="button" value="Add Software" name="action">';
+            $body .= '<input type="submit" class="button" value="Next" name="action">';
             $body .= '</form>';
         $body .= '</div>';
 
@@ -50,14 +53,13 @@ class Software_View Extends Base_View
                     </h1>
                     <p>
                     <label for="textfield">Name:</label>
-                    <input type="text" placeholder="Enter Name" name="name" id="title">';
+                    <input type="text" required="" placeholder="Enter Name" name="name" id="title">';
                    
             $body .= '<input type="hidden" name="action" value="validateSoftware">';
-            $body .= '<input type="submit" class="button" value="Add Software">';
+            $body .= '<input type="submit" style="margin-left: 35%" class="button" value="Add Software">';
             $body .= '</labelc>
                 </form>';
         $this->renderBody($body);
     }
 }
-
 ?>

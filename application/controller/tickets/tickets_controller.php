@@ -91,7 +91,11 @@ class Tickets_Controller Extends Base_Controller
         }
         else
         {
-        	header("Location: tickets_index.php");
+            ?>
+                <script type="text/javascript">
+                    window.location.href = 'http://127.0.0.1/application/view/tickets/tickets_index.php';
+                </script>
+            <?php
         }
 	}
 }

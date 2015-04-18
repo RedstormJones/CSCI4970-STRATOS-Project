@@ -1,5 +1,4 @@
 <?php
-#session_start('oid');
 define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 define('APP', ROOT . 'application' . DIRECTORY_SEPARATOR);
 include 'DBconnect.php';

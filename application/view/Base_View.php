@@ -4,9 +4,11 @@ class Base_View
 {
 	public function __construct()
 	{
-		#$this->renderHome();
+
 	}
 
+
+/*
 	public function _render($body)
 	{
 		echo   '<html>
@@ -15,28 +17,37 @@ class Base_View
 				        <title>PKI - STRATOS</title>
 				        <link rel="stylesheet" type="text/css" href="/public/css/style.css" /> 
 				    </head>
-				    <body> ' . 
+				    <body>' . 
 				    	$body .
-				    ' </body>
+				    '</body>
 			    </html>';
 	}
+*/
+
 
 	public function renderBody($body)
 	{
-		$render = '';
-
-			$render .=   '<div id="header">';
-					$render .= '<img src="/public/imgs/Header.jpg" alt="Header" width=100% height=7%>';
-			$render .=   '</div>
+		echo   '<html>
+		    		<head>
+		        		<meta charset="utf-8"/>
+		        		<title>PKI - STRATOS</title>
+		        		<link rel="stylesheet" type="text/css" href="/public/css/style.css" /> 
+		    		</head>
+		    		<body>
+						<div id="header">
+							<img src="/public/imgs/Header.jpg" alt="Header" width=100% height=7%>
+						</div>
 						<div id="bottom">
 							<div id="menu">';
-								require APP . 'view\_templates\MenuBar.php';
-								$render .= '<div id="body" class="pagebody">';
-									$render .= $body;
-								$render .= '</div>
+								require_once(APP . 'view\_templates\MenuBar.php');
+		echo				   '<input type="text" src="/application/view/_templates/MenuBar.php">
+								<div id="body" class="pagebody">';
+		echo						$body;
+		echo				   '</div>
 							</div>
-						</div>';
-		$this->_render($render);
+						</div>
+					</body>
+				</html>';
 	}
 
 	public function getbody()

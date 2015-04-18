@@ -85,7 +85,7 @@ class Tickets_View Extends Base_View
                     </h1>
                     <p>
                     <label for="textfield">Title:</label>
-                    <input type="text" placeholder="Enter Subject" name="title" id="title">
+                    <input type="text" required="" placeholder="Enter Subject" name="title" id="title">
 
                     <label for="textfield">Description:</label>
                     <textarea id="description" placeholder="Enter details about the ticket" name="des"></textarea>';
@@ -96,13 +96,13 @@ class Tickets_View Extends Base_View
                     $body .= $this->getMenu($aff_menu, "aff_level", "name", "affLvl", "Affected Level:");
                     $body .= $this->getMenu($sev_menu, "severity", "name", "sev", "Severity:");
                     $body .= '<label for="textfield">Location:</label>
-                                <input type="text" placeholder="Enter Room Number" name="location" id="location">
+                                <input type="text" required="" placeholder="Enter Room Number" name="location" id="location">
                             <label for="textfield">Estimated Hours:</label>
-                                <input type="number" placeholder="Enter Hours" name="estHrs" id="estHrs">
+                                <input type="number" required="" placeholder="Enter Hours" name="estHrs" id="estHrs">
                             <br><br><br>
                             <labelc>';
                         $body .= '<input type="hidden" name="action" value="validateTicket">';
-                        $body .= '<input type="submit" class="button" value="Add Ticket">';
+                        $body .= '<input type="submit" style="margin-left: 180px" class="button" value="Add Ticket">';
                     $body .= '</labelc>
                 </form>';
         $this->renderBody($body);
