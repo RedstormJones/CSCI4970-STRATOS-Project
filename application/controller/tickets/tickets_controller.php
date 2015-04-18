@@ -110,20 +110,16 @@ class Tickets_Controller Extends Base_Controller
 
     public function validateTicket()
     {
-       if ($_SERVER["REQUEST_METHOD"] == "POST") 
-        {
-            $title = $this->validate_input($_POST["title"]);
-            $description = $this->validate_input($_POST["des"]);
-            $customer = $this->validate_input($_POST["cust"]);
-            $assignee = $this->validate_input($_POST["assignee"]);
-            $category = $this->validate_input($_POST["category"]);
-            $affLvl = $this->validate_input($_POST["affLvl"]);
-            $severity = $this->validate_input($_POST["sev"]);
-            $location = $this->validate_input($_POST["location"]);
-            $estTime = $this->validate_input($_POST["estHrs"]);
-        }
+        $title                          = $this->validate_input(    getParam("title"    , null)   );
+        $description                    = $this->validate_input(    getParam("des"      , null) );
+        $customer                       = $this->validate_input(    getParam("cust"     , null) );
+        $assignee                       = $this->validate_input(    getParam("assignee" , null) );
+        $category                       = $this->validate_input(    getParam("category" , null) );
+        $affLvl                         = $this->validate_input(    getParam("affLvl"   , null) );
+        $severity                       = $this->validate_input(    getParam("sev"      , null) );
+        $estTime                        = $this->validate_input(    getParam("estHrs"   , null) );
 
-        $result = $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $location, $estTime);
+        $result = $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $estTime);
         if(!$result)
         {
             renderBody("Error: New ticket insert failed in database");
@@ -132,7 +128,7 @@ class Tickets_Controller Extends Base_Controller
         {
             ?>
                 <script type="text/javascript">
-                    window.location.href = 'http://127.0.0.1/application/view/tickets/tickets_index.php';
+                    window.location.href = 'tickets_index.php';
                 </script>
             <?php
         }
