@@ -35,15 +35,9 @@ class Software_View Extends Base_View
             $body .= '<form action="software_index.php">';
             $body .= '<input type="hidden" name="start" value="'. $start .'">';
             $body .= '<input type="hidden" name="displayed" value="' . count($softwarelist) . '">';
-<<<<<<< HEAD
             $body .= '<input type="submit" class="button" value="Previous" name="action">';
             $body .= '<input type="submit" class="button" value="Add Software" name="action">';
             $body .= '<input type="submit" class="button" value="Next" name="action">';
-=======
-            $body .= '<input type=submit class="button" value="Previous" name="action">';
-            $body .= '<input type=submit class="button" value="Add Software" name="action">';
-            $body .= '<input type=submit class="button" value="Next" name="action">';
->>>>>>> 41949a12e8bab9623cd29faa3707bd33756ae8d7
             $body .= '</form>';
         $body .= '</div>';
 

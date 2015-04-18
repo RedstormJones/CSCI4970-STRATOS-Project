@@ -9,38 +9,21 @@ class Software_Controller Extends Base_Controller
         $this->showAllSoftware(0);
     }
 
-<<<<<<< HEAD
 	public function showAllSoftware( $start )
 	{
 		$software_objects = $this->model->showAllSoftware( $start );
 		$rows = array();
 		foreach( $software_objects as $software )
 		{
-=======
-    public function showAllSoftware($start)
-    {
-        $software_objects = $this->model->showAllSoftware($start);
-        $rows = array();
-        foreach( $software_objects as $software )
-        {
->>>>>>> 41949a12e8bab9623cd29faa3707bd33756ae8d7
             $sid            = isset($software->sid) ? $software->sid : "";
             $name           = isset($software->name) ? $software->name : "";
             $last_mdfd_user = isset($software->last_mdfd_user) ? $software->last_mdfd_user : "";
             $last_mdfd_tmst = isset($software->last_mdfd_tmst) ? $software->last_mdfd_tmst : "";
-<<<<<<< HEAD
 			$rows[]         = array( $sid, $name, $last_mdfd_user, $last_mdfd_tmst );
 		}
 		$this->view->renderSoftware($rows, $start);
 	}
 
-=======
-            $rows[]         = array( $sid, $name, $last_mdfd_user, $last_mdfd_tmst );
-        }
-        $this->view->renderSoftware($rows, $start);
-    }
-        
->>>>>>> 41949a12e8bab9623cd29faa3707bd33756ae8d7
     public function Next()
     {
         $start = (int)getParam( 'start' , 0 );
