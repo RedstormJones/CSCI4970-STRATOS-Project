@@ -19,8 +19,11 @@ echo '<div id="cssmenu">
             </li>
             <li class="has-sub"><a href=""><span>Configuration</span></a>
                 <ul> 
-                    <li>
+                    <li><a href="/application/view/config/affected/affected_config_index.php"><span>Affected Level</span></a></li>
+                    <li><a href="/application/view/config/category/category_config_index.php"><span>Category</span></a></li>
                     <li><a href="/application/view/config/lifecycle/lifecycle_config_index.php"><span>Lifecycle</span></a></li>
+                    <li><a href="/application/view/config/priority/priority_config_index.php"><span>Priority</span></a></li>
+                    <li><a href="/application/view/config/severity/severity_config_index.php"><span>Severity</span></a></li>
                 </ul>
             </li>
             <li class="has-sub"><a href=""><span>Account</span></a>
