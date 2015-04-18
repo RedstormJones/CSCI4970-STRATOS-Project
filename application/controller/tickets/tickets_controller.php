@@ -110,7 +110,7 @@ class Tickets_Controller Extends Base_Controller
 
     public function validateTicket()
     {
-        $title                          = $this->validate_input(    getParam("title"    , null)   );
+        $title                          = $this->validate_input(    getParam("title"    , null) );
         $description                    = $this->validate_input(    getParam("des"      , null) );
         $customer                       = $this->validate_input(    getParam("cust"     , null) );
         $assignee                       = $this->validate_input(    getParam("assignee" , null) );
