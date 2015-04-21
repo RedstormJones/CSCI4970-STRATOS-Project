@@ -46,7 +46,7 @@ class Tickets_Controller Extends Base_Controller
         $this->showAllTickets( $start );
     }
 
-    public function Add_Ticket()
+    public function New_Ticket()
     {
         $this->_Ticket_Form( false );
     }
@@ -65,7 +65,9 @@ class Tickets_Controller Extends Base_Controller
                            , $ticket->aff_level
                            , $ticket->severity
                            , $ticket->life_cycl_id
-                           , $ticket->expct_hours );
+                           , $ticket->expct_hours 
+                           , $ticket->tid
+                           , $ticket->last_open_time);
     }
 
     private function _Ticket_Form( $isUpdate = false
@@ -77,7 +79,9 @@ class Tickets_Controller Extends Base_Controller
                                  , $db_affected = ''
                                  , $db_severity = ''
                                  , $db_lifecycle = ''
-                                 , $db_est = '')
+                                 , $db_est = ''
+                                 , $db_tid = ''
+                                 , $db_last_open = '' )
     {
         $personsResult                  = $this->model->getAllPersons();
         $persons                        = array();
@@ -134,7 +138,7 @@ class Tickets_Controller Extends Base_Controller
         }
 
         $this->view->renderForm($persons, $users, $categories, $affectedLevels, $severityLevels, $lifecycles, $isUpdate
-                               , $db_title, $db_desc, $db_cust, $db_assigned, $db_catg, $db_affected, $db_severity, $db_lifecycle, $db_est );
+                               , $db_title, $db_desc, $db_cust, $db_assigned, $db_catg, $db_affected, $db_severity, $db_lifecycle, $db_est, $db_tid, $db_last_open );
     }
 
     public function validate_input($data)
@@ -149,7 +153,24 @@ class Tickets_Controller Extends Base_Controller
         return $data;
     }
 
-    public function validateTicket()
+    public function Update_Ticket()
+    {
+        $this->validateTicket( true );
+    }
+
+    public function Add_Ticket()
+    {
+        $this->validateTicket( false );
+    }
+
+    public function Delete_Ticket()
+    {
+        $tid = getParam( 'tid' );
+        $this->model->deleteTicket( $tid );
+        $this->showAllTickets(0);
+    }
+
+    public function validateTicket( $isUpdate )
     {
         $title                          = $this->validate_input(    getParam("title"    , null) );
         $description                    = $this->validate_input(    getParam("des"      , null) );
@@ -159,8 +180,13 @@ class Tickets_Controller Extends Base_Controller
         $affLvl                         = $this->validate_input(    getParam("affLvl"   , null) );
         $severity                       = $this->validate_input(    getParam("sev"      , null) );
         $estTime                        = $this->validate_input(    getParam("estHrs"   , null) );
+        $life_cycl_id                   = $this->validate_input(    getParam("lifecycle", null) );
+        $tid                            = $this->validate_input(    getParam("tid"      , null) );
+        $last_open                      = $this->validate_input(    getParam("last_open", null) );
 
-        $result = $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $estTime);
+        $result = $isUpdate ? $this->model->updateTicket( $tid, $title, $description, $customer, $assignee, $category
+                                                        , $affLvl, $severity, $estTime, $life_cycl_id, $last_open )
+                            : $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $estTime);
         if(!$result)
         {
             renderBody("Error: New ticket insert failed in database");
