@@ -109,13 +109,29 @@ class Tickets_Model Extends Base_Model
                 `StSvrLvlConf`
              WHERE
                 logl_del = FALSE;";
+        $this->sql_GetAllLifecycles = 
+            "SELECT
+                life_cycl_id, name
+             FROM
+                `StLfeCyclConf`
+             WHERE
+                logl_del = FALSE;";
+        $this->sql_GetTicket =
+            "SELECT
+                *
+             FROM
+                `StTktInst`
+             WHERE
+                tid = :tid";
 
-        $this->query_ShowAllTickets = $this->db->prepare($this->sql_ShowAllTickets);
-        $this->query_InsertTicket = $this->db->prepare($this->sql_InsertTicket);
+        $this->query_ShowAllTickets         = $this->db->prepare($this->sql_ShowAllTickets);
+        $this->query_InsertTicket           = $this->db->prepare($this->sql_InsertTicket);
         $this->query_GetAllPersons          = $this->db->prepare($this->sql_GetAllPersons);
         $this->query_GetAllCategories       = $this->db->prepare($this->sql_GetAllCategories);
         $this->query_GetAllAffectedLevels   = $this->db->prepare($this->sql_GetAllAffectedLevels);
         $this->query_GetAllSeverityLevels   = $this->db->prepare($this->sql_GetAllSeverityLevels);
+        $this->query_GetAllLifecycles       = $this->db->prepare($this->sql_GetAllLifecycles);
+        $this->query_GetTicket              = $this->db->prepare($this->sql_GetTicket);
     }
 
     public function showAllTickets($start)
@@ -148,6 +164,18 @@ class Tickets_Model Extends Base_Model
     {
         $this->query_GetAllSeverityLevels->execute();
         return $this->query_GetAllSeverityLevels->fetchAll();
+    }
+
+    public function getAllLifecycles()
+    {
+        $this->query_GetAllLifecycles->execute();
+        return $this->query_GetAllLifecycles->fetchAll();
+    }
+
+    public function getTicket( $tid )
+    {
+        $this->query_GetTicket->execute( array( ':tid' => $tid ) );
+        return $this->query_GetTicket->fetchAll();
     }
 
 
