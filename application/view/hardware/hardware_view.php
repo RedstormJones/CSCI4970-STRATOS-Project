@@ -25,9 +25,21 @@ class Hardware_View Extends Base_View
             foreach($hardwarelist as $hardware)
             {
                 $body .= "<tr>";
+                $id = $hardware[0];
+                $column = 0;
+                
                 foreach($hardware as $cell)
                 {
-                    $body .= '<td>' . $cell . '</td>';
+                    if ($column == 1)
+                    {    
+                        $body .= '<td><a href="hardware_index.php?action=Update&hid=' . $id . '">' . $cell . '</a></td>';
+                    }
+                    else
+                    {
+                        $body .= '<td>' . $cell . '</td>';
+                    }
+                    
+                    $column += 1;
                 }
                 $body .= "</tr>";
             }
@@ -47,14 +59,25 @@ class Hardware_View Extends Base_View
         $this->renderBody($body);
     }
 
-    public function renderForm()
+    public function renderForm($isUpdate)
     {
         $body = "<br><br><br>"; 
-        $body .= '<form id="Add" name="AddHardware" method="post" class="dark-matter" action="hardware_index.php">
-                    <h1>Hardware Adding Form
+        if($isUpdate == TRUE)
+        {
+            $body .= '<form id="Update" name="UpdateHardware" method="post" class="dark-matter" action="hardware_index.php">
+        
+                    <h1>Hardware Updating Form
                         <span>Please fill all the fields.</span>
-                    </h1>
-                    <p>
+                    </h1>';
+        }
+        else 
+        {    
+            $body .= '<form id="Add" name="AddHardware" method="post" class="dark-matter" action="hardware_index.php">
+                        <h1>Hardware Adding Form
+                            <span>Please fill all the fields.</span>
+                        </h1>';
+        }
+        $body .= ' <p>
                     <label for="textfield">Name:</label>
                     <input type="text" required="" placeholder="Enter Name" name="name" id="title">
                     
@@ -80,9 +103,19 @@ class Hardware_View Extends Base_View
                         <option value="CHOT">Checked Out</option>
                         <option value="CHIN">Checked In</option>';
 
-                    
-            $body .= '<input type="hidden" name="action" value="validateHardware">';
-            $body .= '<input type="submit" style="margin-left: 35%" class="button" value="Add Hardware">';
+            if($isUpdate == TRUE)
+            {
+                $body .= ' "<labelc>                
+                        <input type="submit" class="button" style="margin-left: 17%" value="Update Hardware" id="update" name="action">            
+                        </labelc>            
+                        <labelc>                
+                        <input type="submit" class="button" value="Delete Hardware" id="delete" name="action">';
+            }
+            else 
+            {    
+                $body .= '<labelc><input type="hidden" name="action" value="validateHardware">';
+                $body .= '<input type="submit" style="margin-left: 35%" class="button" value="Add Hardware">';
+            }        
             $body .= '</labelc>
                 </form>';
         $this->renderBody($body);

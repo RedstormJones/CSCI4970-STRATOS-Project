@@ -4,11 +4,12 @@ require APP . 'view\Base_View.php';
 
 class Ref_Config_Base_View Extends Base_View
 {
-    public function renderBaseForm( $recordList, $additionalForms )
+    public function renderBaseForm( $recordList, $description, $additionalForms )
     {
         $body                            = '<form id="Existing" name="DeleteOrUpdate" method="get" class="dark-matter" action="">';
-        $body                           .= '    <h1>Configuration Form</h1>';
-        $body                           .= '        <p>';
+        $body                           .= '    <h1>Configuration Form';
+        $body                           .= '    <span>' . $description . '</span>';     
+        $body                           .= '       </h1><p>';
         foreach( $recordList as $record )
         {
             $id     = $record[0];
@@ -31,11 +32,11 @@ class Ref_Config_Base_View Extends Base_View
         $body                           .= '        <br>';
             
         $body                           .= '            <labelc>';
-        $body                           .= '                <input type="submit" class="button" value="Reassign and Delete" id="delete" name="action">';
+        $body                           .= '                <input type="submit" class="button" style="margin-left: 45%" value="Reassign and Delete" id="delete" name="action">';
         $body                           .= '            </labelc>';
 
         $body                           .= '            <labelc>';
-        $body                           .= '                <input type="submit" class="button" value="Update" id="update" name="action">';
+        $body                           .= '                <input type="submit" class="button" style="margin-left: 120%" value="Update" id="update" name="action">';
         $body                           .= '            </labelc>';
         $body                           .= '    </form>';
 

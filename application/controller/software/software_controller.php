@@ -45,7 +45,22 @@ class Software_Controller Extends Base_Controller
        
     public function Add_Software()
     {
-        $this->view->renderForm();
+        $this->view->renderForm(FALSE);
+    }
+    
+    public function Update()
+    {
+        $this->view->renderForm(TRUE);
+    }
+    
+    public function Update_Software()
+    {
+        
+    }
+    
+    public function Delete_Software()
+    {
+      
     }
         
     public function validate_input($data)

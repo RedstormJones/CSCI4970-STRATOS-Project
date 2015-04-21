@@ -22,9 +22,21 @@ class Software_View Extends Base_View
             foreach($softwarelist as $software)
             {
                 $body .= "<tr>";
+                $id = $software[0];
+                $check = 0;
+                
                 foreach($software as $cell)
                 {
-                    $body .= '<td>' . $cell . '</td>';
+                    if ($check == 1)
+                    {    
+                        $body .= '<td><a href="software_index.php?action=Update&hid=' . $id . '">' . $cell . '</a></td>';
+                    }
+                    else
+                    {
+                        $body .= '<td>' . $cell . '</td>';
+                    }
+                    
+                    $check += 1;
                 }
                 $body .= "</tr>";
             }
@@ -44,19 +56,41 @@ class Software_View Extends Base_View
         $this->renderBody($body);
     }
 
-    public function renderForm()
+    public function renderForm($isUpdate)
     {
         $body = "<br><br><br>";
-        $body .= '<form id="Add" name="AddSoftware" method="post" class="dark-matter" action="software_index.php">
-                    <h1>Software Adding Form
+        if($isUpdate == TRUE)
+        {
+            $body .= '<form id="Update" name="UpdateSoftware" method="post" class="dark-matter" action="Software_index.php">
+        
+                    <h1>Software Updating Form
                         <span>Please fill all the fields.</span>
-                    </h1>
-                    <p>
-                    <label for="textfield">Name:</label>
-                    <input type="text" required="" placeholder="Enter Name" name="name" id="title">';
+                    </h1>';
+        }
+        else 
+        {    
+            $body .= '<form id="Add" name="AddSoftware" method="post" class="dark-matter" action="Software_index.php">
+                        <h1>Software Adding Form
+                            <span>Please fill all the fields.</span>
+                        </h1>';
+        }
+        $body .=        '<p>
+                            <label for="textfield">Name:</label>
+                            <input type="text" required="" placeholder="Enter Name" name="name" id="title">';
                    
-            $body .= '<input type="hidden" name="action" value="validateSoftware">';
-            $body .= '<input type="submit" style="margin-left: 35%" class="button" value="Add Software">';
+                if($isUpdate == TRUE)
+                {
+                    $body .= '<labelc>                
+                                <input type="submit" class="button" style="margin-left: 35%" value="Update Software" id="update" name="action">            
+                                </labelc>            
+                                <labelc>                
+                                <input type="submit" class="button" style="margin-left: 65%" value="Delete Software" id="delete" name="action">';
+                }
+                else 
+                {    
+                    $body .= '<input type="hidden" name="action" value="validateSoftware">';
+                    $body .= '<input type="submit" style="margin-left: 35%" class="button" value="Add Software">';
+                }  
             $body .= '</labelc>
                 </form>';
         $this->renderBody($body);

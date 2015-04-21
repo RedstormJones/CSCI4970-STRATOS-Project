@@ -51,9 +51,24 @@ class Hardware_Controller Extends Base_Controller
     
     public function Add_Hardware()
     {
-        $this->view->renderForm();
+        $this->view->renderForm(FALSE);
     }
-       
+    
+    public function Update()
+    {
+        $this->view->renderForm(TRUE);
+    }
+    
+    public function Update_Hardware()
+    {
+        
+    }
+    
+    public function Delete_Hardware()
+    {
+        
+    }
+
     public function validate_input($data)
     {
         if(!$data)
