@@ -123,6 +123,30 @@ class Tickets_Model Extends Base_Model
                 `StTktInst`
              WHERE
                 tid = :tid";
+        $this->sql_UpdateTicket =
+            "UPDATE
+                `StTktInst`
+             SET
+                `opener` = :opener
+              , `assignee` = :assignee
+              , `aff_level` = :aff_level
+              , `severity` = :severity
+              , `title` = :title
+              , `description` = :description
+              , `catg` = :catg
+              , `life_cycl_id` = :life_cycl_id
+              , `expct_hours` = :expct_hours
+              , `last_open_time` = :last_open_time
+              , `last_mdfd_user` = :last_mdfd_user
+             WHERE
+                `tid` = :tid;";
+        $this->sql_DeleteTicket = 
+            "UPDATE
+                `StTktInst`
+             SET
+                `logl_del` = TRUE
+             WHERE
+                `tid` = :tid;";
 
         $this->query_ShowAllTickets         = $this->db->prepare($this->sql_ShowAllTickets);
         $this->query_InsertTicket           = $this->db->prepare($this->sql_InsertTicket);
@@ -132,6 +156,8 @@ class Tickets_Model Extends Base_Model
         $this->query_GetAllSeverityLevels   = $this->db->prepare($this->sql_GetAllSeverityLevels);
         $this->query_GetAllLifecycles       = $this->db->prepare($this->sql_GetAllLifecycles);
         $this->query_GetTicket              = $this->db->prepare($this->sql_GetTicket);
+        $this->query_UpdateTicket           = $this->db->prepare($this->sql_UpdateTicket);
+        $this->query_DeleteTicket           = $this->db->prepare($this->sql_DeleteTicket);
     }
 
     public function showAllTickets($start)
@@ -178,22 +204,47 @@ class Tickets_Model Extends Base_Model
         return $this->query_GetTicket->fetchAll();
     }
 
+    public function updateTicket( $tid, $title, $description, $opener, $assignee, $category, $aff_level, $severity, $expct_hours, $life_cycl_id, $last_open )
+    {
+        $result = $this->query_UpdateTicket->execute(
+            array( ':tid'                => $tid
+                 , ':opener'             => $opener
+                 , ':assignee'           => $assignee
+                 , ':aff_level'          => $aff_level
+                 , ':severity'           => $severity
+                 , ':title'              => $title
+                 , ':description'        => $description
+                 , ':catg'               => $category
+                 , ':life_cycl_id'       => $life_cycl_id
+                 , ':expct_hours'        => $expct_hours
+                 , ':last_open_time'     => $last_open
+                 , ':last_mdfd_user'     => 'Jvosik'
+                 )
+            );
+        return $result;
+    }
+
+    public function deleteTicket( $tid )
+    {
+        $result = $this->query_DeleteTicket->execute( array( ":tid" => $tid ) );
+        return $result;
+    }
 
     public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $estTime)
     {
         $tid = $this->GetAndUpdateNextKey('sttktinst');
         $result = $this->query_InsertTicket->execute(
             array( ':tid'                => $tid
-                 , ':opener'             => 0
+                 , ':opener'             => $customer
                  , ':assignee'           => $assignee
                  , ':aff_level'          => $affLvl
                  , ':severity'           => $severity
                  , ':title'              => $title
                  , ':description'        => $description
                  , ':catg'               => $category
-                 , ':life_cycl_id'       => 0
-                 , ':expct_hours'        => $estTime
-                 , ':last_mdfd_user'     => 'Jvosik'
+                 , ':life_cycl_id'       => 0 // Change
+                 , ':expct_hours'        => $estTime 
+                 , ':last_mdfd_user'     => 'Jvosik' // Change
                  )
             );
         return $result;
