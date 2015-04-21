@@ -22,9 +22,19 @@ class Tickets_View Extends Base_View
             foreach($ticketlist as $ticket)
             {
                 $body .= "<tr>";
+                $id = $ticket[0];
+                $column = 0;
                 foreach($ticket as $cell)
                 {
-                    $body .= '<td>' . $cell . '</td>';
+                    if ( $column == 1 )
+                    {
+                        $body .= '<td><a href="tickets_index.php?action=Update&tid=' . $id . '">' . $cell . '</a></td>';
+                    }
+                    else
+                    {
+                        $body .= '<td>' . $cell . '</td>';
+                    }
+                    $column += 1;
                 }
                 $body .= "</tr>";
             }
@@ -45,17 +55,20 @@ class Tickets_View Extends Base_View
     }
 
 
-    public function renderDropdown($elementName, $label, $tuples)
+    public function renderDropdown($elementName, $label, $tuples, $selected)
     {
         $b = '<label style="margin-left: 15%" for="select">' . $label . '</label>';
-        $b .= '<select name="' . $elementName . '" id="select" size="1">
+        $b .= '<select name="' . $elementName . '" id="select" selected="' . $selected . '" size="1">
                     <option value="Please Select">Please Select</option>';
 
         foreach($tuples as $tuple)
         {
             $value = $tuple[0];
             $display = $tuple[1];
-            $b .= "<option value=" . $value . ">" . $display . "</option>";
+            $b .= '<option ';
+            if ( $value == $selected )
+                $b .= 'selected="selected" ';
+            $b .= 'value="' . $value . '">' . $display . '</option>';
         }
 
         $b .= "</select>";
@@ -63,36 +76,68 @@ class Tickets_View Extends Base_View
     }
 
 
-    public function renderForm($persons, $users, $categories, $affectedLevels, $severityLevels)
+    public function renderForm( $persons
+                              , $users
+                              , $categories
+                              , $affectedLevels
+                              , $severityLevels 
+                              , $lifecycles
+                              , $isUpdate
+                              , $title
+                              , $desc
+                              , $cust
+                              , $assigned
+                              , $category
+                              , $affected
+                              , $severity
+                              , $lifecycle
+                              , $est)
     {
         $body = "<br><br><br>";
+        $form_title = "Add Ticket";
+        if ( $isUpdate ) $form_title = "Update Ticket";
+
         $body .= '<form id="Add" name="AddTicket" method="post" class="dark-matter" action="tickets_index.php">
-                    <h1>Ticket Adding Form
+                    <h1>' . $form_title . '
                         <span>Please fill all the fields.</span>
                     </h1>
                     <p>
                     <label for="textfield">Title:</label>
-                    <input type="text" placeholder="Enter Subject" name="title" id="title">
+                    <input type="text" placeholder="Enter Subject" name="title" id="title" value="' . $title . '">
 
                     <label for="textfield">Description:</label>
-                    <textarea id="description" placeholder="Enter details about the ticket" name="des"></textarea>';
+                    <textarea id="description" placeholder="Enter details about the ticket" name="des">' . $desc . '</textarea>';
                     
-                    $body .= $this->renderDropdown("cust"       , "Customer:"       , $persons);
-                    $body .= $this->renderDropdown("assignee"   , "Assign To:"      , $users);
-                    $body .= $this->renderDropdown("cid"        , "Category:"       , $categories);
-                    $body .= $this->renderDropdown("affLvl"     , "Affected Level:" , $affectedLevels);
-                    $body .= $this->renderDropdown("sev"        , "Severity:"       , $severityLevels);
+                    $body       .= $this->renderDropdown("cust"         , "Customer:"       , $persons          , $cust         );
+                    $body       .= $this->renderDropdown("assignee"     , "Assign To:"      , $users            , $assigned     );
+                    $body       .= $this->renderDropdown("cid"          , "Category:"       , $categories       , $category     );
+                    $body       .= $this->renderDropdown("affLvl"       , "Affected Level:" , $affectedLevels   , $affected     );
+                    $body       .= $this->renderDropdown("sev"          , "Severity:"       , $severityLevels   , $severity     );
+                    if ( $isUpdate )
+                    {
+                        $body   .= $this->renderDropDown("lifecycle"    , "Lifecycle:"      , $lifecycles       , $lifecycle    );
+                    }
 
                     $body .= '<label for="textfield">Estimated Hours:</label>
-                                <input type="number" placeholder="Enter Hours" name="estHrs" id="estHrs">
+                                <input type="number" placeholder="Enter Hours" name="estHrs" id="estHrs" value="' . $est . '">
                             <br><br><br>
                             <labelc>';
-                        $body .= '<input type="hidden" name="action" value="validateTicket">';
-                        $body .= '<input type="submit" class="button" value="Add Ticket">';
+ 
+                        if ( $isUpdate )
+                        {
+                            $body .= '<input type="submit" class="button" value="Update Ticket" name="action">';
+                            $body .= '<input type="submit" class="button" value="Delete Ticket" name="action">';
+                        }
+                        else
+                        {
+                            $body .= '<input type="submit" class="button" value="Add Ticket" name="action">';
+                        }
                     $body .= '</labelc>
                 </form>';
         $this->renderBody($body);
     }
+
+
 
 }
 
