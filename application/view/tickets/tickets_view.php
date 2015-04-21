@@ -46,7 +46,7 @@ class Tickets_View Extends Base_View
             $body .= '<input type="hidden" name="start" value="'. $start .'">';
             $body .= '<input type="hidden" name="displayed" value="' . count($ticketlist) . '">';
             $body .= '<input type=submit class="button" value="Previous" name="action">';
-            $body .= '<input type=submit class="button" value="New Ticket" name="action">';
+            $body .= '<input type=submit class="button" value="Add Ticket" name="action">';
             $body .= '<input type=submit class="button" value="Next" name="action">';
             $body .= '</form>';
         $body .= '</div>';
@@ -91,9 +91,7 @@ class Tickets_View Extends Base_View
                               , $affected
                               , $severity
                               , $lifecycle
-                              , $est
-                              , $tid
-                              , $last_open )
+                              , $est)
     {
         $body = "<br><br><br>";
         $form_title = "Add Ticket";
@@ -127,14 +125,12 @@ class Tickets_View Extends Base_View
  
                         if ( $isUpdate )
                         {
-                            $body .= '<input type="submit" class="button" value="Update Ticket" name="action">';
-                            $body .= '<input type="submit" class="button" value="Delete Ticket" name="action">';
-                            $body .= '<input type="hidden" name="tid" value="' . $tid . '">';
-                            $body .= '<input type="hidden" name="last_open" value="' . $last_open . '">';
+                            $body .= '<input type="submit" class="button" style="margin-left: 120%" value="Update Ticket" name="action">';
+                            $body .= '<br><br><input type="submit" class="button" style="margin-left: 121.5%" value="Delete Ticket" name="action">';
                         }
                         else
                         {
-                            $body .= '<input type="submit" class="button" value="Add Ticket" name="action">';
+                            $body .= '<input type="submit" class="button" style="margin-left: 150%" value="Add Ticket" name="action">';
                         }
                     $body .= '</labelc>
                 </form>';
