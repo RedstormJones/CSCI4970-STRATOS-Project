@@ -46,7 +46,7 @@ class Tickets_View Extends Base_View
             $body .= '<input type="hidden" name="start" value="'. $start .'">';
             $body .= '<input type="hidden" name="displayed" value="' . count($ticketlist) . '">';
             $body .= '<input type=submit class="button" value="Previous" name="action">';
-            $body .= '<input type=submit class="button" value="Add Ticket" name="action">';
+            $body .= '<input type=submit class="button" value="New Ticket" name="action">';
             $body .= '<input type=submit class="button" value="Next" name="action">';
             $body .= '</form>';
         $body .= '</div>';
