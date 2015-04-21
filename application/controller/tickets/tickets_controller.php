@@ -48,6 +48,37 @@ class Tickets_Controller Extends Base_Controller
 
     public function Add_Ticket()
     {
+        $this->_Ticket_Form( false );
+    }
+
+    public function Update()
+    {
+        $tid = getParam('tid');
+        $ticket = $this->model->getTicket( $tid )[0];
+
+        $this->_Ticket_Form( true
+                           , $ticket->title
+                           , $ticket->description
+                           , $ticket->opener
+                           , $ticket->assignee
+                           , $ticket->catg
+                           , $ticket->aff_level
+                           , $ticket->severity
+                           , $ticket->life_cycl_id
+                           , $ticket->expct_hours );
+    }
+
+    private function _Ticket_Form( $isUpdate = false
+                                 , $db_title = ''
+                                 , $db_desc = ''
+                                 , $db_cust = ''
+                                 , $db_assigned = ''
+                                 , $db_catg = ''
+                                 , $db_affected = ''
+                                 , $db_severity = ''
+                                 , $db_lifecycle = ''
+                                 , $db_est = '')
+    {
         $personsResult                  = $this->model->getAllPersons();
         $persons                        = array();
         $users                          = array();
@@ -93,7 +124,17 @@ class Tickets_Controller Extends Base_Controller
             $severityLevels[]           = array( $severity, $name );
         }
 
-        $this->view->renderForm($persons, $users, $categories, $affectedLevels, $severityLevels);
+        $lifecycleResult                = $this->model->getAllLifecycles();
+        $lifecycles                     = array();
+        foreach( $lifecycleResult as $lifecycle )
+        {
+            $life_cycl_id               = $lifecycle->life_cycl_id;
+            $name                       = $lifecycle->name;
+            $lifecycles[]               = array( $life_cycl_id, $name );
+        }
+
+        $this->view->renderForm($persons, $users, $categories, $affectedLevels, $severityLevels, $lifecycles, $isUpdate
+                               , $db_title, $db_desc, $db_cust, $db_assigned, $db_catg, $db_affected, $db_severity, $db_lifecycle, $db_est );
     }
 
     public function validate_input($data)
