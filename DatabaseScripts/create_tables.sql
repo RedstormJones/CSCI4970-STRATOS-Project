@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `StUserInst` (
 CREATE TABLE IF NOT EXISTS `StPhneInst` (
   `pid`									smallint(6)		NOT NULL
 , `type`								varchar(4)		NOT NULL
-, `intl`								varchar(1)						DEFAULT NULL
+, `intl`								varchar(3)						DEFAULT NULL
 , `area`								varchar(3)		NOT NULL
 , `phone1`								varchar(3)		NOT NULL
 , `phone2`								varchar(4)		NOT NULL
