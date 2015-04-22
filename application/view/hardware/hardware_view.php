@@ -32,7 +32,7 @@ class Hardware_View Extends Base_View
                 {
                     if ($column == 1)
                     {    
-                        $body .= '<td><a href="hardware_index.php?action=Update&hid=' . $id . '">' . $cell . '</a></td>';
+                        $body .= '<td><a href="hardware_index.php?action=Update&eid=' . $id . '">' . $cell . '</a></td>';
                     }
                     else
                     {
@@ -51,7 +51,7 @@ class Hardware_View Extends Base_View
             $body .= '<input type="hidden" name="start" value="'. $start .'">';
             $body .= '<input type="hidden" name="displayed" value="' . count($hardwarelist) . '">';
             $body .= '<input type=submit class="button" value="Previous" name="action">';
-            $body .= '<input type=submit class="button" value="Add Hardware" name="action">';
+            $body .= '<input type=submit class="button" value="New Hardware" name="action">';
             $body .= '<input type=submit class="button" value="Next" name="action">';
             $body .= '</form>';
         $body .= '</div>';
@@ -59,7 +59,15 @@ class Hardware_View Extends Base_View
         $this->renderBody($body);
     }
 
-    public function renderForm($isUpdate)
+    public function renderForm($isUpdate
+                                , $eid = ''
+                                , $name = ''
+                                , $vendor = ''
+                                , $model = ''
+                                , $serial = ''
+                                , $type = ''
+                                , $location = ''
+                                , $status = '')
     {
         $body = "<br><br><br>"; 
         if($isUpdate == TRUE)
@@ -79,29 +87,55 @@ class Hardware_View Extends Base_View
         }
         $body .= ' <p>
                     <label for="textfield">Name:</label>
-                    <input type="text" required="" placeholder="Enter Name" name="name" id="title">
+                    <input type="text" required="" placeholder="Enter Name" name="name" value="' . $name . '" id="name">
                     
                     <label for="textfield">Vendor:</label>
-                    <input type="text" required="" placeholder="Enter Vendor" name="vendor" id="vendor">
+                    <input type="text" required="" placeholder="Enter Vendor" name="vendor" value="' . $vendor . '" id="vendor">
                     
                     <label for="textfield">Model:</label>
-                    <input type="text" placeholder="Enter Model" name="model" id="model">
+                    <input type="text" placeholder="Enter Model" name="model" value="' . $model . '" id="model">
                     
                     <label for="textfield">Serial:</label>
-                    <input type="text" placeholder="Enter Serial No." name="serial" id="serial">
+                    <input type="text" placeholder="Enter Serial No." name="serial" value="' . $serial . '" id="serial">
                     
                     <label for="textfield">Type:</label>
-                    <input type="text" placeholder="Enter Type" name="type" id="type">
+                    <input type="text" placeholder="Enter Type" name="type" value="' . $type . '" id="type">
                     
                     <label for="textfield">Location:</label>
-                    <input type="text" required="" placeholder="Enter Location" name="loc" id="loc">
+                    <input type="text" required="" placeholder="Enter Location" name="loc" value="' . $location . '" id="loc">
+                        
+                    <input type="hidden" name="eid" value="' . $eid . '">
                     
                     <label style="margin-left: 15%" for="select">Status</label>
-                    <select name="status" id="select" size="1">
-                        <option value="Please Select">Please Select</option>
-                        <option value="BRKN">Broken</option>
+                    <select name="status" id="select" selected="' . $status . '" size="1">
+                        <option value="Please Select">Please Select</option>';
+        
+        if ($status == "BRKN")
+        {
+            $body .= '  <option value="BRKN" selected="selected">Broken</option>
                         <option value="CHOT">Checked Out</option>
                         <option value="CHIN">Checked In</option>';
+        }
+        else if ($status == "CHOT")
+        {
+            $body .= '  <option value="BRKN">Broken</option>
+                        <option value="CHOT" selected="selected">Checked Out</option>
+                        <option value="CHIN">Checked In</option>';
+
+        }
+        else if ($status == "CHIN")
+        {
+            $body .= '  <option value="BRKNT">Broken</option>
+                        <option value="CHOT">Checked Out</option> 
+                        <option value="CHIN" selected="selected">Checked In</option>';
+
+        }
+        else
+        {
+            $body .= '  <option value="BRKN">Broken</option>
+                        <option value="CHOT">Checked Out</option>
+                        <option value="CHIN">Checked In</option>';
+        }
 
             if($isUpdate == TRUE)
             {
@@ -113,8 +147,7 @@ class Hardware_View Extends Base_View
             }
             else 
             {    
-                $body .= '<labelc><input type="hidden" name="action" value="validateHardware">';
-                $body .= '<input type="submit" style="margin-left: 35%" class="button" value="Add Hardware">';
+                $body .= '<labelc><input type="submit" name="action" style="margin-left: 35%" class="button" value="Add Hardware">';
             }        
             $body .= '</labelc>
                 </form>';

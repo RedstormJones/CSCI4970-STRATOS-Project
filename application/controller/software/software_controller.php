@@ -43,24 +43,33 @@ class Software_Controller Extends Base_Controller
         $this->showAllSoftware( $start );
     }
        
-    public function Add_Software()
+    public function New_Software()
     {
         $this->view->renderForm(FALSE);
     }
     
     public function Update()
     {
-        $this->view->renderForm(TRUE);
+        $sid = getParam('sid');
+        $software = $this->model->getSoftware( $sid )[0];
+        $this->view->renderForm(TRUE, $sid, $software->name);
     }
     
     public function Update_Software()
     {
-        
+        $this->validateSoftware(TRUE);
+    }
+    
+    public function Add_Software()
+    {
+        $this->validateSoftware(FALSE);
     }
     
     public function Delete_Software()
     {
-      
+        $sid = getParam( 'sid' );
+        $this->model->deleteSoftware( $sid );
+        $this->showAllSoftware(0);
     }
         
     public function validate_input($data)
@@ -75,14 +84,16 @@ class Software_Controller Extends Base_Controller
         return $data;
     }
     
-    public function validateSoftware()
+    public function validateSoftware($isUpdate)
 	{
         if ($_SERVER["REQUEST_METHOD"] == "POST") 
         {
-            $name = $this->validate_input($_POST["name"]);
+            $sid       = $this->validate_input(    getParam('sid'      , null) );
+            $name      = $this->validate_input(    getParam('name'     , null) );        
         }
 
-        $result = $this->model->addSoftware($name);
+        $result = $isUpdate ? $this->model->updateSoftware($sid, $name)
+                            : $this->model->addSoftware($name);
         if(!$result)
         {
             $this->renderBody("Error: New software insert failed in database");

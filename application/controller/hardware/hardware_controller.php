@@ -48,27 +48,45 @@ class Hardware_Controller Extends Base_Controller
         if ( $start < 0 ) $start = 0;
         $this->showAllHardware( $start );
     }
-    
-    public function Add_Hardware()
+
+    public function New_Hardware()
     {
         $this->view->renderForm(FALSE);
     }
-    
+   
     public function Update()
     {
-        $this->view->renderForm(TRUE);
+        $eid = getParam('eid');
+        $hardware = $this->model->getHardware( $eid )[0];
+
+        $this->view->renderForm( true
+                           , $eid
+                           , $hardware->name
+                           , $hardware->vendor
+                           , $hardware->model
+                           , $hardware->serial
+                           , $hardware->type
+                           , $hardware->loc
+                           , $hardware->status);
+    }
+            
+    public function Add_Hardware()
+    {
+        $this->validateHardware(FALSE);
     }
     
     public function Update_Hardware()
     {
-        
+        $this->validateHardware( true );
     }
     
     public function Delete_Hardware()
     {
-        
+        $eid = getParam( 'eid' );
+        $this->model->deleteHardware( $eid );
+        $this->showAllHardware(0);
     }
-
+    
     public function validate_input($data)
     {
         if(!$data)
@@ -81,20 +99,22 @@ class Hardware_Controller Extends Base_Controller
         return $data;
     }
         
-    public function validateHardware()
+    public function validateHardware( $isUpdate)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") 
          {
-             $name = $this->validate_input($_POST["name"]);
-             $vendor = $this->validate_input($_POST["vendor"]);
-             $model = $this->validate_input($_POST["model"]);
-             $serial = $this->validate_input($_POST["serial"]);
-             $type = $this->validate_input($_POST["type"]);
-             $loc = $this->validate_input($_POST["loc"]);
-             $status = $this->validate_input($_POST["status"]);
+             $eid       = $this->validate_input(    getParam('eid'      , null) );
+             $name      = $this->validate_input(    getParam('name'      , null) );
+             $vendor    = $this->validate_input(    getParam("vendor"      , null) );
+             $model     = $this->validate_input(    getParam("model"      , null) );
+             $serial    = $this->validate_input(    getParam("serial"      , null) );
+             $type      = $this->validate_input(    getParam("type"      , null) );
+             $loc       = $this->validate_input(    getParam("loc"      , null) );
+             $status    = $this->validate_input(    getParam("status"      , null) );
          }
 
-         $result = $this->model->addHardware($name, $vendor, $model, $serial, $type, $loc, $status);
+         $result = $isUpdate ? $this->model->updateHardware($eid, $name, $vendor, $model, $serial, $type, $loc, $status)
+                            : $this->model->addHardware($name, $vendor, $model, $serial, $type, $loc, $status);
          if(!$result)
          {
              renderBody("Error: New hardware insert failed in database");

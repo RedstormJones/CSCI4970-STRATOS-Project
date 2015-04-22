@@ -29,7 +29,7 @@ class Software_View Extends Base_View
                 {
                     if ($check == 1)
                     {    
-                        $body .= '<td><a href="software_index.php?action=Update&hid=' . $id . '">' . $cell . '</a></td>';
+                        $body .= '<td><a href="software_index.php?action=Update&sid=' . $id . '">' . $cell . '</a></td>';
                     }
                     else
                     {
@@ -48,7 +48,7 @@ class Software_View Extends Base_View
             $body .= '<input type="hidden" name="start" value="'. $start .'">';
             $body .= '<input type="hidden" name="displayed" value="' . count($softwarelist) . '">';
             $body .= '<input type="submit" class="button" value="Previous" name="action">';
-            $body .= '<input type="submit" class="button" value="Add Software" name="action">';
+            $body .= '<input type="submit" class="button" value="New Software" name="action">';
             $body .= '<input type="submit" class="button" value="Next" name="action">';
             $body .= '</form>';
         $body .= '</div>';
@@ -56,7 +56,7 @@ class Software_View Extends Base_View
         $this->renderBody($body);
     }
 
-    public function renderForm($isUpdate)
+    public function renderForm($isUpdate, $sid = '', $name = '')
     {
         $body = "<br><br><br>";
         if($isUpdate == TRUE)
@@ -75,8 +75,9 @@ class Software_View Extends Base_View
                         </h1>';
         }
         $body .=        '<p>
+                            <input type="hidden" name="sid" value="' . $sid . '">
                             <label for="textfield">Name:</label>
-                            <input type="text" required="" placeholder="Enter Name" name="name" id="title">';
+                            <input type="text" required="" placeholder="Enter Name" name="name" value="' . $name .'" id="name">';
                    
                 if($isUpdate == TRUE)
                 {
@@ -88,8 +89,7 @@ class Software_View Extends Base_View
                 }
                 else 
                 {    
-                    $body .= '<input type="hidden" name="action" value="validateSoftware">';
-                    $body .= '<input type="submit" style="margin-left: 35%" class="button" value="Add Software">';
+                    $body .= '<input type="submit" name="action" style="margin-left: 35%" class="button" value="Add Software">';
                 }  
             $body .= '</labelc>
                 </form>';
