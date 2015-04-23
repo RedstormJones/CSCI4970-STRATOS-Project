@@ -12,6 +12,8 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
                            , array( 
                                     array( 'StTktInst', 'life_cycl_id' )
                                   )
+                           , array()
+                           , true
                            );
     }
 }
