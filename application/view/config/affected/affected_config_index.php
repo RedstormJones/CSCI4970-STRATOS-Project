@@ -6,7 +6,7 @@
 
     $model = new Affected_Config_Model();
     $view  = new Affected_Config_View();
-    $contr = new Affected_Config_Controller($model, $view);
+    $contr = new Affected_Config_Controller($model, $view, 'affected_config_index.php');
     
     handleURL($contr);
 ?>
