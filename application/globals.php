@@ -20,4 +20,14 @@ function handleURL($contr)
     $contr->{$func}();
 }
 
+function getCurrentUserName()
+{
+    return 'JVosik';
+}
+
+function getCurrentUserPid()
+{
+    return 2;
+}
+
 ?>
