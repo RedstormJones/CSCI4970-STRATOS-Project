@@ -12,6 +12,8 @@ class Category_Config_Model Extends Ref_Config_Base_Model
                            , array(
                                     array( 'StTktInst', 'catg' )
                                   )
+                           , array()
+                           , true
                            );
     }
 }
