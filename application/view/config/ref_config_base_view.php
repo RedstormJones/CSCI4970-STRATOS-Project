@@ -4,7 +4,7 @@ require APP . 'view\Base_View.php';
 
 class Ref_Config_Base_View Extends Base_View
 {
-    public function renderBaseForm( $recordList, $description, $additionalForms )
+    public function renderBaseForm( $recordList, $description, $additionalForms = '' )
     {
         $body                            = '<form id="Existing" name="DeleteOrUpdate" method="get" class="dark-matter" action="">';
         $body                           .= '    <h1>Configuration Form';
