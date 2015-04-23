@@ -9,9 +9,11 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StPriConf'
                            , 'priority'
                            , 'name'
+                           , array()
                            , array(
                                     array( 'StPriMtxConf', 'priority' )
                                   )
+                           , false
                            );
     }
 }
