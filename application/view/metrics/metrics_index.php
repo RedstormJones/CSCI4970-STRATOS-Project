@@ -6,7 +6,7 @@
 
     $mmodel = new Metrics_Model();
     $mview = new Metrics_View();
-    $mcontr = new Metrics_Controller($mmodel, $mview);
+    $mcontr = new Metrics_Controller($mmodel, $mview, "metrics_index.php");
 
     handleURL($mcontr);
 ?>

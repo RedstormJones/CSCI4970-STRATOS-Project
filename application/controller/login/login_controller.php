@@ -16,11 +16,7 @@ class Login_Controller Extends Base_Controller
 		$pwd = getParam('passwd');
 		if ( $this->model->authenticate($user, $pwd) )
 		{
-			?>
-				<script type="text/javascript">
-					window.location.href = 'http://127.0.0.1/application/view/home/home_index.php';
-				</script>
-			<?php
+			$this->simpleRedirect("../home/home_index.php");
 		}
 		else
 		{

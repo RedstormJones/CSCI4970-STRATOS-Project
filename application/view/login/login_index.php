@@ -6,7 +6,7 @@
 
 	$lmodel = new Login_Model();
 	$lview = new Login_View();
-	$lcontr = new Login_Controller($lmodel, $lview);
+	$lcontr = new Login_Controller($lmodel, $lview, "login_index.php");
 
 	handleURL($lcontr);
 ?>

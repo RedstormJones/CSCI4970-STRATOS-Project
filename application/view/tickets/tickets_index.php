@@ -6,7 +6,7 @@
 
     $tmodel = new Tickets_Model();
     $tview = new Tickets_View();
-    $tcontr = new Tickets_Controller($tmodel, $tview);
+    $tcontr = new Tickets_Controller($tmodel, $tview, "tickets_index.php");
     
     handleURL($tcontr);
 ?>

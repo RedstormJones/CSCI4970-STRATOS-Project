@@ -6,7 +6,7 @@
 
 	$hmodel = new Home_Model();
 	$hview = new Home_View();
-	$hcontr = new Home_Controller($hmodel, $hview);
+	$hcontr = new Home_Controller($hmodel, $hview, "home_index.php");
 
 	handleURL($hcontr);
 ?>

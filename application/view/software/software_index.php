@@ -6,7 +6,7 @@
 
     $smodel = new Software_Model();
     $sview = new Software_View();
-    $scontr = new Software_Controller($smodel, $sview);
+    $scontr = new Software_Controller($smodel, $sview, "software_index.php");
 
     handleURL($scontr);
 

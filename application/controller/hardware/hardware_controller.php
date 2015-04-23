@@ -121,11 +121,7 @@ class Hardware_Controller Extends Base_Controller
          }
          else
          {
-            ?>
-                <script type="text/javascript">
-                    window.location.href = 'http://127.0.0.1/application/view/hardware/hardware_index.php';
-                </script>
-            <?php
+            $this->startFresh();
          }
     }
 }

@@ -6,7 +6,7 @@
 
     $hmodel = new Hardware_Model();
     $hview = new Hardware_View();
-    $hcontr = new Hardware_Controller($hmodel, $hview);
+    $hcontr = new Hardware_Controller($hmodel, $hview, "hardware_index.php");
 
     handleURL($hcontr);
 ?>

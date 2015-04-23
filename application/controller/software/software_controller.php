@@ -100,11 +100,7 @@ class Software_Controller Extends Base_Controller
         }
         else
         {
-            ?>
-                <script type="text/javascript">
-                    window.location.href = 'http://127.0.0.1/application/view/software/software_index.php';
-                </script>
-            <?php
+            $this->startFresh();
         }
 	}
 }

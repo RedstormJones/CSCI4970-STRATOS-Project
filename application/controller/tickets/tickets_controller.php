@@ -193,11 +193,7 @@ class Tickets_Controller Extends Base_Controller
         }
         else
         {
-            ?>
-                <script type="text/javascript">
-                    window.location.href = 'tickets_index.php';
-                </script>
-            <?php
+            $this->startFresh();
         }
     }
 }
