@@ -10,9 +10,12 @@ class Severity_Config_Model Extends Ref_Config_Base_Model
                            , 'severity'
                            , 'name'
                            , array(
-                                    array( 'StPriMtxConf', 'severity' )
-                                  , array( 'StTktInst', 'severity' )
+                                    array( 'StTktInst', 'severity' )
                                   )
+                           , array( 
+                                    array('StPriMtxConf', 'severity') 
+                                  )
+                           , true
                            );
     }
 }
