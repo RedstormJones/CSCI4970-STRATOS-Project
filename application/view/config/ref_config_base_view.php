@@ -32,15 +32,15 @@ class Ref_Config_Base_View Extends Base_View
         $body                           .= '        <br>';
             
         $body                           .= '            <labelc>';
-        $body                           .= '                <input type="submit" class="button" style="margin-left: 45%" value="Reassign and Delete" id="delete" name="action">';
+        $body                           .= '                <input type="submit" class="button" style="margin-left: 5%" value="Reassign and Delete" id="delete" name="action">';
         $body                           .= '            </labelc>';
 
         $body                           .= '            <labelc>';
-        $body                           .= '                <input type="submit" class="button" style="margin-left: 120%" value="Update" id="update" name="action">';
+        $body                           .= '                <input type="submit" class="button" style="margin-left: 10%" value="Update" id="update" name="action">';
         $body                           .= '            </labelc>';
         
         $body                           .= '            <labelc>';
-        $body                           .= '                <input type="submit" class="button" value="Add" id="add" name="action">';
+        $body                           .= '                <input type="submit" class="button" style="margin-left: 12%" value="Add" id="add" name="action">';
         $body                           .= '            </labelc>';
         $body                           .= '    </form>';
 

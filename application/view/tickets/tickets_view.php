@@ -119,20 +119,19 @@ class Tickets_View Extends Base_View
                     }
 
                     $body .= '<label for="textfield">Estimated Hours:</label>
-                                <input type="number" placeholder="Enter Hours" name="estHrs" id="estHrs" value="' . $est . '">
-                            <br><br><br>
-                            <labelc>';
+                                <input type="number" placeholder="Enter Hours" name="estHrs" id="estHrs" value="' . $est . '"></p>';
  
                         if ( $isUpdate )
                         {
-                            $body .= '<input type="submit" class="button" style="margin-left: 120%" value="Update Ticket" name="action">';
-                            $body .= '<br><br><input type="submit" class="button" style="margin-left: 121.5%" value="Delete Ticket" name="action">';
+                            $body .= '<input type="submit" class="button" style="margin-left: 34%" value="Update Ticket" id="update" name="action">            
+                                      <br><br>               
+                                      <input type="submit" class="button" style="margin-left: 34.6%" value="Delete Ticket" id="delete" name="action">';
                         }
                         else
                         {
                             $body .= '<input type="submit" class="button" style="margin-left: 150%" value="Add Ticket" name="action">';
                         }
-                    $body .= '</labelc>
+                    $body .= '
                 </form>';
         $this->renderBody($body);
     }
