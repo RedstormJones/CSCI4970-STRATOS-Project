@@ -14,8 +14,12 @@ class Login_Controller Extends Base_Controller
 	{
 		$user = getParam('username');
 		$pwd = getParam('passwd');
-		if ( $this->model->authenticate($user, $pwd) )
+		$pid = $this->model->authenticate($user, $pwd);
+		//if ( $this->model->authenticate($user, $pwd) )
+		if ( $pid != null )
 		{
+			$_SESSION['user'] = $user;
+			$_SESSION['pid'] = $pid;
 			$this->simpleRedirect("../home/home_index.php");
 		}
 		else

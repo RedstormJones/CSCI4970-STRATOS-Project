@@ -19,7 +19,7 @@ class Login_View Extends Base_View
 								<input type="password" placeholder="Password" required="" id="password" name="passwd" />
 							</div>
 							<div>
-								<input type="submit" value="Log In" name="action"/>
+								<input type="submit" value="Log In" name="action" >
 							</div>
 						</form><!-- form -->
 					</section><!-- content -->

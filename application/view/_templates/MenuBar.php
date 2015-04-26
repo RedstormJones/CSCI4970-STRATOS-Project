@@ -28,8 +28,8 @@ echo '<div id="cssmenu">
             </li>
             <li class="has-sub"><a href=""><span>Account</span></a>
                 <ul> 
-                    <li><a href=""><span>Account Settings</span></a></li>
-                    <li><a href=""><span>Logout</span></a></li>
+                    li><a href="/application/view/Account_Settings/Account_Settings_index.php"><span>Account Settings</span></a></li>
+                    <li><a href="/application/view/login/login_index.php"><span>Logout</span></a> </li>
                 </ul>
             </li>
         </ul>
