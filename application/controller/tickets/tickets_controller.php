@@ -145,11 +145,13 @@ class Tickets_Controller Extends Base_Controller
     public function Update_Ticket()
     {
         $this->validateTicket( true );
+        $this->startFresh();
     }
 
     public function Add_Ticket()
     {
         $this->validateTicket( false );
+        $this->startFresh();
     }
 
     public function Delete_Ticket()
