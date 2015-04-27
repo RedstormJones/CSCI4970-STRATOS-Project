@@ -75,11 +75,13 @@ class Hardware_Controller Extends Base_Controller
     public function Add_Hardware()
     {
         $this->validateHardware( false );
+        $this->startFresh();
     }
     
     public function Update_Hardware()
     {
         $this->validateHardware( true );
+        $this->startFresh();
     }
     
     public function Delete_Hardware()
