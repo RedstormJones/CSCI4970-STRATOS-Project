@@ -15,6 +15,23 @@ class Priority_Config_View Extends Ref_Config_Base_View
                     3. Click Reassign and Delete";
         $this->renderBaseForm( $recordList, $description, '' );
     }
+
+    public function renderAddOrUpdate( $isUpdate, $priority, $name )
+    {
+        $body = "<br><br><br>"; 
+        $body .= '<form id="Add" name="AddOrUpdatePriority" method="post" class="dark-matter" action="priority_config_index.php">
+                    <h1>Priority ' . ($isUpdate ? 'Updating' : 'Adding') . ' Form
+                        <span>Please fill all the fields.</span>
+                    </h1>
+                    <p>
+                    <label for="textfield">Name:</label>
+                    <input type="text" required="" placeholder="Enter Name" name="name" id="title" value="' . $name . '">
+                    ' . ($isUpdate ? '<input type="hidden" name="priority" value="' . $priority . '">' : '') . '
+                    <input type="submit" style="margin-left: 35%" class="button" name="action" value="'. ($isUpdate ? 'Update' : 'Add') . ' Priority">
+                    </labelc>
+                </form>';
+        $this->renderBody( $body );
+    }
 }
 
 ?>

@@ -5,28 +5,37 @@ require APP . 'model\Base_Model.php';
 
 class Login_Model Extends Base_Model
 {
-	public function __construct()
-	{
-		parent::__construct();
-		// Here:
-		//$sql = "SELECT user,pass FROM `stuserinst` WHERE user=:user AND pass=:pwd";
-		$sql = "SELECT stprsninst.pid FROM `stuserinst` INNER JOIN `stprsninst` ON stuserinst.pid = stprsninst.pid WHERE user=:user AND pass=:pwd";
-		$this->query = $this->db->prepare($sql);
-		
-	}
-
 	public function authenticate($user, $pwd)
 	{
-		$this->query->execute(
+		$this->query_Authenticate->execute(
 			array( ':user' 				=> $user 
 				 , ':pwd'				=> $pwd
 				 )
 			);
-		$result = $this->query->fetchAll();
+		$result = $this->query_Authenticate->fetch();
 		
-		if ( count($result) == 0 ) return null;
-		return $result[0]->pid;
+		if ( !$result ) return null;
+		return $result->pid;
 	}
+
+    public function SetUpQueries()
+    {
+        parent::SetUpQueries();
+        $sql_Authenticate = "
+            SELECT 
+                stprsninst.pid 
+            FROM 
+                `stuserinst` 
+            INNER JOIN 
+                `stprsninst` 
+            ON 
+                stuserinst.pid = stprsninst.pid 
+            WHERE 
+                user = :user 
+                AND 
+                pass = :pwd";
+		$this->query_Authenticate = $this->db->prepare($sql_Authenticate);
+    }
 }
 
 ?>

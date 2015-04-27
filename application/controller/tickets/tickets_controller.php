@@ -12,6 +12,7 @@ class Tickets_Controller Extends Base_Controller
     public function showAllTickets( $start )
     {
         $ticket_objects = $this->model->showAllTickets($start);
+
         $rows = array();
         foreach( $ticket_objects as $ticket )
         {
@@ -22,7 +23,7 @@ class Tickets_Controller Extends Base_Controller
             $lname                      = isset($ticket->lname) ? $ticket->lname : "";
             $insrt_tmst                 = isset($ticket->insrt_tmst) ? $ticket->insrt_tmst : "";
             $last_mdfd_tmst             = isset($ticket->last_mdfd_tmst) ? $ticket->last_mdfd_tmst : "";
-            $rows[]                     = array( $tid, $title, $cname, $pname, $lname, $insrt_tmst, $last_mdfd_tmst );
+            $rows[]                     = array( $tid, $title, $cname, $pname, $lname, $insrt_tmst, $last_mdfd_tmst);
         }
         $this->view->renderTickets($rows, $start);
     }
@@ -54,7 +55,7 @@ class Tickets_Controller Extends Base_Controller
     public function Update()
     {
         $tid = getParam('tid');
-        $ticket = $this->model->getTicket( $tid )[0];
+        $ticket = $this->model->getTicket( $tid );
 
         $this->_Ticket_Form( true
                            , $ticket->title
@@ -67,7 +68,7 @@ class Tickets_Controller Extends Base_Controller
                            , $ticket->life_cycl_id
                            , $ticket->expct_hours 
                            , $ticket->tid
-                           , $ticket->last_open_time);
+                           );
     }
 
     private function _Ticket_Form( $isUpdate = false
@@ -81,7 +82,7 @@ class Tickets_Controller Extends Base_Controller
                                  , $db_lifecycle = ''
                                  , $db_est = ''
                                  , $db_tid = ''
-                                 , $db_last_open = '' )
+                                 )
     {
         $personsResult                  = $this->model->getAllPersons();
         $persons                        = array();
@@ -138,19 +139,7 @@ class Tickets_Controller Extends Base_Controller
         }
 
         $this->view->renderForm($persons, $users, $categories, $affectedLevels, $severityLevels, $lifecycles, $isUpdate
-                               , $db_title, $db_desc, $db_cust, $db_assigned, $db_catg, $db_affected, $db_severity, $db_lifecycle, $db_est, $db_tid, $db_last_open );
-    }
-
-    public function validate_input($data)
-    {
-    	if(!$data)
-    	{
-    		return "";
-    	}
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
+                               , $db_title, $db_desc, $db_cust, $db_assigned, $db_catg, $db_affected, $db_severity, $db_lifecycle, $db_est, $db_tid );
     }
 
     public function Update_Ticket()
@@ -167,31 +156,33 @@ class Tickets_Controller Extends Base_Controller
     {
         $tid = getParam( 'tid' );
         $this->model->deleteTicket( $tid );
-        $this->showAllTickets(0);
+        $this->startFresh();
     }
 
     public function validateTicket( $isUpdate )
     {
-        $title                          = $this->validate_input(    getParam("title"    , null) );
-        $description                    = $this->validate_input(    getParam("des"      , null) );
-        $customer                       = $this->validate_input(    getParam("cust"     , null) );
-        $assignee                       = $this->validate_input(    getParam("assignee" , null) );
-        $category                       = $this->validate_input(    getParam("category" , null) );
-        $affLvl                         = $this->validate_input(    getParam("affLvl"   , null) );
-        $severity                       = $this->validate_input(    getParam("sev"      , null) );
-        $estTime                        = $this->validate_input(    getParam("estHrs"   , null) );
-        $life_cycl_id                   = $this->validate_input(    getParam("lifecycle", null) );
-        $tid                            = $this->validate_input(    getParam("tid"      , null) );
-        $last_open                      = $this->validate_input(    getParam("last_open", null) );
+        $tid                            = getParam("tid", null);
+        $title                          = $this->validateInputNotEmpty(    getParam("title"    , null) );
+        $description                    = $this->validateInput(            getParam("des"      , null) );
+        $customer                       = $this->validateInputNotEmpty(    getParam("cust"     , null) );
+        $assignee                       = $this->validateInputNotEmpty(    getParam("assignee" , null) );
+        $category                       = $this->validateInputNotEmpty(    getParam("cid"      , null) );
+        $affLvl                         = $this->validateInputNotEmpty(    getParam("affLvl"   , null) );
+        $severity                       = $this->validateInputNotEmpty(    getParam("sev"      , null) );
+        $estTime                        = $this->validateInputNotEmpty(    getParam("estHrs"   , null) );
+        $life_cycl_id                   = $this->validateInputNotEmpty(    getParam("lifecycle", null) );
 
-        $result = $isUpdate ? $this->model->updateTicket( $tid, $title, $description, $customer, $assignee, $category
-                                                        , $affLvl, $severity, $estTime, $life_cycl_id, $last_open )
-                            : $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $estTime);
-        if(!$result)
+        if ( $isUpdate )
         {
-            renderBody("Error: New ticket insert failed in database");
+            $result = $this->model->updateTicket( $tid, $title, $description, $customer, $assignee, $category
+                                                , $affLvl, $severity, $estTime, $life_cycl_id );
         }
         else
+        {
+            $result = $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $estTime);
+        }
+
+        if($result)
         {
             $this->startFresh();
         }

@@ -16,16 +16,17 @@ class Hardware_Controller Extends Base_Controller
             $rows = array();
             foreach( $hardware_objects as $hardware )
             {
-                $eid            = isset($hardware->eid) ? $hardware->eid : "";
-                $name           = isset($hardware->name) ? $hardware->name : "";
-                $vendor         = isset($hardware->vendor) ? $hardware->vendor : "";
-                $model          = isset($hardware->model) ? $hardware->model : "";
-                $serial         = isset($hardware->serial) ? $hardware->serial : "";
-                $type           = isset($hardware->type) ? $hardware->type : "";
-                $loc            = isset($hardware->loc) ? $hardware->loc : "";
-                $status         = isset($hardware->status) ? $hardware->status : "";
-                $last_mdfd_tmst = isset($hardware->last_mdfd_tmst) ? $hardware->last_mdfd_tmst : "";
-                            $rows[]         = array( $eid, $name, $vendor, $model, $serial, $type, $loc, $status, $last_mdfd_tmst );
+                $eid                    = isset($hardware->eid)             ? $hardware->eid            : "";
+                $name                   = isset($hardware->name)            ? $hardware->name           : "";
+                $vendor                 = isset($hardware->vendor)          ? $hardware->vendor         : "";
+                $model                  = isset($hardware->model)           ? $hardware->model          : "";
+                $serial                 = isset($hardware->serial)          ? $hardware->serial         : "";
+                $type                   = isset($hardware->type)            ? $hardware->type           : "";
+                $loc                    = isset($hardware->loc)             ? $hardware->loc            : "";
+                $status                 = isset($hardware->status)          ? $hardware->status         : "";
+                $last_mdfd_tmst         = isset($hardware->last_mdfd_tmst)  ? $hardware->last_mdfd_tmst : "";
+
+                $rows[]                 = array( $eid, $name, $vendor, $model, $serial, $type, $loc, $status, $last_mdfd_tmst );
             }
             $this->view->renderHardware($rows, $start);
     }
@@ -51,28 +52,29 @@ class Hardware_Controller Extends Base_Controller
 
     public function New_Hardware()
     {
-        $this->view->renderForm(FALSE);
+        $this->view->renderForm( false );
     }
    
     public function Update()
     {
         $eid = getParam('eid');
-        $hardware = $this->model->getHardware( $eid )[0];
+        $hardware = $this->model->getHardware( $eid );
 
         $this->view->renderForm( true
-                           , $eid
-                           , $hardware->name
-                           , $hardware->vendor
-                           , $hardware->model
-                           , $hardware->serial
-                           , $hardware->type
-                           , $hardware->loc
-                           , $hardware->status);
+                               , $eid
+                               , $hardware->name
+                               , $hardware->vendor
+                               , $hardware->model
+                               , $hardware->serial
+                               , $hardware->type
+                               , $hardware->loc
+                               , $hardware->status
+                               );
     }
             
     public function Add_Hardware()
     {
-        $this->validateHardware(FALSE);
+        $this->validateHardware( false );
     }
     
     public function Update_Hardware()
@@ -84,45 +86,33 @@ class Hardware_Controller Extends Base_Controller
     {
         $eid = getParam( 'eid' );
         $this->model->deleteHardware( $eid );
-        $this->showAllHardware(0);
-    }
-    
-    public function validate_input($data)
-    {
-        if(!$data)
-        {
-                return "";
-        }
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
+        $this->startFresh();
     }
         
-    public function validateHardware( $isUpdate)
+    public function validateHardware( $isUpdate )
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") 
-         {
-             $eid       = $this->validate_input(    getParam('eid'      , null) );
-             $name      = $this->validate_input(    getParam('name'      , null) );
-             $vendor    = $this->validate_input(    getParam("vendor"      , null) );
-             $model     = $this->validate_input(    getParam("model"      , null) );
-             $serial    = $this->validate_input(    getParam("serial"      , null) );
-             $type      = $this->validate_input(    getParam("type"      , null) );
-             $loc       = $this->validate_input(    getParam("loc"      , null) );
-             $status    = $this->validate_input(    getParam("status"      , null) );
-         }
+        $eid       = getParam('eid',null);
+        $name      = $this->validateInputNotEmpty( getParam('name', null) );
+        $vendor    = $this->validateInputNotEmpty( getParam("vendor", null) );
+        $model     = $this->validateInputNotEmpty( getParam("model", null) );
+        $serial    = $this->validateInputNotEmpty( getParam("serial", null) );
+        $type      = $this->validateInputNotEmpty( getParam("type", null) );
+        $loc       = $this->validateInput( getParam("loc", null) );
+        $status    = $this->validateInputNotEmpty( getParam("status", null) );
 
-         $result = $isUpdate ? $this->model->updateHardware($eid, $name, $vendor, $model, $serial, $type, $loc, $status)
-                            : $this->model->addHardware($name, $vendor, $model, $serial, $type, $loc, $status);
-         if(!$result)
-         {
-             renderBody("Error: New hardware insert failed in database");
-         }
-         else
-         {
+        if ( $isUpdate )
+        {
+            $result = $this->model->updateHardware($eid, $name, $vendor, $model, $serial, $type, $loc, $status);
+        }
+        else
+        {
+            $result = $this->model->addHardware($name, $vendor, $model, $serial, $type, $loc, $status);
+        }
+        
+        if ( $result )
+        {
             $this->startFresh();
-         }
+        }
     }
 }
 

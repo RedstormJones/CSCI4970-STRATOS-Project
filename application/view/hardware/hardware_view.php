@@ -5,55 +5,57 @@ class Hardware_View Extends Base_View
 {
     public function renderHardware($hardwarelist, $start)
     {
-        $body = '<h3 title="All Active Hardware">All Active Hardware</h3>';
+        $body  = '<h3 title="All Active Hardware">All Active Hardware</h3>';
         $body .= "<br><br><br>";
 
-        $body .= '<table>
-            <tr>
-                <th>Hardware#</th>
-                <th>Name</th>      
-                <th>Vendor</th>
-                <th>Model</th>
-                <th>Serial</th>
-                <th>Type</th>     
-                <th>Location</th>
-                <th>Status</th>
-                <th>Last Updated</th>
-            </tr>';
+        $body .= '<table>';
+        $body .= '  <tr>';
+        $body .= '      <th>Hardware#</th>';
+        $body .= '      <th>Name</th>';
+        $body .= '      <th>Vendor</th>';
+        $body .= '      <th>Model</th>';
+        $body .= '      <th>Serial</th>';
+        $body .= '      <th>Type</th>';
+        $body .= '      <th>Location</th>';
+        $body .= '      <th>Status</th>';
+        $body .= '      <th>Last Updated</th>';
+        $body .= '  </tr>';
 
-        $body .= "<tbody>";
-            foreach($hardwarelist as $hardware)
-            {
-                $body .= "<tr>";
-                $id = $hardware[0];
-                $column = 0;
+        $body .= "  <tbody>";
+        foreach($hardwarelist as $hardware)
+        {
+            $body .= "<tr>";
+
+            $id = $hardware[0];
+            $column = 0;
                 
-                foreach($hardware as $cell)
-                {
-                    if ($column == 1)
-                    {    
-                        $body .= '<td><a href="hardware_index.php?action=Update&eid=' . $id . '">' . $cell . '</a></td>';
-                    }
-                    else
-                    {
-                        $body .= '<td>' . $cell . '</td>';
-                    }
-                    
-                    $column += 1;
+            foreach($hardware as $cell)
+            {
+                if ($column == 1)
+                {    
+                    $body .= '<td><a href="hardware_index.php?action=Update&eid=' . $id . '">' . $cell . '</a></td>';
                 }
-                $body .= "</tr>";
+                else
+                {
+                    $body .= '<td>' . $cell . '</td>';
+                }
+                    
+                $column += 1;
             }
-            $body .= '</tbody>
-        </table>
-        <br><br>';
+            $body .= "</tr>";
+        }
+        $body .= '  </tbody>';
+        $body .= '</table>';
+        $body .= '<br><br>';
+
         $body .= '<div style="text-align: center">';
-            $body .= '<form action="hardware_index.php">';
-            $body .= '<input type="hidden" name="start" value="'. $start .'">';
-            $body .= '<input type="hidden" name="displayed" value="' . count($hardwarelist) . '">';
-            $body .= '<input type=submit class="button" value="Previous" name="action">';
-            $body .= '<input type=submit class="button" value="New Hardware" name="action">';
-            $body .= '<input type=submit class="button" value="Next" name="action">';
-            $body .= '</form>';
+        $body .= '  <form action="hardware_index.php">';
+        $body .= '      <input type="hidden" name="start" value="'. $start .'">';
+        $body .= '      <input type="hidden" name="displayed" value="' . count($hardwarelist) . '">';
+        $body .= '      <input type=submit class="button" value="Previous" name="action">';
+        $body .= '      <input type=submit class="button" value="New Hardware" name="action">';
+        $body .= '      <input type=submit class="button" value="Next" name="action">';
+        $body .= '  </form>';
         $body .= '</div>';
 
         $this->renderBody($body);
@@ -69,88 +71,64 @@ class Hardware_View Extends Base_View
                                 , $location = ''
                                 , $status = '')
     {
-        $body = "<br><br><br>"; 
-        if($isUpdate == TRUE)
-        {
-            $body .= '<form id="Update" name="UpdateHardware" method="post" class="dark-matter" action="hardware_index.php">
+        $statuses = array( array( "BRKN", "Broken" )
+                         , array( "CHOT", "Checked Out" )
+                         , array( "CHIN", "Checked In" ) 
+                         );
+
+        $body  = '<br><br><br>';
+        $body .= '  <form id="Update" name="AddOrUpdateHardware" method="post" class="dark-matter" action="hardware_index.php">';
+        $body .= '      <h1>Hardware ' . ($isUpdate ? 'Updating' : 'Adding') . ' Form';
+        $body .= '          <span>Please fill all the fields.</span>';
+        $body .= '      </h1>';
+
+        $body .= '      <label for="textfield">Name:</label>';
+        $body .= '          <input type="text" required="" placeholder="Enter Name" name="name" value="' . $name . '" id="name">';
+
+        $body .= '      <label for="textfield">Vendor:</label>';
+        $body .= '          <input type="text" required="" placeholder="Enter Vendor" name="vendor" value="' . $vendor . '" id="vendor">';
+
+        $body .= '      <label for="textfield">Model:</label>';
+        $body .= '          <input type="text" placeholder="Enter Model" name="model" value="' . $model . '" id="model">';
+
+        $body .= '      <label for="textfield">Serial:</label>';
+        $body .= '          <input type="text" placeholder="Enter Serial No." name="serial" value="' . $serial . '" id="serial">';
+
+        $body .= '      <label for="textfield">Type:</label>';
+        $body .= '          <input type="text" placeholder="Enter Type" name="type" value="' . $type . '" id="type">';
+
+        $body .= '      <label for="textfield">Location:</label>';
+        $body .= '          <input type="text" required="" placeholder="Enter Location" name="loc" value="' . $location . '" id="loc">';
+
+        $body .= '      <input type="hidden" name="eid" value="' . $eid . '">';
+
+        $body .= '      <label style="margin-left: 15%" for="select">Status</label>';
+        $body .= '          <select name="status" id="select" selected="' . $status . '" size="1">';
+        $body .= '              <option value="">Please Select</option>';
         
-                    <h1>Hardware Updating Form
-                        <span>Please fill all the fields.</span>
-                    </h1>';
+        foreach ( $statuses as $cur )
+        {
+            $code = $cur[0];
+            $dspl = $cur[1];
+            $body .= '          <option value="' . $code . '"' . ($code == $status ? ' selected="selected"' : '' ) . ' >' . $dspl . '</option>';
+        }
+
+        if( $isUpdate )
+        {
+            $body .= '  <labelc>';
+            $body .= '      <input type="submit" class="button" style="margin-left: 17%" value="Update Hardware" id="update" name="action">';
+            $body .= '  </labelc>';
+            $body .= '  <labelc>';
+            $body .= '      <input type="submit" class="button" value="Delete Hardware" id="delete" name="action">';
+            $body .= '  </labelc>';
         }
         else 
         {    
-            $body .= '<form id="Add" name="AddHardware" method="post" class="dark-matter" action="hardware_index.php">
-                        <h1>Hardware Adding Form
-                            <span>Please fill all the fields.</span>
-                        </h1>';
-        }
-        $body .= ' <p>
-                    <label for="textfield">Name:</label>
-                    <input type="text" required="" placeholder="Enter Name" name="name" value="' . $name . '" id="name">
-                    
-                    <label for="textfield">Vendor:</label>
-                    <input type="text" required="" placeholder="Enter Vendor" name="vendor" value="' . $vendor . '" id="vendor">
-                    
-                    <label for="textfield">Model:</label>
-                    <input type="text" placeholder="Enter Model" name="model" value="' . $model . '" id="model">
-                    
-                    <label for="textfield">Serial:</label>
-                    <input type="text" placeholder="Enter Serial No." name="serial" value="' . $serial . '" id="serial">
-                    
-                    <label for="textfield">Type:</label>
-                    <input type="text" placeholder="Enter Type" name="type" value="' . $type . '" id="type">
-                    
-                    <label for="textfield">Location:</label>
-                    <input type="text" required="" placeholder="Enter Location" name="loc" value="' . $location . '" id="loc">
-                        
-                    <input type="hidden" name="eid" value="' . $eid . '">
-                    
-                    <label style="margin-left: 15%" for="select">Status</label>
-                    <select name="status" id="select" selected="' . $status . '" size="1">
-                        <option value="Please Select">Please Select</option>';
-        
-        if ($status == "BRKN")
-        {
-            $body .= '  <option value="BRKN" selected="selected">Broken</option>
-                        <option value="CHOT">Checked Out</option>
-                        <option value="CHIN">Checked In</option>';
-        }
-        else if ($status == "CHOT")
-        {
-            $body .= '  <option value="BRKN">Broken</option>
-                        <option value="CHOT" selected="selected">Checked Out</option>
-                        <option value="CHIN">Checked In</option>';
-
-        }
-        else if ($status == "CHIN")
-        {
-            $body .= '  <option value="BRKNT">Broken</option>
-                        <option value="CHOT">Checked Out</option> 
-                        <option value="CHIN" selected="selected">Checked In</option>';
-
-        }
-        else
-        {
-            $body .= '  <option value="BRKN">Broken</option>
-                        <option value="CHOT">Checked Out</option>
-                        <option value="CHIN">Checked In</option>';
-        }
-
-            if($isUpdate == TRUE)
-            {
-                $body .= ' "<labelc>                
-                        <input type="submit" class="button" style="margin-left: 17%" value="Update Hardware" id="update" name="action">            
-                        </labelc>            
-                        <labelc>                
-                        <input type="submit" class="button" value="Delete Hardware" id="delete" name="action">';
-            }
-            else 
-            {    
-                $body .= '<labelc><input type="submit" name="action" style="margin-left: 35%" class="button" value="Add Hardware">';
-            }        
-            $body .= '</labelc>
-                </form>';
+            $body .= '  <labelc>';
+            $body .= '      <input type="submit" name="action" style="margin-left: 35%" class="button" value="Add Hardware">';
+            $body .= '  </labelc>';
+        }        
+        $body .= '  </form>';
         $this->renderBody($body);
     }
 

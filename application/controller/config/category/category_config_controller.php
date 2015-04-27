@@ -16,6 +16,28 @@ class Category_Config_Controller Extends Ref_Config_Base_Controller
         }
         $this->view->renderForm( $formElements );
     }
+
+    public function Add_Category()
+    {
+        $name = getParam( 'name', null );
+        $this->model->addCategory( $name );
+        $this->startFresh();
+    }
+
+    public function Update_Category()
+    {
+        $cid = getParam( 'cid', null );
+        $name = getParam( 'name', null );
+        $this->model->updateCategory( $cid, $name );
+        $this->startFresh();
+    }
+
+    public function addOrUpdate( $isUpdate )
+    {
+        $cid        = $isUpdate ? getParam( 'original' ) : '';
+        $name       = $isUpdate ? $this->model->getCategory( $cid )->name : '';
+        $this->view->renderAddOrUpdate( $isUpdate, $cid, $name );
+   }
 }
 
 ?>

@@ -54,7 +54,6 @@ class Tickets_View Extends Base_View
         $this->renderBody($body);
     }
 
-
     public function renderDropdown($elementName, $label, $tuples, $selected)
     {
         $b = '<label style="margin-left: 15%" for="select">' . $label . '</label>';
@@ -75,7 +74,6 @@ class Tickets_View Extends Base_View
         return $b;
     }
 
-
     public function renderForm( $persons
                               , $users
                               , $categories
@@ -91,53 +89,51 @@ class Tickets_View Extends Base_View
                               , $affected
                               , $severity
                               , $lifecycle
-                              , $est)
+                              , $est
+                              , $tid
+                              )
     {
-        $body = "<br><br><br>";
-        $form_title = "Add Ticket";
-        if ( $isUpdate ) $form_title = "Update Ticket";
+        $body  = '<br><br><br>';
+        $body .= '<form id="Add" name="AddOrUpdateTicket" method="post" class="dark-matter" action="tickets_index.php">';
+        $body .= '  <h1>';
+        $body .=        ($isUpdate ? 'Update' : 'Add') . ' Ticket';
+        $body .= '      <span>Please fill all the fields.</span>';
+        $body .= '  </h1>';
 
-        $body .= '<form id="Add" name="AddTicket" method="post" class="dark-matter" action="tickets_index.php">
-                    <h1>' . $form_title . '
-                        <span>Please fill all the fields.</span>
-                    </h1>
-                    <p>
-                    <label for="textfield">Title:</label>
-                    <input type="text" placeholder="Enter Subject" name="title" id="title" value="' . $title . '">
+        $body .= '  <label for="textfield">Title:</label>';
+        $body .= '      <input type="text" placeholder="Enter Subject" name="title" id="title" value="' . $title . '">';
 
-                    <label for="textfield">Description:</label>
-                    <textarea id="description" placeholder="Enter details about the ticket" name="des">' . $desc . '</textarea>';
+        $body .= '  <label for="textfield">Description:</label>';
+        $body .= '      <textarea id="description" placeholder="Enter details about the ticket" name="des">' . $desc . '</textarea>';
                     
-                    $body       .= $this->renderDropdown("cust"         , "Customer:"       , $persons          , $cust         );
-                    $body       .= $this->renderDropdown("assignee"     , "Assign To:"      , $users            , $assigned     );
-                    $body       .= $this->renderDropdown("cid"          , "Category:"       , $categories       , $category     );
-                    $body       .= $this->renderDropdown("affLvl"       , "Affected Level:" , $affectedLevels   , $affected     );
-                    $body       .= $this->renderDropdown("sev"          , "Severity:"       , $severityLevels   , $severity     );
-                    if ( $isUpdate )
-                    {
-                        $body   .= $this->renderDropDown("lifecycle"    , "Lifecycle:"      , $lifecycles       , $lifecycle    );
-                    }
+        $body .=    $this->renderDropdown("cust"         , "Customer:"       , $persons          , $cust         );
+        $body .=    $this->renderDropdown("assignee"     , "Assign To:"      , $users            , $assigned     );
+        $body .=    $this->renderDropdown("cid"          , "Category:"       , $categories       , $category     );
+        $body .=    $this->renderDropdown("affLvl"       , "Affected Level:" , $affectedLevels   , $affected     );
+        $body .=    $this->renderDropdown("sev"          , "Severity:"       , $severityLevels   , $severity     );
+        $body .=    $this->renderDropDown("lifecycle"    , "Lifecycle:"      , $lifecycles       , $lifecycle    );
 
-                    $body .= '<label for="textfield">Estimated Hours:</label>
-                                <input type="number" placeholder="Enter Hours" name="estHrs" id="estHrs" value="' . $est . '"></p>';
- 
-                        if ( $isUpdate )
-                        {
-                            $body .= '<input type="submit" class="button" style="margin-left: 34%" value="Update Ticket" id="update" name="action">            
-                                      <br><br>               
-                                      <input type="submit" class="button" style="margin-left: 34.6%" value="Delete Ticket" id="delete" name="action">';
-                        }
-                        else
-                        {
-                            $body .= '<input type="submit" class="button" style="margin-left: 150%" value="Add Ticket" name="action">';
-                        }
-                    $body .= '
-                </form>';
+        $body .= '  <label for="textfield">Estimated Hours:</label>';
+        $body .= '      <input type="number" placeholder="Enter Hours" name="estHrs" id="estHrs" value="' . $est . '">';
+
+        $body .= '      <input type="hidden" name="tid" value="' . $tid . '">';
+        
+        if ( $isUpdate )
+        {
+            $body .= '  <input type="submit" class="button" style="margin-left: 34%" value="Update Ticket" id="update" name="action">';
+
+            $body .= '  <br><br>';
+
+            $body .= '  <input type="submit" class="button" style="margin-left: 34.6%" value="Delete Ticket" id="delete" name="action">';
+        }
+        else
+        {
+            $body .= '  <input type="submit" class="button" style="margin-left: 150%" value="Add Ticket" name="action">';
+        }
+        $body .= '</form>';
+
         $this->renderBody($body);
     }
-
-
-
 }
 
 ?>

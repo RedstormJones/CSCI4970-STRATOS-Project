@@ -20,7 +20,7 @@ class Affected_Config_View Extends Ref_Config_Base_View
     public function renderAddOrUpdate( $isUpdate, $aff_level, $name )
     {
         $body = "<br><br><br>"; 
-        $body .= '<form id="Add" name="AddAffected" method="post" class="dark-matter" action="affected_config_index.php">
+        $body .= '<form id="Add" name="AddOrUpdateAffected" method="post" class="dark-matter" action="affected_config_index.php">
                     <h1>Affected Level ' . ($isUpdate ? 'Updating' : 'Adding') . ' Form
                         <span>Please fill all the fields.</span>
                     </h1>

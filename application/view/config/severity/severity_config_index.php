@@ -6,7 +6,7 @@
 
     $model = new Severity_Config_Model();
     $view  = new Severity_Config_View();
-    $contr = new Severity_Config_Controller($model, $view);
+    $contr = new Severity_Config_Controller($model, $view, 'severity_config_index.php');
     
     handleURL($contr);
 ?>

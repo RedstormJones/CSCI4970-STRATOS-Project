@@ -16,6 +16,28 @@ class Priority_Config_Controller Extends Ref_Config_Base_Controller
         }
         $this->view->renderForm( $formElements );
     }
+
+    public function Add_Priority()
+    {
+        $name = getParam( 'name', null );
+        $this->model->addPriority( $name );
+        $this->startFresh();
+    }
+
+    public function Update_Priority()
+    {
+        $priority = getParam( 'priority', null );
+        $name = getParam( 'name', null );
+        $this->model->updatePriority( $priority, $name );
+        $this->startFresh();
+    }
+
+    public function addOrUpdate( $isUpdate )
+    {
+        $priority   = $isUpdate ? getParam( 'original' ) : '';
+        $name       = $isUpdate ? $this->model->getPriority( $priority )->name : '';
+        $this->view->renderAddOrUpdate( $isUpdate, $priority, $name );
+   }
 }
 
 ?>

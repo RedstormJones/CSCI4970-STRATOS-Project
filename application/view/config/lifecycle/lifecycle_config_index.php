@@ -6,7 +6,7 @@
 
     $lmodel = new Lifecycle_Config_Model();
     $lview = new Lifecycle_Config_View();
-    $lcontr = new Lifecycle_Config_Controller($lmodel, $lview);
+    $lcontr = new Lifecycle_Config_Controller($lmodel, $lview, 'lifecycle_config_index.php');
     
     handleURL($lcontr);
 ?>

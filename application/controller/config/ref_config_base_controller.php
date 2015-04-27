@@ -9,7 +9,7 @@ class Ref_Config_Base_Controller Extends Base_Controller
       $original = getParam( 'original' , null );
       $reassign = getParam( 'reassign' , null );
       $this->model->reassignAndDelete( $original, $reassign );
-      $this->noAction();
+      $this->startFresh();
    }
    
    public function Update()

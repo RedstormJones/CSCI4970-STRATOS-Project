@@ -15,11 +15,12 @@ class Software_Controller Extends Base_Controller
 		$rows = array();
 		foreach( $software_objects as $software )
 		{
-            $sid            = isset($software->sid) ? $software->sid : "";
-            $name           = isset($software->name) ? $software->name : "";
-            $last_mdfd_user = isset($software->last_mdfd_user) ? $software->last_mdfd_user : "";
-            $last_mdfd_tmst = isset($software->last_mdfd_tmst) ? $software->last_mdfd_tmst : "";
-			$rows[]         = array( $sid, $name, $last_mdfd_user, $last_mdfd_tmst );
+            $sid                        = isset($software->sid)             ? $software->sid            : "";
+            $name                       = isset($software->name)            ? $software->name           : "";
+            $last_mdfd_user             = isset($software->last_mdfd_user)  ? $software->last_mdfd_user : "";
+            $last_mdfd_tmst             = isset($software->last_mdfd_tmst)  ? $software->last_mdfd_tmst : "";
+
+			$rows[]                     = array( $sid, $name, $last_mdfd_user, $last_mdfd_tmst );
 		}
 		$this->view->renderSoftware($rows, $start);
 	}
@@ -45,60 +46,48 @@ class Software_Controller Extends Base_Controller
        
     public function New_Software()
     {
-        $this->view->renderForm(FALSE);
+        $this->view->renderForm( false );
     }
     
     public function Update()
     {
         $sid = getParam('sid');
-        $software = $this->model->getSoftware( $sid )[0];
-        $this->view->renderForm(TRUE, $sid, $software->name);
+        $software = $this->model->getSoftware( $sid );
+        $this->view->renderForm( true, $sid, $software->name);
     }
     
     public function Update_Software()
     {
-        $this->validateSoftware(TRUE);
+        $this->validateSoftware( true );
     }
     
     public function Add_Software()
     {
-        $this->validateSoftware(FALSE);
+        $this->validateSoftware( false );
     }
     
     public function Delete_Software()
     {
         $sid = getParam( 'sid' );
         $this->model->deleteSoftware( $sid );
-        $this->showAllSoftware(0);
-    }
-        
-    public function validate_input($data)
-    {
-        if(!$data)
-        {
-            return "";
-        }
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
+        $this->startFresh();
     }
     
     public function validateSoftware($isUpdate)
 	{
-        if ($_SERVER["REQUEST_METHOD"] == "POST") 
-        {
-            $sid       = $this->validate_input(    getParam('sid'      , null) );
-            $name      = $this->validate_input(    getParam('name'     , null) );        
-        }
+        $sid        = getParam('sid', null);
+        $name       = $this->validateInputNotEmpty( getParam('name', null) );
 
-        $result = $isUpdate ? $this->model->updateSoftware($sid, $name)
-                            : $this->model->addSoftware($name);
-        if(!$result)
+        if ( $isUpdate )
         {
-            $this->renderBody("Error: New software insert failed in database");
+            $result = $this->model->updateSoftware($sid, $name);
         }
         else
+        {
+            $result = $this->model->addSoftware($name);
+        }
+
+        if( $result )
         {
             $this->startFresh();
         }

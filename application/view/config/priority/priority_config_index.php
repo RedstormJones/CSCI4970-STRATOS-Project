@@ -6,7 +6,7 @@
 
     $model = new Priority_Config_Model();
     $view  = new Priority_Config_View();
-    $contr = new Priority_Config_Controller($model, $view);
+    $contr = new Priority_Config_Controller($model, $view, 'priority_config_index.php');
     
     handleURL($contr);
 ?>
