@@ -5,6 +5,15 @@ class Home_View Extends Base_View
 {
 	public function renderHome($body)
 	{
+        $body .= '<div class="pull-right">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label class="sr-only" for="search-text">Search Active Tickets :</label>
+                        <input type="text" id="search-text" placeholder="Enter Ticket #">
+                        <button type="button" id="search-btn">Search</button>
+                    </div>
+                </form>
+            </div>';
         $email = urlencode( "stpkiproject@gmail.com" );
 		$body .= '<br><br><br>';
 		$body .= '<div align="center">';
