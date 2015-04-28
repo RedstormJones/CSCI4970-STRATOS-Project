@@ -36,20 +36,22 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
             );
     }
 
-	public function updateLifecycle( $life_cycl_id, $name )
+	public function updateLifecycle( $life_cycl_id, $name, $is_timed )
 	{
 		$this->query_UpdateLifecycle->execute( 
                 array( ':life_cycl_id'          => $life_cycl_id
                      , ':name'                  => $name
+                     , ':is_timed'              => $is_timed
                      , ':last_mdfd_user'        => getCurrentUserName()
                      ) 
             );
 	}
 
-	public function addLifecycle( $name )
+	public function addLifecycle( $name, $is_timed )
 	{
 		$this->query_AddLifecycle->execute( 
                 array( ':name'                  => $name
+                     , ':is_timed'              => $is_timed
                      , ':last_mdfd_user'        => getCurrentUserName()
                      ) 
             );
@@ -103,7 +105,8 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
 				`StLfeCyclConf`
 			SET
 				`name` = :name
-			  , `last_mdfd_user` = :last_mdfd_user
+			  , `is_timed` = :is_timed
+              , `last_mdfd_user` = :last_mdfd_user
               , `logl_del` = FALSE
             WHERE
 				`life_cycl_id` = :life_cycl_id;";
@@ -113,11 +116,13 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
 			INSERT INTO
 				`StLfeCyclConf`
 				( `name`
+                , `is_timed`
 				, `last_mdfd_user`
 				)
 				VALUES
 				(
 				  :name
+                , :is_timed
 				, :last_mdfd_user
 				)";
         $this->query_AddLifecycle = $this->db->prepare( $this->sql_AddLifecycle );

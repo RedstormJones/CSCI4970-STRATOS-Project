@@ -76,7 +76,7 @@ class Tickets_Model Extends Base_Model
         );
     }
 
-    public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $estTime)
+    public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $lifecycle, $estTime)
     {
         $this->query_InsertTicket->execute(
             array( ':opener'             => $customer
@@ -86,7 +86,7 @@ class Tickets_Model Extends Base_Model
                  , ':title'              => $title
                  , ':description'        => $description
                  , ':catg'               => $category
-                 , ':life_cycl_id'       => 1 // Change
+                 , ':life_cycl_id'       => $lifecycle
                  , ':expct_hours'        => $estTime 
                  , ':last_mdfd_user'     => getCurrentUserName()
                  )

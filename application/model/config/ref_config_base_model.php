@@ -44,7 +44,7 @@ class Ref_Config_Base_Model Extends Base_Model
     protected function SetUpQueries()
     {
         parent::SetUpQueries();
-        $this->sql_SelectFormElements = "SELECT " . $this->prikey_col . " , " . $this->label_col . " FROM " . $this->table . " WHERE logl_del = FALSE";
+        $this->sql_SelectFormElements = "SELECT * FROM " . $this->table . " WHERE logl_del = FALSE";
 	    $this->query_SelectFormElements = $this->db->prepare($this->sql_SelectFormElements);
     }
 }

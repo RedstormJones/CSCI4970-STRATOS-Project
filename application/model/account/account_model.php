@@ -22,6 +22,7 @@ class Account_Model Extends Base_Model
                          , ':lname'             => $lname
                          , ':email'             => $email
                          , ':pid'               => $pid
+                         , ':last_mdfd_user'    => getCurrentUserName()
                          )
             );
     }
@@ -89,6 +90,7 @@ class Account_Model Extends Base_Model
                 `fname` = :fname
               , `lname` = :lname
               , `email` = :email
+              , `last_mdfd_user` = :last_mdfd_user
             WHERE
                 StPrsnInst.pid = :pid";
         $this->query_UpdateUser = $this->db->prepare($this->sql_UpdateUser);

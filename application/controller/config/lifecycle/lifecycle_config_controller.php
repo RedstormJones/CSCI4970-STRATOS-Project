@@ -12,7 +12,8 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
         {
             $id = isset($result->life_cycl_id) ? $result->life_cycl_id : "";
             $name = isset($result->name) ? $result->name : "";
-            $formElements[] = array($id,$name);
+            $timed = $result->is_timed;
+            $formElements[] = array($id,$name,$timed);
         }
         $this->view->renderForm( $formElements );
     }
@@ -20,7 +21,8 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
     public function Add_LifeCycle()
     {
         $name = getParam( 'name', null );
-        $this->model->addLifecycle( $name );
+        $timed = getParam( 'timed', '' ) == 'on';
+        $this->model->addLifecycle( $name, $timed );
         $this->startFresh();
     }
 
@@ -28,15 +30,23 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
     {
         $life_cycl_id = getParam( 'life_cycl_id', null );
         $name = getParam( 'name', null );
-        $this->model->updateLifecycle( $life_cycl_id, $name );
+        $timed = getParam( 'timed', '' ) == 'on';
+        $this->model->updateLifecycle( $life_cycl_id, $name, $timed );
         $this->startFresh();
     }
 
     public function addOrUpdate( $isUpdate )
     {
         $life_cycl_id   = $isUpdate ? getParam( 'original' ) : '';
-        $name           = $isUpdate ? $this->model->getLifecycle( $life_cycl_id )->name : '';
-        $this->view->renderAddOrUpdate( $isUpdate, $life_cycl_id, $name );
+        $name           = '';
+        $timed          = false;
+        if ( $isUpdate )
+        {
+            $lifecycle  = $this->model->getLifecycle( $life_cycl_id );
+            $name       = $lifecycle->name;
+            $timed      = $lifecycle->is_timed;
+        }
+        $this->view->renderAddOrUpdate( $isUpdate, $life_cycl_id, $name, $timed );
    }
 }
 

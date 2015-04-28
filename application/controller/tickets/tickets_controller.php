@@ -181,7 +181,7 @@ class Tickets_Controller Extends Base_Controller
         }
         else
         {
-            $result = $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $estTime);
+            $result = $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $life_cycl_id, $estTime);
         }
 
         if($result)
