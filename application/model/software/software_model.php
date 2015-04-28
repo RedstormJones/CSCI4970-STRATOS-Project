@@ -23,7 +23,7 @@ class Software_Model Extends Base_Model
         $this->query_InsertSoftware->execute(
             array( ':sid'               => $sid
                  , ':name'              => $name
-                 , ':last_mdfd_user'    => $last_mdfd_user
+                 , ':last_mdfd_user'    => getCurrentUsername()
                  )
         );
     }

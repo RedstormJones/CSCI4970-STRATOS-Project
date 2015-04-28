@@ -173,6 +173,15 @@ class Tickets_Controller Extends Base_Controller
         $severity                       = $this->validateInputNotEmpty(    getParam("sev"      , null) );
         $estTime                        = $this->validateInputNotEmpty(    getParam("estHrs"   , null) );
         $life_cycl_id                   = $this->validateInputNotEmpty(    getParam("lifecycle", null) );
+        
+        if ($title == '' || $customer == '' || $assignee == '' || $affLvl == '' 
+                || $category == '' || $severity == '' || $estTime == '' 
+                || $life_cycl_id == '')
+        {
+            $body = '<h5> Inlcude text in field or Select from drop-down menu<h5>';
+            $this->view->renderBody($body);
+            exit;
+        }
 
         if ( $isUpdate )
         {
@@ -181,7 +190,8 @@ class Tickets_Controller Extends Base_Controller
         }
         else
         {
-            $result = $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $life_cycl_id, $estTime);
+            $result = $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $life_cycl_id, $estTime);        
+            
         }
 
         if($result)

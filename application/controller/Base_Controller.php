@@ -38,10 +38,12 @@ class Base_Controller
         $data = $this->validateInput( $data );
         if ( $data == '' )
         {
-            // Do something here
+            return $data;
         }
-
-        return $data;
+        else
+        {
+            return $data;
+        }
     }
 
     public function validateInput( $data, $allowNull = false )

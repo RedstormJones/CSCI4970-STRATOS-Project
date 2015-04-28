@@ -19,7 +19,15 @@ class Category_Config_Controller Extends Ref_Config_Base_Controller
 
     public function Add_Category()
     {
-        $name = getParam( 'name', null );
+        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        
+        if ($name == '')
+        {
+            $body = '<h5> Inlcude text in field<h5>';
+            $this->view->renderBody($body);
+            exit;
+        }
+        
         $this->model->addCategory( $name );
         $this->startFresh();
     }
@@ -27,7 +35,14 @@ class Category_Config_Controller Extends Ref_Config_Base_Controller
     public function Update_Category()
     {
         $cid = getParam( 'cid', null );
-        $name = getParam( 'name', null );
+        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        
+        if ($name == '')
+        {
+            $body = '<h5> Inlcude text in field<h5>';
+            $this->view->renderBody($body);
+            exit;
+        }
         $this->model->updateCategory( $cid, $name );
         $this->startFresh();
     }

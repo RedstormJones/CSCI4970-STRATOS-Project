@@ -101,6 +101,14 @@ class Hardware_Controller Extends Base_Controller
         $type      = $this->validateInputNotEmpty( getParam("type", null) );
         $loc       = $this->validateInput( getParam("loc", null) );
         $status    = $this->validateInputNotEmpty( getParam("status", null) );
+        
+        if ($name == '' || $vendor == '' || $model == '' ||
+                $serial == '' || $type == ''|| $status == '')
+        {
+            $body = '<h5> Inlcude text in field or Select from drop-down menu<h5>';
+            $this->view->renderBody($body);
+            exit;
+        }
 
         if ( $isUpdate )
         {

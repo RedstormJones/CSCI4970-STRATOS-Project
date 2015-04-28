@@ -20,7 +20,15 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
 
     public function Add_LifeCycle()
     {
-        $name = getParam( 'name', null );
+        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        
+        if ($name == '')
+        {
+            $body = '<h5> Inlcude text in field<h5>';
+            $this->view->renderBody($body);
+            exit;
+        }
+        
         $timed = getParam( 'timed', '' ) == 'on';
         $this->model->addLifecycle( $name, $timed );
         $this->startFresh();
@@ -29,7 +37,14 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
     public function Update_Lifecycle()
     {
         $life_cycl_id = getParam( 'life_cycl_id', null );
-        $name = getParam( 'name', null );
+        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        
+        if ($name == '')
+        {
+            $body = '<h5> Inlcude text in field<h5>';
+            $this->view->renderBody($body);
+            exit;
+        }
         $timed = getParam( 'timed', '' ) == 'on';
         $this->model->updateLifecycle( $life_cycl_id, $name, $timed );
         $this->startFresh();

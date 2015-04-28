@@ -5,21 +5,28 @@ require APP . 'controller\config\Ref_Config_Base_Controller.php';
 class Severity_Config_Controller Extends Ref_Config_Base_Controller
 {
    	public function noAction()
-    {
-        $resultList = $this->model->queryForm();
-        $formElements = array();
-        foreach( $resultList as $result )
         {
-            $id = isset($result->severity) ? $result->severity : "";
-            $name = isset($result->name) ? $result->name : "";
-            $formElements[] = array($id,$name);
+            $resultList = $this->model->queryForm();
+            $formElements = array();
+            foreach( $resultList as $result )
+            {
+                $id = isset($result->severity) ? $result->severity : "";
+                $name = isset($result->name) ? $result->name : "";
+                $formElements[] = array($id,$name);
+            }
+            $this->view->renderForm( $formElements );
         }
-        $this->view->renderForm( $formElements );
-    }
 
     public function Add_Severity()
     {
-        $name = getParam( 'name', null );
+        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        
+        if ($name == '')
+        {
+            $body = '<h5> Inlcude text in field<h5>';
+            $this->view->renderBody($body);
+            exit;
+        }
         $this->model->addSeverity( $name );
         $this->startFresh();
     }
@@ -27,7 +34,14 @@ class Severity_Config_Controller Extends Ref_Config_Base_Controller
     public function Update_Severity()
     {
         $severity = getParam( 'severity', null );
-        $name = getParam( 'name', null );
+        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        
+        if ($name == '')
+        {
+            $body = '<h5> Inlcude text in field<h5>';
+            $this->view->renderBody($body);
+            exit;
+        };
         $this->model->updateSeverity( $severity, $name );
         $this->startFresh();
     }

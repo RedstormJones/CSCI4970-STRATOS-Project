@@ -67,7 +67,7 @@ class Tickets_View Extends Base_View
     {
         $b = '<label style="margin-left: 15%" for="select">' . $label . '</label>';
         $b .= '<select name="' . $elementName . '" id="select" selected="' . $selected . '" size="1">
-                    <option value="Please Select">Please Select</option>';
+                    <option value="">Please Select</option>';
 
         foreach($tuples as $tuple)
         {
@@ -137,7 +137,7 @@ class Tickets_View Extends Base_View
         }
         else
         {
-            $body .= '  <input type="submit" class="button" style="margin-left: 150%" value="Add Ticket" name="action">';
+            $body .= '  <input type="submit" class="button" style="margin-left: 35%" value="Add Ticket" name="action">';
         }
         $body .= '</form>';
 

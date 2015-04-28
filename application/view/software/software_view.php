@@ -92,7 +92,7 @@ class Software_View Extends Base_View
         else 
         {    
             $body .= '  <labelc>';
-            $body .= '      <input type="submit" name="action" style="margin-left: 35%" class="button" value="Add Software">';
+            $body .= '      <input type="submit" name="action" style="margin-left: 117%" class="button" value="Add Software">';
             $body .= '  </labelc>';
         }
         $body .= '  </form>';

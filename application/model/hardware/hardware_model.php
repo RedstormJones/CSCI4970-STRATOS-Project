@@ -82,8 +82,7 @@ class Hardware_Model Extends Base_Model
         $this->sql_InsertHardware = "
             INSERT INTO 
                 `StEqpInst` 
-                ( `eid`
-                , `name`
+                ( `name`
                 , `vendor`
                 , `model`
                 , `serial`
@@ -93,8 +92,7 @@ class Hardware_Model Extends Base_Model
                 , `last_mdfd_user` 
                 ) 
                 VALUES 
-                ( :eid
-                , :name
+                ( :name
                 , :vendor
                 , :model
                 , :serial
