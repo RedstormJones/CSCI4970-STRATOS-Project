@@ -27,7 +27,7 @@ class Hardware_Model Extends Base_Model
                  , ':type'              => $type
                  , ':loc'               => $loc
                  , ':status'            => $status
-                 , ':last_mdfd_user'    => $last_mdfd_user
+                 , ':last_mdfd_user'    => getCurrentUserName()
                  )
         );
     }

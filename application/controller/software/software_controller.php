@@ -65,7 +65,7 @@ class Software_Controller Extends Base_Controller
     public function Add_Software()
     {
         $this->validateSoftware( false );
-        $this->startFresh();
+        //$this->startFresh();
     }
     
     public function Delete_Software()

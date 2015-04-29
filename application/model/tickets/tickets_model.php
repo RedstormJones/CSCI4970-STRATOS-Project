@@ -64,6 +64,7 @@ class Tickets_Model Extends Base_Model
                  , ':last_mdfd_user'     => getCurrentUserName()
                  )
         );
+        MailUpdateorAdd(TRUE, $title, $customer, $assignee);
     }
 
     public function deleteTicket( $tid )
@@ -91,6 +92,33 @@ class Tickets_Model Extends Base_Model
                  , ':last_mdfd_user'     => getCurrentUserName()
                  )
             );
+        MailUpdateorAdd(FALSE, $title, $customer, $assignee);
+    }
+    
+    public function MailUpdateorAdd($isUpdate, $title, $customer, $assignee)
+    {
+        if ($isUpdate)
+        {
+            $subject = "Ticket Updated: " .$title;
+            $message = "The ticket has been updated.";
+        }
+        else
+        {
+            $subject = "Ticket Added: " .$title;
+            $message = "The ticket has been added.";
+        }
+        
+        $headers = "From: stpkiproject@gmail.com";
+        
+        // Sends email to the Customer
+        $this->query_GetEmail->execute(array( ':pid' => $customer));
+        $to = $this->query_GetEmail->fetch(0);
+        mail($to->email, $subject, $message, $headers);
+        
+        // Sends email to the Assignee
+        $this->query_GetEmail->execute(array( ':pid' => $assignee));
+        $to = $this->query_GetEmail->fetch(0);
+        mail($to->email, $subject, $message, $headers);
     }
 
     protected function SetUpQueries()
@@ -248,9 +276,20 @@ class Tickets_Model Extends Base_Model
                 `StTktInst`
             SET
                 `logl_del` = TRUE
+              , `last_open_time` = :last_open_time
+              , `last_mdfd_user` = :last_mdfd_user
             WHERE
                 `tid` = :tid;";
         $this->query_DeleteTicket = $this->db->prepare($this->sql_DeleteTicket);
+        
+        $this->sql_GetEmail = "
+            SELECT 
+                email
+            FROM
+                `StPrsnInst`
+            WHERE
+                `pid` = :pid;";
+        $this->query_GetEmail = $this->db->prepare($this->sql_GetEmail);
     }
 }
 

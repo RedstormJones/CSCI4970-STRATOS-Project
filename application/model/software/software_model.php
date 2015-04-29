@@ -21,8 +21,7 @@ class Software_Model Extends Base_Model
     public function addSoftware($name)
     {
         $this->query_InsertSoftware->execute(
-            array( ':sid'               => $sid
-                 , ':name'              => $name
+            array( ':name'              => $name
                  , ':last_mdfd_user'    => getCurrentUsername()
                  )
         );
@@ -67,13 +66,11 @@ class Software_Model Extends Base_Model
         $this->sql_InsertSoftware = "
             INSERT INTO 
                 `StSftInst` 
-                ( `sid`
-                , `name`
+                ( `name`
                 , `last_mdfd_user`
                 ) 
                 VALUES 
-                ( :sid
-                , :name
+                ( :name
                 , :last_mdfd_user
                 )";
         $this->query_InsertSoftware = $this->db->prepare($this->sql_InsertSoftware);

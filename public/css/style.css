@@ -423,7 +423,7 @@ form:after {
   background: red;
 }
 
-table, th, td {
+table, table.tablef th, td {
     border: 1px solid black;
     border-collapse: collapse;
     margin: auto;
@@ -432,9 +432,11 @@ th, td {
     padding: 5px;
     text-align: left;
 }
+
 table tr:nth-child(even) {
     background-color: #eee;
 }
+
 table tr:nth-child(odd) {
    background-color:#fff;
 }
@@ -442,6 +444,25 @@ table tr:nth-child(odd) {
 table th {
     background-color: black;
     color: white;
+}
+
+table.tablef
+{
+    font-size: 12;
+    text-shadow: none;
+}
+
+table.tablef th {
+    background-color: yellow;
+    color: black;
+}
+
+table.tablef tr:nth-child(even) {
+    background-color: #eee;
+}
+
+table.tablef tr:nth-child(odd) {
+   background-color:#fff;
 }
 
 h3 {
@@ -552,4 +573,10 @@ h3 {
 .dark-matter .button:hover {
     color: #333;
     background-color: #EBEBEB;
+}
+
+
+canvas{
+    display: block;
+    margin: 0 auto;
 }

@@ -23,7 +23,7 @@ class Lifecycle_Config_View Extends Ref_Config_Base_View
         $body                           .= '        <span>' . $description . '</span>';     
         $body                           .= '    </h1>';
 
-        $body                           .= '    <table>';
+        $body                           .= '    <table class="tablef">';
         $body                           .= '        <tr>';
         $body                           .= '            <th>Name</th>';
         $body                           .= '            <th>Timed</th>';
