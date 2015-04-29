@@ -29,18 +29,20 @@ class Ref_Config_Base_View Extends Base_View
         }
         $body                           .= '    </select>';
         $body                           .= '    <br>';
-            
-        $body                           .= '    <labelc>';
-        $body                           .= '        <input type="submit" class="button" style="margin-left: 5%" value="Reassign and Delete" id="delete" name="action">';
-        $body                           .= '    </labelc>';
 
+        $body                           .= '    <div align="center"';
         $body                           .= '    <labelc>';
-        $body                           .= '        <input type="submit" class="button" style="margin-left: 10%" value="Update" id="update" name="action">';
+        $body                           .= '        <input type="submit" class="button" style="text-align: left" value="Reassign and Delete" id="delete" name="action">';
         $body                           .= '    </labelc>';
         
         $body                           .= '    <labelc>';
-        $body                           .= '        <input type="submit" class="button" style="margin-left: 12%" value="Add" id="add" name="action">';
+        $body                           .= '        <input type="submit" class="button" style="ttext-align: center" value="Update" id="update" name="action">';
         $body                           .= '    </labelc>';
+        
+        $body                           .= '    <labelc>';
+        $body                           .= '        <input type="submit" class="button" style="text-align: right" value="Add" id="add" name="action">';
+        $body                           .= '    </labelc>';
+        $body                           .= '    </div>';
         $body                           .= '</form>';
 
         $this->renderBody( $body );
