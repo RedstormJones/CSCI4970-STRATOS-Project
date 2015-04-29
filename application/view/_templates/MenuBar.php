@@ -14,8 +14,11 @@ echo '<div id="cssmenu">
                     <li><a href="/application/view/software/software_index.php"><span>Software</span></a></li>
                 </ul>
             </li>
-            <li>
-                <a href="/application/view/metrics/metrics_index.php"><span>Metrics</span></a>
+            <li class="has-sub"><a href=""><span>Metrics</span></a>
+                <ul>
+                    <li><a href="/application/view/metrics/Global/globals_index.php"><span>Global Metrics</span></a></li>
+                    <li><a href="/application/view/metrics/User/users_index.php"><span>Users Metrics</span></a></li>
+                </ul>
             </li>
             <li class="has-sub"><a href=""><span>Configuration</span></a>
                 <ul> 
