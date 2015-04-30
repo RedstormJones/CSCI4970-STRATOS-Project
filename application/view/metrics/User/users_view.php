@@ -22,8 +22,8 @@ class Users_View Extends Base_View_Metrics
                                         },
                                         {
                                                 value: 50,
-                                                color: "#46BFBD",
-                                                highlight: "#5AD3D1",
+                                                color: "#00FF99",
+                                                highlight: "#4DFFB8",
                                                 label: "Green"
                                         }
                                 ];

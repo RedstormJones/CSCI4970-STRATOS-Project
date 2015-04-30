@@ -1,5 +1,4 @@
 <?php
-require_once('../../globals.php');
 require APP . 'controller\Base_Controller.php';
 
 class Tickets_Controller Extends Base_Controller

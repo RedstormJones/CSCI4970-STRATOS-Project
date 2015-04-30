@@ -6,6 +6,7 @@ class Tickets_View Extends Base_View
     public function renderTickets($ticketlist, $start)
     {
         $body = '<h3 "All Active Tickets">All Active Tickets</h3>';
+        $body .= '<br><br>';
         $body .= '<div class="pull-right">
                 <form class="form-inline" role="form">
                     <div class="form-group">
@@ -15,7 +16,7 @@ class Tickets_View Extends Base_View
                     </div>
                 </form>
             </div>';
-        $body .= "<br><br><br>";
+        $body .= "<br><br>";
         $body .= '<table>
             <tr>
                 <th>Ticket#</th>
