@@ -3,25 +3,25 @@ require APP . 'model/metrics/Base_Model_Metrics.php';
 
 class Globals_Model extends Base_Model_Metrics
 {
-    public function GetActiveTicketsInEachPriority()
+    public function GetActiveTickets_IEP()
     {
         $this->query_GetActiveTicketsInEachPriority->execute();
         return $this->query_GetActiveTicketsInEachPriority->fetchAll();
     }
 
-    public function GetNewTicketsInLastMonthInEachPriority()
+    public function GetNewTicketsInLastMonth_IEP()
     {
         $this->query_GetNewTicketsInLastMonthInEachPriority->execute();
         return $this->query_GetNewTicketsInLastMonthInEachPriority->fetchAll();
     }
 
-    public function GetAverageTicketTimeForNonActiveInEachPriorty()
+    public function GetAverageTicketTimeForNonActive_IEP()
     {
         $this->query_GetAverageTicketTimeForNonActiveInEachPriorty->execute();
         return $this->query_GetAverageTicketTimeForNonActiveInEachPriorty->fetchAll();
     }
 
-    public function GetAverageDifferenceTimeInEachPriority()
+    public function GetAverageDifferenceTime_IEP()
     {
         $this->query_GetAverageDifferenceTimeInEachPriority->execute();
         return $this->query_GetAverageDifferenceTimeInEachPriority->fetchAll();

@@ -6,47 +6,70 @@ class Globals_Controller Extends Base_Controller_Metrics
     public function noAction()
     {
         $metrics = array();
-
-        $result = $this->model->GetActiveTicketsInEachPriority();
-        $activeTicketsInEachPriority = array();
+        
+        #--------------------------------#
+        # Active Tickets metrics control #
+        #--------------------------------#
+        $activeTickets_IEP = array();
         $name = "Active tickets by priority";
+
+        $result = $this->model->GetActiveTickets_IEP();
+
         foreach ( $result as $row )
         {
             $priority = $row->NAME;
             $count = $row->COUNT;
 
-            $activeTicketsInEachPriority[] = array( $priority, $count );
+            $activeTickets_IEP[] = array( $priority, $count );
         }
-        $metrics[] = array($name, $activeTicketsInEachPriority);
 
-        $result = $this->model->GetNewTicketsInLastMonthInEachPriority();
-        $newTicketsInLastMonthInEachPriority = array();
+        $metrics[] = array($name, $activeTickets_IEP);
+
+        $result = $this->model->GetNewTicketsInLastMonth_IEP();
+
+        #-----------------------------------#
+        # New Tickets in last Month control #
+        #-----------------------------------#
+        $newTicketsInLastMonth_IEP = array();
         $name = "Tickets created in the last 30 days by priority";
+        
         foreach( $result as $row )
         {
             $priority = $row->NAME;
             $count = $row->COUNT;
 
-            $newTicketsInLastMonthInEachPriority[] = array( $priority, $count );
+            $newTicketsInLastMonth_IEP[] = array( $priority, $count );
         }
-        $metrics[] = array($name, $newTicketsInLastMonthInEachPriority);
+        
+        $metrics[] = array($name, $newTicketsInLastMonth_IEP);
 
-        $result = $this->model->GetAverageTicketTimeForNonActiveInEachPriorty();
-        $averageTicketTimeForNonActiveInEachPriorty = array();
+        $result = $this->model->GetAverageTicketTimeForNonActive_IEP();
+
+        #----------------------------------------#
+        # Average non-active ticket time control #
+        #----------------------------------------#
+        $averageTicketTimeForNonActive_IEP = array();
         $name = "Average ticket time for non-active tickets";
+
         foreach( $result as $row )
         {
             $priority = $row->NAME;
             $time = $row->SUM_TIME;
             $count = $row->COUNT;
 
-            $averageTicketTimeForNonActiveInEachPriorty[] = array( $priority, $time/$count );
+            $averageTicketTimeForNonActive_IEP[] = array( $priority, $time/$count );
         }
-        $metrics[] = array($name, $averageTicketTimeForNonActiveInEachPriorty);
 
-        $result = $this->model->GetAverageDifferenceTimeInEachPriority();
-        $averageDifferenceTimeInEachPriority = array();
+        $metrics[] = array($name, $averageTicketTimeForNonActive_IEP);
+
+        $result = $this->model->GetAverageDifferenceTime_IEP();
+        
+        #------------------------------------------#
+        # Average time estimate difference control #
+        #------------------------------------------#
+        $averageDifferenceTime_IEP = array();
         $name = "Average difference in estimation for non-active tickets";
+
         foreach( $result as $row )
         {
             $priority = $row->NAME;
@@ -54,9 +77,10 @@ class Globals_Controller Extends Base_Controller_Metrics
             $expct = $row->SUM_EXPCT;
             $count = $row->COUNT;
 
-            $averageDifferenceTimeInEachPriority[] = array( $priority, ($time-$expct)/$count );
+            $averageDifferenceTime_IEP[] = array( $priority, ($time-$expct)/$count );
         }
-        $metrics[] = array($name, $averageDifferenceTimeInEachPriority);
+        
+        $metrics[] = array($name, $averageDifferenceTime_IEP);
 
         $this->view->renderGlobals( $metrics );
     }

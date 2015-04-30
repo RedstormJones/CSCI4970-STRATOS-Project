@@ -13,10 +13,16 @@ class Globals_View Extends Base_View_Metrics
         {
             $chart = $charts[$i];
             $name = $chart[0];
+            $a = "right";
+
+            if ($i % 2 == 0)
+            {
+                $a = "left";
+            }
 
             $metrics .= '<h4 "' . $name . '">' . $name . '</h4>' . "\n";
             $metrics .= '<br>'. "\n";
-            $metrics .= '<div id="canvas-holder' . $i . '">'. "\n";
+            $metrics .= '<div id="canvas-holder'.$i.'" align="' . $a . '">'. "\n";
             $metrics .= '   <canvas id="chart-area' . $i . '" width="300" height="300"/>'. "\n";
 		    $metrics .= '</div>'. "\n";
             $metrics .= '<br>'. "\n";
