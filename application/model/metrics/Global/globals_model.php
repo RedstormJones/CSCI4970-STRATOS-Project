@@ -15,10 +15,10 @@ class Globals_Model extends Base_Model_Metrics
         return $this->query_GetNewTicketsInLastMonthInEachPriority->fetchAll();
     }
 
-    public function GetNonActiveTicketTimeInEachPriorty( $beg_time )
+    public function GetAverageTicketTimeForNonActiveInEachPriorty()
     {
-        $this->query_GetNonActiveTicketTimeInEachPriorty->execute( array( ':beg_time' => $beg_time ) );
-        return $this->query_GetNonActiveTicketTimeInEachPriorty->fetchAll();
+        $this->query_GetAverageTicketTimeForNonActiveInEachPriorty->execute();
+        return $this->query_GetAverageTicketTimeForNonActiveInEachPriorty->fetchAll();
     }
 
     public function GetAverageDifferenceTimeInEachPriority()
@@ -33,7 +33,7 @@ class Globals_Model extends Base_Model_Metrics
 
         $this->sql_GetActiveTicketsInEachPriority = "
             SELECT
-                pri.name, COUNT(*)
+                pri.name as NAME, COUNT(*) as COUNT
             FROM
                 StTktInst tkt
             INNER JOIN
@@ -56,7 +56,7 @@ class Globals_Model extends Base_Model_Metrics
 
         $this->sql_GetNewTicketsInLastMonthInEachPriority = "
             SELECT
-                pri.name, COUNT(*)
+                pri.name as NAME, COUNT(*) as COUNT
             FROM
                 StTktInst tkt
             INNER JOIN
@@ -68,14 +68,14 @@ class Globals_Model extends Base_Model_Metrics
             ON
                 mtx.priority = pri.priority
             WHERE
-                tkt.insrt_tmst > :beg_time
+                tkt.insrt_tmst > DATE_ADD(CURRENT_TIMESTAMP,INTERVAL -30 DAY)
             GROUP BY
                 pri.priority";
         $this->query_GetNewTicketsInLastMonthInEachPriority = $this->db->prepare( $this->sql_GetNewTicketsInLastMonthInEachPriority );
 
-        $this->sql_GetNonActiveTicketTimeInEachPriorty = "
+        $this->sql_GetAverageTicketTimeForNonActiveInEachPriorty = "
             SELECT
-                pri.name, SUM(tkt.last_open_time) as SUM_TIME, COUNT(*) as COUNT
+                pri.name as NAME, SUM(tkt.last_open_time) as SUM_TIME, COUNT(*) as COUNT
             FROM
                 StTktInst tkt
             INNER JOIN
@@ -94,11 +94,11 @@ class Globals_Model extends Base_Model_Metrics
                 tkt.logl_del = FALSE AND not lf.is_timed
             GROUP BY
                 pri.priority";
-        $this->query_GetNonActiveTicketTimeInEachPriorty = $this->db->prepare( $this->sql_GetNonActiveTicketTimeInEachPriorty );
+        $this->query_GetAverageTicketTimeForNonActiveInEachPriorty = $this->db->prepare( $this->sql_GetAverageTicketTimeForNonActiveInEachPriorty );
 
         $this->sql_GetAverageDifferenceTimeInEachPriority = "
             SELECT
-                pri.name, SUM(tkt.last_open_time) as SUM_TIME, tkt.last_mdfd_tmst, SUM(tkt.expct_hours) as SUM_EXPCT, COUNT(*) as COUNT
+                pri.name as NAME, SUM(tkt.last_open_time) as SUM_TIME, tkt.last_mdfd_tmst, SUM(tkt.expct_hours) as SUM_EXPCT, COUNT(*) as COUNT
             FROM
                 StTktInst tkt
             INNER JOIN
