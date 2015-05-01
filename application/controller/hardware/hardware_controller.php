@@ -105,7 +105,7 @@ class Hardware_Controller Extends Base_Controller
         if ($name == '' || $vendor == '' || $model == '' ||
                 $serial == '' || $type == ''|| $status == '')
         {
-            $body = '<h5> Inlcude text in field or Select from drop-down menu<h5>';
+            $body = '<h5> Include text in field or Select from drop-down menu<h5>';
             $this->view->renderBody($body);
             exit;
         }

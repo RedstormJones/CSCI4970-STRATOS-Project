@@ -5,27 +5,21 @@ class Globals_View Extends Base_View_Metrics
 {
 	public function renderGlobals( $charts )
 	{
-        $metrics  = '<h3 "Service Ticket Metrics">Service Ticket Metrics</h3>';
-        $metrics .= '<br><br><br>';
+        $metrics  = '<h3 "Service Ticket Metrics">Service Ticket Metrics</h3>' . "\n";
+        $metrics .= '<br><br><br><br>' . "\n";
 
         $count = count($charts);
         for ( $i = 0; $i < $count; ++$i )
         {
             $chart = $charts[$i];
             $name = $chart[0];
-            $a = "right";
 
-            if ($i % 2 == 0)
-            {
-                $a = "left";
-            }
-
-            $metrics .= '<h4 "' . $name . '">' . $name . '</h4>' . "\n";
+            $metrics .= '<h4 "' . $name . '">' . $name . '</h4>'. "\n";
             $metrics .= '<br>'. "\n";
-            $metrics .= '<div id="canvas-holder'.$i.'" align="' . $a . '">'. "\n";
+            $metrics .= '<div id="canvas-holder'.$i.'">'. "\n";
             $metrics .= '   <canvas id="chart-area' . $i . '" width="300" height="300"/>'. "\n";
 		    $metrics .= '</div>'. "\n";
-            $metrics .= '<br>'. "\n";
+            $metrics .= '<br><br><br>'. "\n";
         }
 
         $metrics .= '<script src="..\Chart\Chart.js"></script>'. "\n";
@@ -36,7 +30,7 @@ class Globals_View Extends Base_View_Metrics
             $name = $chart[0];
             $data = $chart[1];
 
-            $metrics .= '   var pieData' . $i . ' = ['. "\n";
+            $metrics .= '   var data' . $i . ' = ['. "\n";
             $count_data = count($data);
             for( $j = 0; $j < $count_data; ++$j )
             {
@@ -64,10 +58,15 @@ class Globals_View Extends Base_View_Metrics
         for( $i = 0; $i < $count; ++$i )
         {
             $metrics .= '   var ctx = document.getElementById("chart-area' . $i . '").getContext("2d");'. "\n";
-            $metrics .= '   window.myPie' . $i . ' = new Chart(ctx).Pie(pieData' . $i . ')'. "\n";
+            $metrics .= '   window.Chart' . $i . ' = new Chart(ctx).Doughnut(data' . $i . ')'. "\n";
         }
         $metrics .= '   }'. "\n";
         $metrics .= '</script>';
+
+        #--------------------------------------------#
+        # Send the metrics data to Base_View_Metrics #
+        # for rendering in the web browser           #
+        #--------------------------------------------#
 		$this->renderMetrics($metrics);
 	}
 }

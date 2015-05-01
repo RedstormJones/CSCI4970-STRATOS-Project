@@ -25,13 +25,14 @@ class Globals_Controller Extends Base_Controller_Metrics
 
         $metrics[] = array($name, $activeTickets_IEP);
 
-        $result = $this->model->GetNewTicketsInLastMonth_IEP();
-
         #-----------------------------------#
         # New Tickets in last Month control #
         #-----------------------------------#
         $newTicketsInLastMonth_IEP = array();
         $name = "Tickets created in the last 30 days by priority";
+
+        $result = $this->model->GetNewTicketsInLastMonth_IEP();
+
         
         foreach( $result as $row )
         {
@@ -43,13 +44,13 @@ class Globals_Controller Extends Base_Controller_Metrics
         
         $metrics[] = array($name, $newTicketsInLastMonth_IEP);
 
-        $result = $this->model->GetAverageTicketTimeForNonActive_IEP();
-
         #----------------------------------------#
         # Average non-active ticket time control #
         #----------------------------------------#
         $averageTicketTimeForNonActive_IEP = array();
         $name = "Average ticket time for non-active tickets";
+
+        $result = $this->model->GetAverageTicketTimeForNonActive_IEP();
 
         foreach( $result as $row )
         {
@@ -61,14 +62,14 @@ class Globals_Controller Extends Base_Controller_Metrics
         }
 
         $metrics[] = array($name, $averageTicketTimeForNonActive_IEP);
-
-        $result = $this->model->GetAverageDifferenceTime_IEP();
         
         #------------------------------------------#
         # Average time estimate difference control #
         #------------------------------------------#
         $averageDifferenceTime_IEP = array();
         $name = "Average difference in estimation for non-active tickets";
+
+        $result = $this->model->GetAverageDifferenceTime_IEP();
 
         foreach( $result as $row )
         {
@@ -82,6 +83,10 @@ class Globals_Controller Extends Base_Controller_Metrics
         
         $metrics[] = array($name, $averageDifferenceTime_IEP);
 
+        #-----------------------------------#
+        # Send metrics data to the view for #
+        # rendering in the web browser      #
+        #-----------------------------------#
         $this->view->renderGlobals( $metrics );
     }
 }

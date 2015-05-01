@@ -21,7 +21,9 @@ class Base_View
                         </div>
                         <div id="bottom">
                             <div id="menu">';
-                            # MenuBar.php gets inserted here
+                                #--------------------------------#
+                                # MenuBar.php gets inserted here #
+                                #--------------------------------#
         $tail =                 '<input type="text" src="/application/view/_templates/MenuBar.php">
                             </div>
                             <div id="body" class="pagebody">';

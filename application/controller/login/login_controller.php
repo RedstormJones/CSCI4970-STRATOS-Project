@@ -15,7 +15,6 @@ class Login_Controller Extends Base_Controller
 		$user = getParam('username');
 		$pwd = getParam('passwd');
 		$pid = $this->model->authenticate($user, $pwd);
-		//if ( $this->model->authenticate($user, $pwd) )
 		if ( $pid != null )
 		{
 			$_SESSION['user'] = $user;
