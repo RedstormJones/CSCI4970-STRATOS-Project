@@ -1,6 +1,6 @@
 <?php
-require_once('../../globals.php');
 require APP . 'model\Base_Model.php';
+
 class Account_Model Extends Base_Model
 {   
     public function showPhoneSettings( $pid )
@@ -15,18 +15,18 @@ class Account_Model Extends Base_Model
         return $this->query_showUserSettings->fetch();
     }
 
-    public function UpdateAccountSettingsUser($pid, $fname, $lname, $email)
+    public function UpdateAccountSettingsUser($pid, $fname, $lname, $email, $user)
     {
         $this->query_UpdateUser->execute(
                     array( ':fname'             => $fname
                          , ':lname'             => $lname
                          , ':email'             => $email
                          , ':pid'               => $pid
-                         , ':last_mdfd_user'    => getCurrentUserName()
+                         , ':last_mdfd_user'    => $user
                          )
             );
     }
-    public function UpdateAccountSettingsPhone($pid, $phones)
+    public function UpdateAccountSettingsPhone($pid, $phones, $user)
     {
         $this->query_DeletePhonesForUser->execute( array( ':pid' => $pid ) );
         foreach ( $phones as $phone )
@@ -43,7 +43,7 @@ class Account_Model Extends Base_Model
                          , ':area'              => $area
                          , ':phone1'            => $phone1
                          , ':phone2'            => $phone2
-                         , ':last_mdfd_user'    => getCurrentUserName()
+                         , ':last_mdfd_user'    => $user
                          )            
                     );
         }

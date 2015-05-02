@@ -1,5 +1,4 @@
 <?php
-require_once('../../globals.php');
 require APP . 'model\Base_Model.php';
 
 class Hardware_Model Extends Base_Model
@@ -17,7 +16,7 @@ class Hardware_Model Extends Base_Model
         return $this->query_GetHardware->fetch();
     }
 
-    public function addHardware($name, $vendor, $model, $serial, $type, $loc, $status)
+    public function addHardware($name, $vendor, $model, $serial, $type, $loc, $status, $user)
     {
         $this->query_InsertHardware->execute(
             array( ':name'              => $name
@@ -27,21 +26,21 @@ class Hardware_Model Extends Base_Model
                  , ':type'              => $type
                  , ':loc'               => $loc
                  , ':status'            => $status
-                 , ':last_mdfd_user'    => getCurrentUserName()
+                 , ':last_mdfd_user'    => $user
                  )
         );
     }
     
-    public function deleteHardware( $eid )
+    public function deleteHardware( $eid, $user )
     {
         $this->query_DeleteHardware->execute( 
             array( ":eid"               => $eid 
-                 , ":last_mdfd_user"    => getCurrentUserName()
+                 , ":last_mdfd_user"    => $user
                  )   
         );
     }
     
-    public function updateHardware( $eid, $name, $vendor, $model, $serial, $type, $loc, $status)
+    public function updateHardware( $eid, $name, $vendor, $model, $serial, $type, $loc, $status, $user)
     {
         $this->query_UpdateHardware->execute(
             array(':eid'                => $eid
@@ -52,7 +51,7 @@ class Hardware_Model Extends Base_Model
                 , ':type'               => $type
                 , ':loc'                => $loc
                 , ':status'             => $status
-                , ':last_mdfd_user'     => getCurrentUserName()
+                , ':last_mdfd_user'     => $user
                 )
         );
     }

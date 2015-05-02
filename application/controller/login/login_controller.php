@@ -1,10 +1,13 @@
 <?php
-require_once('../../globals.php');
 require APP . 'controller\Base_Controller.php';
-
 
 class Login_Controller Extends Base_Controller
 {
+	public function __construct($model, $view, $globals, $index)
+	{
+		parent::__construct($model, $view, $globals, $index, false);
+	}
+
 	public function noAction()
 	{
 		$this->view->showLogin();
@@ -12,8 +15,8 @@ class Login_Controller Extends Base_Controller
 
 	public function Log_In()
 	{
-		$user = getParam('username');
-		$pwd = getParam('passwd');
+		$user = $this->globals->getParam('username');
+		$pwd = $this->globals->getParam('passwd');
 		$pid = $this->model->authenticate($user, $pwd);
 		if ( $pid != null )
 		{

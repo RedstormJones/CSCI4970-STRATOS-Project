@@ -1,7 +1,5 @@
 <?php
-require_once('../../globals.php');
 require APP . 'controller\Base_Controller.php';
-
 
 class Hardware_Controller Extends Base_Controller
 {
@@ -33,8 +31,8 @@ class Hardware_Controller Extends Base_Controller
     
     public function Next()
     {
-        $start = (int)getParam( 'start' , 0 );
-        $prev_displayed = getParam( 'displayed', '10' );
+        $start = (int)$this->globals->getParam( 'start' , 0 );
+        $prev_displayed = $this->globals->getParam( 'displayed', '10' );
         if ( $prev_displayed == '10' )
         {
             $start += 10; 
@@ -45,7 +43,7 @@ class Hardware_Controller Extends Base_Controller
 
     public function Previous()
     {
-        $start = (int)getParam( 'start' , 10 ) - 10;
+        $start = (int)$this->globals->getParam( 'start' , 10 ) - 10;
         if ( $start < 0 ) $start = 0;
         $this->showAllHardware( $start );
     }
@@ -57,7 +55,7 @@ class Hardware_Controller Extends Base_Controller
    
     public function Update()
     {
-        $eid = getParam('eid');
+        $eid = $this->globals->getParam('eid');
         $hardware = $this->model->getHardware( $eid );
 
         $this->view->renderForm( true
@@ -86,21 +84,21 @@ class Hardware_Controller Extends Base_Controller
     
     public function Delete_Hardware()
     {
-        $eid = getParam( 'eid' );
-        $this->model->deleteHardware( $eid );
+        $eid = $this->globals->getParam( 'eid' );
+        $this->model->deleteHardware( $eid, $this->user );
         $this->startFresh();
     }
         
     public function validateHardware( $isUpdate )
     {
-        $eid       = getParam('eid',null);
-        $name      = $this->validateInputNotEmpty( getParam('name', null) );
-        $vendor    = $this->validateInputNotEmpty( getParam("vendor", null) );
-        $model     = $this->validateInputNotEmpty( getParam("model", null) );
-        $serial    = $this->validateInputNotEmpty( getParam("serial", null) );
-        $type      = $this->validateInputNotEmpty( getParam("type", null) );
-        $loc       = $this->validateInput( getParam("loc", null) );
-        $status    = $this->validateInputNotEmpty( getParam("status", null) );
+        $eid       = $this->globals->getParam('eid',null);
+        $name      = $this->validateInputNotEmpty( $this->globals->getParam('name', null) );
+        $vendor    = $this->validateInputNotEmpty( $this->globals->getParam("vendor", null) );
+        $model     = $this->validateInputNotEmpty( $this->globals->getParam("model", null) );
+        $serial    = $this->validateInputNotEmpty( $this->globals->getParam("serial", null) );
+        $type      = $this->validateInputNotEmpty( $this->globals->getParam("type", null) );
+        $loc       = $this->validateInput( $this->globals->getParam("loc", null) );
+        $status    = $this->validateInputNotEmpty( $this->globals->getParam("status", null) );
         
         if ($name == '' || $vendor == '' || $model == '' ||
                 $serial == '' || $type == ''|| $status == '')
@@ -112,11 +110,11 @@ class Hardware_Controller Extends Base_Controller
 
         if ( $isUpdate )
         {
-            $result = $this->model->updateHardware($eid, $name, $vendor, $model, $serial, $type, $loc, $status);
+            $result = $this->model->updateHardware($eid, $name, $vendor, $model, $serial, $type, $loc, $status, $this->user);
         }
         else
         {
-            $result = $this->model->addHardware($name, $vendor, $model, $serial, $type, $loc, $status);
+            $result = $this->model->addHardware($name, $vendor, $model, $serial, $type, $loc, $status, $this->user);
         }
         
         if ( $result )

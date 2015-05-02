@@ -1,9 +1,9 @@
 <?php
-require_once('../../globals.php');
 require APP . 'controller\Base_Controller.php';
 
 class Software_Controller Extends Base_Controller
 {
+
     public function noAction()
     {
         $this->showAllSoftware(0);
@@ -27,8 +27,8 @@ class Software_Controller Extends Base_Controller
 
     public function Next()
     {
-        $start = (int)getParam( 'start' , 0 );
-        $prev_displayed = getParam( 'displayed', '10' );
+        $start = (int)$this->globals->getParam( 'start' , 0 );
+        $prev_displayed = $this->globals->getParam( 'displayed', '10' );
         if ( $prev_displayed == '10' )
         {
             $start += 10; 
@@ -39,7 +39,7 @@ class Software_Controller Extends Base_Controller
 
     public function Previous()
     {
-        $start = (int)getParam( 'start' , 10 ) - 10;
+        $start = (int)$this->globals->getParam( 'start' , 10 ) - 10;
         if ( $start < 0 ) $start = 0;
         $this->showAllSoftware( $start );
     }
@@ -51,7 +51,7 @@ class Software_Controller Extends Base_Controller
     
     public function Update()
     {
-        $sid = getParam('sid');
+        $sid = $this->globals->getParam('sid');
         $software = $this->model->getSoftware( $sid );
         $this->view->renderForm( true, $sid, $software->name);
     }
@@ -70,15 +70,15 @@ class Software_Controller Extends Base_Controller
     
     public function Delete_Software()
     {
-        $sid = getParam( 'sid' );
-        $this->model->deleteSoftware( $sid );
+        $sid = $this->globals->getParam( 'sid' );
+        $this->model->deleteSoftware( $sid, $this->user );
         $this->startFresh();
     }
     
     public function validateSoftware($isUpdate)
 	{
-        $sid        = getParam('sid', null);
-        $name       = $this->validateInputNotEmpty( getParam('name', null) );
+        $sid        = $this->globals->getParam('sid', null);
+        $name       = $this->validateInputNotEmpty( $this->globals->getParam('name', null) );
 
         if ($name == '')
         {
@@ -88,11 +88,11 @@ class Software_Controller Extends Base_Controller
         }
         if ( $isUpdate )
         {
-            $result = $this->model->updateSoftware($sid, $name);
+            $result = $this->model->updateSoftware($sid, $name, $this->user);
         }
         else
         {
-            $result = $this->model->addSoftware($name);
+            $result = $this->model->addSoftware($name, $this->user);
         }
 
         if( $result )

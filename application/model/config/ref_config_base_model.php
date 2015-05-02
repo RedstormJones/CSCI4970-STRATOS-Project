@@ -1,5 +1,4 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'model\Base_Model.php';
 
 class Ref_Config_Base_Model Extends Base_Model
@@ -13,11 +12,11 @@ class Ref_Config_Base_Model Extends Base_Model
         parent::__construct();
     }
 
-	public function reassignAndDelete( $old, $new )
+	public function reassignAndDelete( $old, $new, $user )
 	{
-		$this->updateReferences( $old, $new );
-        $this->deleteReferences( $old );
-        $this->deleteConfig( $old );
+		$this->updateReferences( $old, $new, $user );
+        $this->deleteReferences( $old, $user );
+        $this->deleteConfig( $old, $user );
 	}
 	
 	public function queryForm()
@@ -26,17 +25,17 @@ class Ref_Config_Base_Model Extends Base_Model
 		return $this->query_SelectFormElements->fetchAll();
 	}
 
-    protected function updateReferences( $old, $new )
+    protected function updateReferences( $old, $new, $user )
     {
         // Override in children as necessary
     }
 
-    protected function deleteReferences( $old )
+    protected function deleteReferences( $old, $user )
     {
         // Override in children as necessary
     }
 
-    protected function deleteConfig( $old )
+    protected function deleteConfig( $old, $user )
     {
         // Override in children as necessary
     }

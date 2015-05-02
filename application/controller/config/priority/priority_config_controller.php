@@ -1,5 +1,4 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
 class Priority_Config_Controller Extends Ref_Config_Base_Controller
@@ -19,7 +18,7 @@ class Priority_Config_Controller Extends Ref_Config_Base_Controller
 
     public function Add_Priority()
     {
-        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
         
         if ($name == '')
         {
@@ -27,14 +26,14 @@ class Priority_Config_Controller Extends Ref_Config_Base_Controller
             $this->view->renderBody($body);
             exit;
         }
-        $this->model->addPriority( $name );
+        $this->model->addPriority( $name, $this->user );
         $this->startFresh();
     }
 
     public function Update_Priority()
     {
-        $priority = getParam( 'priority', null );
-        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        $priority = $this->globals->getParam( 'priority', null );
+        $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
         
         if ($name == '')
         {
@@ -42,13 +41,13 @@ class Priority_Config_Controller Extends Ref_Config_Base_Controller
             $this->view->renderBody($body);
             exit;
         };
-        $this->model->updatePriority( $priority, $name );
+        $this->model->updatePriority( $priority, $name, $this->user );
         $this->startFresh();
     }
 
     public function addOrUpdate( $isUpdate )
     {
-        $priority   = $isUpdate ? getParam( 'original' ) : '';
+        $priority   = $isUpdate ? $this->globals->getParam( 'original' ) : '';
         $name       = $isUpdate ? $this->model->getPriority( $priority )->name : '';
         $this->view->renderAddOrUpdate( $isUpdate, $priority, $name );
    }

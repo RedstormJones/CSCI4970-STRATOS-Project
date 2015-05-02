@@ -1,5 +1,4 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'model\config\Ref_Config_Base_Model.php';
 
 class Priority_Config_Model Extends Ref_Config_Base_Model
@@ -9,39 +8,39 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StPriConf', 'priority', 'name' );
     }
 
-    protected function deleteReferences( $old )
+    protected function deleteReferences( $old, $user )
     {
         $this->query_DeletePriMtxReferences->execute( 
                 array( ':old'                   => $old 
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
     }
 
-    protected function deleteConfig( $old )
+    protected function deleteConfig( $old, $user )
     {
         $this->query_DeletePriority->execute( 
                 array( ':priority'              => $old 
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
     }
 
-	public function updatePriority( $priority, $name )
+	public function updatePriority( $priority, $name, $user )
 	{
 		$this->query_UpdatePriority->execute( 
                 array( ':priority'              => $priority
                      , ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}
 
-	public function addPriority( $name )
+	public function addPriority( $name, $user )
 	{
 		$this->query_AddPriority->execute( 
                 array( ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}

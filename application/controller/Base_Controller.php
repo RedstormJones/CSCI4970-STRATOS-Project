@@ -1,17 +1,35 @@
 <?php
 
-class Base_Controller
+class Base_Controller extends Globals
 {
 	protected $model;
 	protected $view;
+    protected $globals;
 	protected $index;
+    protected $user;
+    protected $pid;
 
-	public function __construct(Base_Model $model, Base_View $view, $index)
+
+	public function __construct(Base_Model $model, Base_View $view, Globals $globals, $index, $mustBeLoggedIn = true)
 	{
 		$this->model = $model;
 		$this->view = $view;
+        $this->globals = $globals;
 		$this->index = $index;
-	}
+        
+        $this->user = $this->globals->getCurrentUserName();
+        $this->pid = $this->globals->getCurrentUserPid();
+
+        if ( $mustBeLoggedIn )
+        {
+            if (!isset($_SESSION['pid']))
+            {
+                $URL_BASE= $GLOBALS["URL_BASE"];
+                $URL = $URL_BASE."application/view/login/login_index.php";
+                $this->simpleRedirect($URL);
+            }
+        }
+    }
 
 	public function noAction()
 	{

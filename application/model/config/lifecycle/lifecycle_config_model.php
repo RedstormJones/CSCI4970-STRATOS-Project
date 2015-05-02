@@ -1,5 +1,4 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'model\config\Ref_Config_Base_Model.php';
 
 class Lifecycle_Config_Model Extends Ref_Config_Base_Model
@@ -9,7 +8,7 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StLfeCyclConf', 'life_cycl_id', 'name' );
     }
 
-    protected function updateReferences( $old, $new )
+    protected function updateReferences( $old, $new, $user )
     {
         $this->query_GetAffectedTickets->execute( array( ':old' => $old ) );
         $affectedTickets = $this->query_GetAffectedTickets->fetchAll();
@@ -21,38 +20,38 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
                     array( ':tid'               => $ticket->tid
                          , ':new'               => $new
                          , ':last_open_time'    => $last_open_time
-                         , ':last_mdfd_user'    => getCurrentUserName()
+                         , ':last_mdfd_user'    => $user
                          )
                 );
         }
     }
 
-    protected function deleteConfig( $old )
+    protected function deleteConfig( $old, $user )
     {
         $this->query_DeleteLifecycle->execute( 
                 array( ':life_cycl_id'          => $old 
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
     }
 
-	public function updateLifecycle( $life_cycl_id, $name, $is_timed )
+	public function updateLifecycle( $life_cycl_id, $name, $is_timed, $user )
 	{
 		$this->query_UpdateLifecycle->execute( 
                 array( ':life_cycl_id'          => $life_cycl_id
                      , ':name'                  => $name
                      , ':is_timed'              => $is_timed
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}
 
-	public function addLifecycle( $name, $is_timed )
+	public function addLifecycle( $name, $is_timed, $user )
 	{
 		$this->query_AddLifecycle->execute( 
                 array( ':name'                  => $name
                      , ':is_timed'              => $is_timed
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}

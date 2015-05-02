@@ -28,6 +28,32 @@ class Base_Model
         }
     }
 
+    public function MailUpdateorAdd($isUpdate, $title, $customer, $assignee)
+    {
+        if ($isUpdate)
+        {
+            $subject = "Ticket Updated: " .$title;
+            $message = "The ticket has been updated.";
+        }
+        else
+        {
+            $subject = "Ticket Added: " .$title;
+            $message = "The ticket has been added.";
+        }
+        
+        $headers = "From: stpkiproject@gmail.com";
+        
+        // Sends email to the Customer
+        $this->query_GetEmail->execute(array( ':pid' => $customer));
+        $to = $this->query_GetEmail->fetch(0);
+        mail($to->email, $subject, $message, $headers);
+        
+        // Sends email to the Assignee
+        $this->query_GetEmail->execute(array( ':pid' => $assignee));
+        $to = $this->query_GetEmail->fetch(0);
+        mail($to->email, $subject, $message, $headers);
+    }
+    
     public function GetUpdatedTicketTimeByTid( $tid )
     {
         $this->query_GetTicket->execute( array( ':tid' => $tid ) );

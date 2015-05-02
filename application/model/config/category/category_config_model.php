@@ -1,5 +1,4 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'model\config\Ref_Config_Base_Model.php';
 
 class Category_Config_Model Extends Ref_Config_Base_Model
@@ -9,7 +8,7 @@ class Category_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StCatgConf', 'cid', 'name' );
     }
    
-    protected function updateReferences( $old, $new )
+    protected function updateReferences( $old, $new, $user )
     {
         $this->query_GetAffectedTickets->execute( array( ':old' => $old ) );
         $affectedTickets = $this->query_GetAffectedTickets->fetchAll();
@@ -21,36 +20,36 @@ class Category_Config_Model Extends Ref_Config_Base_Model
                     array( ':tid'               => $ticket->tid
                          , ':new'               => $new
                          , ':last_open_time'    => $last_open_time
-                         , ':last_mdfd_user'    => getCurrentUserName()
+                         , ':last_mdfd_user'    => $user
                          )
                 );
         }
     }
 
-    protected function deleteConfig( $old )
+    protected function deleteConfig( $old, $user )
     {
         $this->query_DeleteCategory->execute( 
                 array( ':cid'                   => $old 
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
     }
 
-	public function updateCategory( $cid, $name )
+	public function updateCategory( $cid, $name, $user )
 	{
 		$this->query_UpdateCategory->execute( 
                 array( ':cid'                   => $cid
                      , ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}
 
-	public function addCategory( $name )
+	public function addCategory( $name, $user )
 	{
 		$this->query_AddCategory->execute( 
                 array( ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}

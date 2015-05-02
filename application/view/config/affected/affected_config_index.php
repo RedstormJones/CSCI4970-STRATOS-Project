@@ -4,9 +4,10 @@
     require APP . 'controller\config\affected\affected_config_controller.php';
     require APP . 'view\config\affected\affected_config_view.php';
 
+    $globals = new Globals();
     $model = new Affected_Config_Model();
     $view  = new Affected_Config_View();
-    $contr = new Affected_Config_Controller($model, $view, 'affected_config_index.php');
+    $contr = new Affected_Config_Controller($model, $view, $globals, 'affected_config_index.php');
     
-    handleURL($contr);
+    $globals->handleURL($contr);
 ?>

@@ -1,5 +1,4 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'model\config\Ref_Config_Base_Model.php';
 
 class Affected_Config_Model Extends Ref_Config_Base_Model
@@ -9,7 +8,7 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StAffLvlConf', 'aff_level', 'name' );
     }
 
-    protected function updateReferences( $old, $new )
+    protected function updateReferences( $old, $new, $user )
     {
         $this->query_GetAffectedTickets->execute( array( ':old' => $old ) );
         $affectedTickets = $this->query_GetAffectedTickets->fetchAll();
@@ -21,45 +20,45 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
                     array( ':tid'               => $ticket->tid
                          , ':new'               => $new
                          , ':last_open_time'    => $last_open_time
-                         , ':last_mdfd_user'    => getCurrentUserName()
+                         , ':last_mdfd_user'    => $user
                          )
                 );
         }
     }
 
-    protected function deleteReferences( $old )
+    protected function deleteReferences( $old, $user )
     {
         $this->query_DeletePriMtxReferences->execute( 
                 array( ':old'                   => $old 
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
     }
 
-    protected function deleteConfig( $old )
+    protected function deleteConfig( $old, $user )
     {
         $this->query_DeleteAffected->execute( 
                 array( ':aff_level'             => $old 
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
     }
 
-	public function updateAffected( $aff_level, $name )
+	public function updateAffected( $aff_level, $name, $user )
 	{
 		$this->query_UpdateAffected->execute( 
                 array( ':aff_level'             => $aff_level
                      , ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}
 
-	public function addAffected( $name )
+	public function addAffected( $name, $user )
 	{
 		$this->query_AddAffected->execute( 
                 array( ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}

@@ -1,5 +1,4 @@
 <?php
-require_once('../../globals.php');
 require APP . 'model\Base_Model.php';
 
 class Tickets_Model Extends Base_Model
@@ -47,7 +46,9 @@ class Tickets_Model Extends Base_Model
         return $this->query_GetTicket->fetch();
     }
 
-    public function updateTicket( $tid, $title, $description, $opener, $assignee, $category, $aff_level, $severity, $expct_hours, $life_cycl_id )
+
+
+    public function updateTicket( $tid, $title, $description, $opener, $assignee, $category, $aff_level, $severity, $expct_hours, $life_cycl_id, $user )
     {
         $this->query_UpdateTicket->execute(
             array( ':tid'                => $tid
@@ -61,23 +62,23 @@ class Tickets_Model Extends Base_Model
                  , ':life_cycl_id'       => $life_cycl_id
                  , ':expct_hours'        => $expct_hours
                  , ':last_open_time'     => $this->GetUpdatedTicketTimeByTid( $tid )
-                 , ':last_mdfd_user'     => getCurrentUserName()
+                 , ':last_mdfd_user'     => $user
                  )
         );
-        MailUpdateorAdd(TRUE, $title, $customer, $assignee);
+        $this->MailUpdateorAdd(TRUE, $title, $customer, $assignee);
     }
 
-    public function deleteTicket( $tid )
+    public function deleteTicket( $tid, $user )
     {
         $this->query_DeleteTicket->execute( 
             array( ':tid'               => $tid 
                  , ':last_open_time'    => $this->GetUpdatedTicketTimeByTid( $tid )
-                 , ':last_mdfd_user'    => getCurrentUserName()
+                 , ':last_mdfd_user'    => $user
                  )   
         );
     }
 
-    public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $lifecycle, $estTime)
+    public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $lifecycle, $estTime, $user)
     {
         $this->query_InsertTicket->execute(
             array( ':opener'             => $customer
@@ -89,36 +90,10 @@ class Tickets_Model Extends Base_Model
                  , ':catg'               => $category
                  , ':life_cycl_id'       => $lifecycle
                  , ':expct_hours'        => $estTime 
-                 , ':last_mdfd_user'     => getCurrentUserName()
+                 , ':last_mdfd_user'     => $user
                  )
             );
-        MailUpdateorAdd(FALSE, $title, $customer, $assignee);
-    }
-    
-    public function MailUpdateorAdd($isUpdate, $title, $customer, $assignee)
-    {
-        if ($isUpdate)
-        {
-            $subject = "Ticket Updated: " .$title;
-            $message = "The ticket has been updated.";
-        }
-        else
-        {
-            $subject = "Ticket Added: " .$title;
-            $message = "The ticket has been added.";
-        }
-        
-        $headers = "From: stpkiproject@gmail.com";
-        
-        // Sends email to the Customer
-        $this->query_GetEmail->execute(array( ':pid' => $customer));
-        $to = $this->query_GetEmail->fetch(0);
-        mail($to->email, $subject, $message, $headers);
-        
-        // Sends email to the Assignee
-        $this->query_GetEmail->execute(array( ':pid' => $assignee));
-        $to = $this->query_GetEmail->fetch(0);
-        mail($to->email, $subject, $message, $headers);
+        $this->MailUpdateorAdd(FALSE, $title, $customer, $assignee);
     }
 
     protected function SetUpQueries()

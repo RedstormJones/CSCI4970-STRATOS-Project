@@ -1,5 +1,4 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
 class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
@@ -20,7 +19,7 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
 
     public function Add_LifeCycle()
     {
-        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
         
         if ($name == '')
         {
@@ -29,15 +28,15 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
             exit;
         }
         
-        $timed = getParam( 'timed', '' ) == 'on';
-        $this->model->addLifecycle( $name, $timed );
+        $timed = $this->globals->getParam( 'timed', '' ) == 'on';
+        $this->model->addLifecycle( $name, $timed, $this->user );
         $this->startFresh();
     }
 
     public function Update_Lifecycle()
     {
-        $life_cycl_id = getParam( 'life_cycl_id', null );
-        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        $life_cycl_id = $this->globals->getParam( 'life_cycl_id', null );
+        $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
         
         if ($name == '')
         {
@@ -45,14 +44,14 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
             $this->view->renderBody($body);
             exit;
         }
-        $timed = getParam( 'timed', '' ) == 'on';
-        $this->model->updateLifecycle( $life_cycl_id, $name, $timed );
+        $timed = $this->globals->getParam( 'timed', '' ) == 'on';
+        $this->model->updateLifecycle( $life_cycl_id, $name, $timed, $this->user );
         $this->startFresh();
     }
 
     public function addOrUpdate( $isUpdate )
     {
-        $life_cycl_id   = $isUpdate ? getParam( 'original' ) : '';
+        $life_cycl_id   = $isUpdate ? $this->globals->getParam( 'original' ) : '';
         $name           = '';
         $timed          = false;
         if ( $isUpdate )

@@ -1,7 +1,5 @@
 <?php
-require_once('../../globals.php');
 require APP . 'model\Base_Model.php';
-
 
 class Login_Model Extends Base_Model
 {

@@ -1,5 +1,4 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'view\config\Ref_Config_Base_View.php';
 
 class Lifecycle_Config_View Extends Ref_Config_Base_View

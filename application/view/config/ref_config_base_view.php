@@ -1,5 +1,4 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'view\Base_View.php';
 
 class Ref_Config_Base_View Extends Base_View

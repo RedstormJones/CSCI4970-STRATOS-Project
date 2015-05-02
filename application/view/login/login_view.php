@@ -1,7 +1,5 @@
 <?php
-require_once("../../globals.php");
 include "..\Base_View.php";
-
 
 class Login_View Extends Base_View
 {

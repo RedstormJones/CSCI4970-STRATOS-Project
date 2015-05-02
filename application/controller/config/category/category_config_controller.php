@@ -1,5 +1,4 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
 class Category_Config_Controller Extends Ref_Config_Base_Controller
@@ -19,7 +18,7 @@ class Category_Config_Controller Extends Ref_Config_Base_Controller
 
     public function Add_Category()
     {
-        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
         
         if ($name == '')
         {
@@ -28,14 +27,14 @@ class Category_Config_Controller Extends Ref_Config_Base_Controller
             exit;
         }
         
-        $this->model->addCategory( $name );
+        $this->model->addCategory( $name, $this->user );
         $this->startFresh();
     }
 
     public function Update_Category()
     {
-        $cid = getParam( 'cid', null );
-        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        $cid = $this->globals->getParam( 'cid', null );
+        $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
         
         if ($name == '')
         {
@@ -43,13 +42,13 @@ class Category_Config_Controller Extends Ref_Config_Base_Controller
             $this->view->renderBody($body);
             exit;
         }
-        $this->model->updateCategory( $cid, $name );
+        $this->model->updateCategory( $cid, $name, $this->user );
         $this->startFresh();
     }
 
     public function addOrUpdate( $isUpdate )
     {
-        $cid        = $isUpdate ? getParam( 'original' ) : '';
+        $cid        = $isUpdate ? $this->globals->getParam( 'original' ) : '';
         $name       = $isUpdate ? $this->model->getCategory( $cid )->name : '';
         $this->view->renderAddOrUpdate( $isUpdate, $cid, $name );
    }
