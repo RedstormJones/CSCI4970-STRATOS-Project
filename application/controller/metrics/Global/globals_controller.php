@@ -23,7 +23,9 @@ class Globals_Controller Extends Base_Controller_Metrics
             $activeTickets_IEP[] = array( $priority, $count );
         }
 
-        $metrics[] = array($name, $activeTickets_IEP);
+        // Type 0 = Doughnut, Type 1 = Pie, Type 2 = Bar
+        $type = 0;
+        $metrics[] = array($type, $name, $activeTickets_IEP);
 
         #-----------------------------------#
         # New Tickets in last Month control #
@@ -42,7 +44,9 @@ class Globals_Controller Extends Base_Controller_Metrics
             $newTicketsInLastMonth_IEP[] = array( $priority, $count );
         }
         
-        $metrics[] = array($name, $newTicketsInLastMonth_IEP);
+        // Type 0 = Doughnut, Type 1 = Pie, Type 2 = Bar
+        $type = 2;
+        $metrics[] = array($type, $name, $newTicketsInLastMonth_IEP);
 
         #----------------------------------------#
         # Average non-active ticket time control #
@@ -61,7 +65,9 @@ class Globals_Controller Extends Base_Controller_Metrics
             $averageTicketTimeForNonActive_IEP[] = array( $priority, $time/$count );
         }
 
-        $metrics[] = array($name, $averageTicketTimeForNonActive_IEP);
+        // Type 0 = Doughnut, Type 1 = Pie, Type 2 = Bar
+        $type = 1;
+        $metrics[] = array($type, $name, $averageTicketTimeForNonActive_IEP);
         
         #------------------------------------------#
         # Average time estimate difference control #
@@ -81,7 +87,9 @@ class Globals_Controller Extends Base_Controller_Metrics
             $averageDifferenceTime_IEP[] = array( $priority, ($time-$expct)/$count );
         }
         
-        $metrics[] = array($name, $averageDifferenceTime_IEP);
+        // Type 0 = Doughnut, Type 1 = Pie, Type 2 = Bar
+        $type = 0;
+        $metrics[] = array($type, $name, $averageDifferenceTime_IEP);
 
         #-----------------------------------#
         # Send metrics data to the view for #
