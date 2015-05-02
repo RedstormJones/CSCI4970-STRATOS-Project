@@ -1,12 +1,18 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) 
 {
+<<<<<<< HEAD
    session_start();
 }
 
+=======
+	session_start();
+}
+>>>>>>> origin/dev
 define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 define('APP', ROOT . 'application' . DIRECTORY_SEPARATOR);
 include 'DBconnect.php';
+$URL_BASE = "http://127.0.0.1/";
 
 class Globals
 {
@@ -40,6 +46,7 @@ class Globals
         $contr->postCall( $succeeded );
     }
 
+<<<<<<< HEAD
     function getCurrentUserName()
     {
         return 'JVosik';
@@ -50,4 +57,9 @@ class Globals
         return 2;
     }
 }
+=======
+    $contr->postCall( $succeeded );
+}
+
+>>>>>>> origin/dev
 ?>

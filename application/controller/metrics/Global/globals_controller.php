@@ -89,7 +89,11 @@ class Globals_Controller Extends Base_Controller_Metrics
 
             $averageDifferenceTime_IEP[] = array( $priority, ($time-$expct)/$count );
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> origin/dev
         // Type 0 = Doughnut, Type 1 = Pie, Type 2 = Bar
         $type = 0;
         $metrics[] = array($type, $name, $averageDifferenceTime_IEP);

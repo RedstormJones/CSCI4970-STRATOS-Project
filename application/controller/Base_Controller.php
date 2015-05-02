@@ -1,6 +1,10 @@
 <?php
+<<<<<<< HEAD
 
 class Base_Controller extends Globals
+=======
+class Base_Controller
+>>>>>>> origin/dev
 {
 	protected $model;
 	protected $view;
@@ -9,13 +13,18 @@ class Base_Controller extends Globals
     protected $user;
     protected $pid;
 
+<<<<<<< HEAD
 
 	public function __construct(Base_Model $model, Base_View $view, Globals $globals, $index, $mustBeLoggedIn = true)
+=======
+	public function __construct(Base_Model $model, Base_View $view, $index, $mustBeLoggedIn = true)
+>>>>>>> origin/dev
 	{
 		$this->model = $model;
 		$this->view = $view;
         $this->globals = $globals;
 		$this->index = $index;
+<<<<<<< HEAD
         
         $this->user = $this->globals->getCurrentUserName();
         $this->pid = $this->globals->getCurrentUserPid();
@@ -31,6 +40,19 @@ class Base_Controller extends Globals
         }
     }
 
+=======
+		
+		if ( $mustBeLoggedIn )
+		{
+			if (!isset($_SESSION['pid']))
+			{
+				$URL_BASE= $GLOBALS["URL_BASE"];
+				$URL = $URL_BASE."application/view/login/login_index.php";
+				$this->simpleRedirect($URL);
+			}
+		}
+	}
+>>>>>>> origin/dev
 	public function noAction()
 	{
 		$this->view->renderBody("ERR: No action");
