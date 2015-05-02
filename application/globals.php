@@ -1,8 +1,12 @@
 <?php
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) 
+{
+	session_start();
+}
 define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 define('APP', ROOT . 'application' . DIRECTORY_SEPARATOR);
 include 'DBconnect.php';
+$URL_BASE = "http://127.0.0.1/";
 
 
 function getParam($param, $default = '' )
@@ -33,16 +37,6 @@ function handleURL($contr)
     }
 
     $contr->postCall( $succeeded );
-}
-
-function getCurrentUserName()
-{
-    return 'JVosik';
-}
-
-function getCurrentUserPid()
-{
-    return 2;
 }
 
 ?>

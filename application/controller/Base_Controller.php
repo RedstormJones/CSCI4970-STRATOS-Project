@@ -1,18 +1,26 @@
 <?php
-
 class Base_Controller
 {
 	protected $model;
 	protected $view;
 	protected $index;
 
-	public function __construct(Base_Model $model, Base_View $view, $index)
+	public function __construct(Base_Model $model, Base_View $view, $index, $mustBeLoggedIn = true)
 	{
 		$this->model = $model;
 		$this->view = $view;
 		$this->index = $index;
+		
+		if ( $mustBeLoggedIn )
+		{
+			if (!isset($_SESSION['pid']))
+			{
+				$URL_BASE= $GLOBALS["URL_BASE"];
+				$URL = $URL_BASE."application/view/login/login_index.php";
+				$this->simpleRedirect($URL);
+			}
+		}
 	}
-
 	public function noAction()
 	{
 		$this->view->renderBody("ERR: No action");

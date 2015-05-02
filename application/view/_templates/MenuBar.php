@@ -32,7 +32,7 @@ echo '<div id="cssmenu">
             <li class="has-sub"><a href=""><span>Account</span></a>
                 <ul> 
                     <li><a href="/application/view/account/account_index.php"><span>Account Settings</span></a></li>
-                    <li><a href="/application/view/login/login_index.php"><span>Logout</span></a> </li>
+                    <li><a id="logout" href="/application/view/logout/logout_index.php"><span>Logout</span></a> </li>
                 </ul>
             </li>
         </ul>
