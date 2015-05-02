@@ -110,11 +110,7 @@ class Globals_View Extends Base_View_Metrics
         {
             $chart = $charts[$i];
             $type = $chart[0];
-<<<<<<< HEAD
-           
-=======
-            
->>>>>>> origin/dev
+
             if ($type==1)
             {
                 $metrics .= '   var ctx = document.getElementById("chart-area' . $i . '").getContext("2d");'. "\n";
