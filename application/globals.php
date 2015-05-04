@@ -43,12 +43,12 @@ class Globals
 
     function getCurrentUserName()
     {
-        return 'JVosik';
+        return $_SESSION['user'];
     }
 
     function getCurrentUserPid()
     {
-        return 2;
+        return $_SESSION['pid'];
     }
 }
 ?>
