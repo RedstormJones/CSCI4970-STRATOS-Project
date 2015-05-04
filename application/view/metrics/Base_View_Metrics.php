@@ -6,7 +6,7 @@ class Base_View_Metrics Extends Base_View
 	public function renderMetrics($title, $charts, $additionalHeader = '')
 	{
         $metrics  = '<h3 "' . $title . '">' . $title . '</h3>' . "\n";
-        $metrics .= '<br><br><br><br>' . "\n";
+        $metrics .= '<br>' . "\n";
 
         $metrics .= $additionalHeader;
 
@@ -16,7 +16,7 @@ class Base_View_Metrics Extends Base_View
             $chart = $charts[$i];            
             $name = $chart->GetName();
 
-            $metrics .= '<h4 "' . $name . '">' . $name . '</h4>'. "\n";
+            $metrics .= '<h4 style="text-align:center;" "' . $name . '">' . $name . '</h4>'. "\n";
 
             $metrics .= '<br>'. "\n";
 
@@ -24,7 +24,7 @@ class Base_View_Metrics Extends Base_View
             $metrics .= '   <canvas id="chart-area' . $i . '" width="300" height="300"/>'. "\n";
 		    $metrics .= '</div>'. "\n";
 
-            $metrics .= '<br><br><br>'. "\n";
+            $metrics .= '<br><br><br><br><br>'. "\n";
         }
 
         $metrics .= '<script src="../Chart/Chart.js"></script>'. "\n";

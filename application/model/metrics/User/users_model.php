@@ -79,7 +79,7 @@ class Users_Model extends Base_Model_Metrics
 
         $this->sql_GetAverageDifferenceTime_IEP_ByUser = "
             SELECT
-                pri.name as NAME, SUM(tkt.last_open_time) as SUM_TIME, tkt.last_mdfd_tmst, SUM(tkt.expct_hours) as SUM_EXPCT, COUNT(*) as COUNT
+                pri.name as NAME, SUM(tkt.last_open_time) as SUM_TIME, SUM(tkt.expct_hours) as SUM_EXPCT, COUNT(*) as COUNT
             FROM
                 StTktInst tkt
             INNER JOIN
