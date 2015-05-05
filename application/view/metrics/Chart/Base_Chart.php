@@ -4,16 +4,17 @@ abstract class Base_Chart
 {
     protected $data;
     protected $name;
-    protected static $colorValues = array(  array("#F7464A", "#FF5A5E")
-								         , array("#46BFBD", "#5AD3D1")
-								         , array("#FDB45C", "#FFC870")
-								         , array("#949FB1", "#A8B3C5")
-								         , array("#4D5360", "#616774")
-								         , array("#3366CC", "#5C85D6")
-								         , array("#9900FF", "#B84DFF")
-								         , array("#00FF99", "#4DFFB8")
-								         , array("#FF7519", "#FF9147")
-								         , array("#191975", "#474791") );
+    protected static $colorValues = array( array("#F7464A", "#FF5A5E")  #0 RED
+								         , array("#46BFBD", "#5AD3D1")  #1 SKY BLUE 
+								         , array("#FDB45C", "#FFC870")  #2 LIGHT ORANGE
+								         , array("#949FB1", "#A8B3C5")  #3 GRAY
+								         , array("#4D5360", "#616774")  #4 DARK GRAY
+								         , array("#3366CC", "#5C85D6")  #5 BLUE
+								         , array("#9900FF", "#B84DFF")  #6 PURPLE
+								         , array("#00FF99", "#4DFFB8")  #7 SEAFOAM GREEN
+								         , array("#FF7519", "#FF9147")  #8 ORANGE
+								         , array("#191975", "#474791")  #9 NAVY BLUE
+                                         );
 
     public function __construct( $name, $data = array() )
     {

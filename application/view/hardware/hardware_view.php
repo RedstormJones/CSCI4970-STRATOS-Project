@@ -6,16 +6,22 @@ class Hardware_View Extends Base_View
     public function renderHardware($hardwarelist, $start)
     {
         $body  = '<h3 title="All Active Hardware">All Active Hardware</h3>';
-        $body .= '<div class="pull-right">
-                <form class="form-inline" role="form">
-                    <div class="form-group">
-                        <label class="sr-only" for="search-text">Search Hardware :</label>
-                        <input type="text" id="search-text" placeholder="Enter Hardware #">
-                        <button type="button" id="search-btn">Search</button>
-                    </div>
-                </form>
-            </div>';
-        $body .= "<br><br><br>";
+        
+        #---------------------------------------------------#
+        # Uncomment the addition to $body below to make the #
+        # search bar appear on the STRATOS Hardware page    #
+        #---------------------------------------------------#        
+        #$body .= '<div class="pull-right">
+        #        <form class="form-inline" role="form">
+        #            <div class="form-group">
+        #                <label class="sr-only" for="search-text">Search Hardware :</label>
+        #                <input type="text" id="search-text" placeholder="Enter Hardware #">
+        #                <button type="button" id="search-btn">Search</button>
+        #            </div>
+        #        </form>
+        #    </div>';
+        
+        $body .= "<br><br>";
 
         $body .= '<table>';
         $body .= '  <tr>';

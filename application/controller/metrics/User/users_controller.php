@@ -56,7 +56,7 @@ class Users_Controller Extends Base_Controller_Metrics
         }
         $metrics[] = new Bar_Chart( $name, $nonActiveTicketsTime_IEP );
 
-        $name = "Average Estimate Variation [Non-Active Tickets]  -  " . $userName;
+        $name = "Average Estimate Difference [Non-Active Tickets]  -  " . $userName;
         $averageDifferenceTime_IEP = array();
         $results = $this->model->GetAverageDifferenceTime_IEP_ByUser( $user );
         foreach( $results as $result )
