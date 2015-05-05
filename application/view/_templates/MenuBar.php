@@ -26,6 +26,7 @@ echo '<div id="cssmenu">
                     <li><a href="/application/view/config/category/category_config_index.php"><span>Category</span></a></li>
                     <li><a href="/application/view/config/lifecycle/lifecycle_config_index.php"><span>Lifecycle</span></a></li>
                     <li><a href="/application/view/config/priority/priority_config_index.php"><span>Priority</span></a></li>
+                    <li><a href="/application/view/config/primtx/primtx_config_index.php"><span>Priority Matrix</span></a></li>
                     <li><a href="/application/view/config/severity/severity_config_index.php"><span>Severity</span></a></li>
                 </ul>
             </li>
