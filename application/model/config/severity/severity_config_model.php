@@ -5,7 +5,7 @@ class Severity_Config_Model Extends Ref_Config_Base_Model
 {
     public function __construct()
     {
-        parent::__construct( 'StSvrLvlConf', 'severity', 'name' );
+        parent::__construct( 'StSvrLvlConf' );
     }
 
     protected function updateReferences( $old, $new, $user )
