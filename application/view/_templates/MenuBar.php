@@ -5,8 +5,11 @@ echo '<div id="cssmenu">
             <li>
                 <a href="/application/view/home/home_index.php"><span>Home</span></a>
             </li>
-            <li>
-                <a href="/application/view/tickets/tickets_index.php"><span>Tickets</span></a>
+            <li class="has-sub"><a href=""><span>Tickets</span></a>
+                <ul> 
+                    <li><a href="/application/view/tickets/tickets_index.php"><span>Global Tickets</span></a></li>
+                    <li><a href="/application/view/ticketsUsers/ticketsUsers_index.php"><span>User Tickets</span></a></li>
+                </ul>
             </li>
             <li class="has-sub"><a href=""><span>Inventory</span></a>
                 <ul> 

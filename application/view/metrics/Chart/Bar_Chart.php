@@ -49,7 +49,7 @@ class Bar_Chart extends Base_Chart
     public function GetJavaScript_CreateChart( $var_idx )
     {
         $js                 = '         var ctx                      = document.getElementById("chart-area' . $var_idx . '").getContext("2d");'. "\n";
-        $js                .= '         window.Chart' . $var_idx . ' = new Chart(ctx).Bar(data' . $var_idx . ')'. "\n";
+        $js                .= '         window.Chart' . $var_idx . ' = new Chart(ctx).Bar(data' . $var_idx . ', {scaleBeginAtZero : false})'. "\n";
         return $js;
     }
 }
