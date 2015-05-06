@@ -3,6 +3,8 @@ require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
 class Primtx_Config_Controller Extends Ref_Config_Base_Controller
 {
+    # Gets data for the Priority Matrix configuration 
+    # form and instructs the view to render it
    	public function noAction()
     {
         $resultList = $this->model->queryForm();
@@ -24,6 +26,7 @@ class Primtx_Config_Controller Extends Ref_Config_Base_Controller
         $this->view->renderForm( $formElements );
     }
 
+    # Removes the original Priority Matrix data from the database
     public function Delete()
     {
         $ids        = $this->getIds( $this->globals->getParam('original') );
@@ -36,6 +39,9 @@ class Primtx_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
+    # Validates user-added Priority Matrix data and instructs the 
+    # model to update the database, then calls startFresh()
+    # to show the new Priority Matrix configuration changes
     public function Add_Entry()
     {
         $aff_level = $this->globals->getParam( 'AffMenu', null );
@@ -48,6 +54,9 @@ class Primtx_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
+    # Validates modified Priority Matrix data and instructs the 
+    # model to update the database, then calls startFresh()
+    # to show the new Priority Matrix configuration changes
     public function Update_Entry()
     {
         $aff_level = $this->globals->getParam( 'AffMenu', null );
@@ -60,6 +69,8 @@ class Primtx_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
+    # Gets the Priority Matrix configuration data using the model
+    # and renders the data to the webpage using the view
     public function addOrUpdate( $isUpdate )
     {
         $ids        = $isUpdate ? $this->getIds( $this->globals->getParam("original") ) : array('','','');
@@ -97,6 +108,7 @@ class Primtx_Config_Controller Extends Ref_Config_Base_Controller
         $this->view->renderAddOrUpdate( $isUpdate, $aff_levels, $severities, $priorities, $aff_level, $severity, $priority );
     }
 
+    # Gets the Priority IDs of the original Priorty Matrix
     protected function getIds( $original )
     {
         return explode( '|' , $original );
