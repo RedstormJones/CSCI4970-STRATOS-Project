@@ -3,12 +3,10 @@ require APP . 'model\Base_Model.php';
 
 class Ref_Config_Base_Model Extends Base_Model
 {
-    public function __construct( $table, $prikey_col, $label_col )
+    public function __construct( $table )
     {
         $this->table = $table;
-        $this->prikey_col = $prikey_col;
-        $this->label_col = $label_col;
-
+        
         parent::__construct();
     }
 
