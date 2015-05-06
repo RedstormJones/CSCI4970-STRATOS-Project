@@ -43,12 +43,18 @@ class Globals
 
     function getCurrentUserName()
     {
-        return $_SESSION['user'];
+        if(isset($_SESSION['user']))
+        {
+            return $_SESSION['user'];    
+        }
     }
 
     function getCurrentUserPid()
     {
-        return $_SESSION['pid'];
+        if(isset($_SESSION['pid']))
+        {
+            return $_SESSION['pid'];    
+        }
     }
 }
 ?>

@@ -5,7 +5,7 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
 {
     public function __construct()
     {
-        parent::__construct( 'StLfeCyclConf' );
+        parent::__construct( 'StLfeCyclConf', 'life_cycl_id', 'name' );
     }
 
     protected function updateReferences( $old, $new, $user )

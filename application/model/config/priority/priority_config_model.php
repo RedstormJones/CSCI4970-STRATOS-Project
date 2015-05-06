@@ -5,7 +5,7 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
 {
     public function __construct()
     {
-        parent::__construct( 'StPriConf' );
+        parent::__construct( 'StPriConf', 'priority', 'name' );
     }
 
     protected function deleteReferences( $old, $user )
