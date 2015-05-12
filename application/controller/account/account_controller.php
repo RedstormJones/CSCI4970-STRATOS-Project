@@ -3,8 +3,10 @@ require APP . 'controller\Base_Controller.php';
 
 class Account_Controller Extends Base_Controller
 {
-    # Aggregates user data for the currently logged on user and 
-    # instructs the view to render it to the webpage
+    #-------------------------------------------------------#
+    # Aggregates user data for the currently logged on user # 
+    # and instructs the view to render it to the webpage    #
+    #-------------------------------------------------------#
 	public function showUserSettings()
 	{
 		$_pid               = $_SESSION['pid'];
@@ -28,15 +30,19 @@ class Account_Controller Extends Base_Controller
         $this->view->renderForm($_pid, $fname, $lname, $user, $email, $rows);
     }
 
-    # directs control to display the user's settings
+    #------------------------------------------------#
+    # directs control to display the user's settings #
+    #------------------------------------------------#
     public function noAction()
     {
         $this->showUserSettings();
     }
     
-    # Executed from within the account settings view.
-    # Pulls in the data and validates it, then instructs
-    # the model to update the database.
+    #----------------------------------------------------#
+    # Executed from within the account settings view.    #
+    # Pulls in the data and validates it, then instructs #
+    # the model to update the database.                  #
+    #----------------------------------------------------#
     public function Update_Account_Settings()
     {
         $pid                = $this->globals->getParam("pid");

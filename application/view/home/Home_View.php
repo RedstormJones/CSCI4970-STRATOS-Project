@@ -3,10 +3,12 @@ require APP . 'view\Base_View.php';
 
 class Home_View Extends Base_View
 {
-    # Renders the pagebody component of the Home webpage. Uses
-    # the inherited renderBody() method from Base_View.
-    # Also has code for rendering a search bar however it is
-    # not functional at this time.
+    #----------------------------------------------------------#
+    # Renders the pagebody component of the Home webpage. Uses #
+    # the inherited renderBody() method from Base_View.        #
+    # Also has code for rendering a search bar however it is   #
+    # not functional at this time.                             #
+    #----------------------------------------------------------#
 	public function renderHome($body)
 	{
         #------------------------------------------------#

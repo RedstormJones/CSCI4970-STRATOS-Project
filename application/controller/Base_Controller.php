@@ -11,19 +11,24 @@ class Base_Controller extends Globals
 
 	public function __construct(Base_Model $model, Base_View $view, Globals $globals, $index, $mustBeLoggedIn = true)
 	{
-        # setup 
+        #-------------------#
+        # setup application #
+        #-------------------#
 		$this->model = $model;
 		$this->view = $view;
         $this->globals = $globals;
 		$this->index = $index;
         
-        # Username and pid of currently logged on user
+        #----------------------------------------------#
+        # Username and pid of currently logged on user #
+        #----------------------------------------------#
         $this->user = $this->globals->getCurrentUserName();
         $this->pid = $this->globals->getCurrentUserPid();
 
-
-        # Checks if the session index 'pid' is set. 
-        # If not then kick user to the login page
+        #------------------------------------------#
+        # Checks if the session index 'pid' is set #
+        # If not then kick user to the login page  #
+        #------------------------------------------#
         if ( $mustBeLoggedIn )
         {
             if (!isset($_SESSION['pid']))
@@ -35,31 +40,41 @@ class Base_Controller extends Globals
         }
     }
 
-    # fall back method for catching errors
+    #--------------------------------------#
+    # fall back method for catching errors #
+    #--------------------------------------#
 	public function noAction()
 	{
 		$this->view->renderBody("ERR: No action");
 	}
 
-    # tell view to render the webpage using $body for the pagebody component
+    #------------------------------------------------------------------------#
+    # tell view to render the webpage using $body for the pagebody component #
+    #------------------------------------------------------------------------#
 	public function renderBody($body)
 	{
 		$this->view->renderBody($body);
 	}
 
-    # enables URL redirection for controllers
+    #-----------------------------------------#
+    # enables URL redirection for controllers #
+    #-----------------------------------------#
 	public function simpleRedirect( $url )
 	{
 		echo '<script type="text/javascript"> window.location.href = "' . $url . '" </script>';
     }
 
-    # Calls simpleRedirect() on itself to refresh page
+    #--------------------------------------------------#
+    # Calls simpleRedirect() on itself to refresh page #
+    #--------------------------------------------------#
 	public function startFresh()
 	{
 		$this->simpleRedirect( $this->index );
 	}
 
-    # the following two methods are used for general data validation
+    #----------------------------------------------------------------#
+    # the following two methods are used for general data validation #
+    #----------------------------------------------------------------#
     public function validateInputNotEmpty( $data )
     {
         $data = $this->validateInput( $data );
@@ -87,8 +102,10 @@ class Base_Controller extends Globals
         return $data;
     }
 
-    # preCall() and postCall() establish 
-    # transaction start and stop events
+    #------------------------------------#
+    # preCall() and postCall() establish #
+    # transaction start and stop events  #
+    #------------------------------------#
     public function preCall()
     {
         $this->model->startTransaction();
@@ -99,7 +116,9 @@ class Base_Controller extends Globals
         $this->model->endTransaction( $succeeded );
     }
 
-    # displays error message in webpage body
+    #----------------------------------------#
+    # displays error message in webpage body #
+    #----------------------------------------#
     public function handleException( $e )
     {
         $this->renderBody( $e );

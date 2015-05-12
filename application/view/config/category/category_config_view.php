@@ -3,6 +3,10 @@ require APP . 'view\config\Ref_Config_Base_View.php';
 
 class Category_Config_View Extends Ref_Config_Base_View
 {
+    #-------------------------------------------#
+    # displays configurable information for the #
+    # Category options on service tickets       #
+    #-------------------------------------------#
     public function renderForm( $recordList )
     {
         $description = "<br><br>This form changes the 'Category' options available when creating or updating work tickets.<br><br>
@@ -15,6 +19,10 @@ class Category_Config_View Extends Ref_Config_Base_View
         $this->renderBaseForm( $recordList, $description, '' );    
     }
 
+    #----------------------------------------------------#
+    # allows users to add new ticket Category options or #
+    # reassign current Category options to other values  #
+    #----------------------------------------------------#
     public function renderAddOrUpdate( $isUpdate, $cid, $name )
     {
         $body = "<br><br><br>"; 

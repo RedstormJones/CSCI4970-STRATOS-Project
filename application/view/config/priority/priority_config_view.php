@@ -3,6 +3,10 @@ require APP . 'view\config\Ref_Config_Base_View.php';
 
 class Priority_Config_View Extends Ref_Config_Base_View
 {
+    #-------------------------------------------#
+    # displays configurable information for the #
+    # Priority options on service tickets       #
+    #-------------------------------------------#
     public function renderForm( $recordList )
     {
         $description = "<br><br>This form changes the 'Priority' options available when creating or updating work tickets.<br><br>
@@ -15,6 +19,10 @@ class Priority_Config_View Extends Ref_Config_Base_View
         $this->renderBaseForm( $recordList, $description, '' );
     }
 
+    #----------------------------------------------------#
+    # allows users to add new ticket Priority options or #
+    # reassign current Priority options to other values  #
+    #----------------------------------------------------#
     public function renderAddOrUpdate( $isUpdate, $priority, $name )
     {
         $body = "<br><br><br>"; 

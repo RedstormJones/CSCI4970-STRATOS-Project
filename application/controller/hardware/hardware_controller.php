@@ -3,11 +3,19 @@ require APP . 'controller\Base_Controller.php';
 
 class Hardware_Controller Extends Base_Controller
 {
+    #----------------------------------#
+    # Redirects application control to #
+    # the showAllHardware() method     #
+    #----------------------------------#
     public function noAction()
     {
         $this->showAllHardware(0);
     }
 
+    #---------------------------------------#
+    # Creates the array of hardware objects #
+    # to render in the hardware view        #
+    #---------------------------------------#
     public function showAllHardware($start)
     {
             $hardware_objects = $this->model->showAllHardware($start);
@@ -29,6 +37,9 @@ class Hardware_Controller Extends Base_Controller
             $this->view->renderHardware($rows, $start);
     }
     
+    #-----------------------------------------------------#
+    # Renders the next 10 hardware objects to the webpage #
+    #-----------------------------------------------------#
     public function Next()
     {
         $start = (int)$this->globals->getParam( 'start' , 0 );
@@ -41,6 +52,9 @@ class Hardware_Controller Extends Base_Controller
         $this->showAllHardware( $start );
     }
 
+    #-----------------------------------------------------#
+    # Renders the last 10 hardware objects to the webpage #
+    #-----------------------------------------------------#
     public function Previous()
     {
         $start = (int)$this->globals->getParam( 'start' , 10 ) - 10;
@@ -48,11 +62,17 @@ class Hardware_Controller Extends Base_Controller
         $this->showAllHardware( $start );
     }
 
+    #---------------------------------------------------#
+    # Commands the view to render the add Hardware form #
+    #---------------------------------------------------#
     public function New_Hardware()
     {
         $this->view->renderForm( false );
     }
-   
+
+    #------------------------------------------------------#
+    # Commands the view to render the update Hardware form #
+    #------------------------------------------------------#
     public function Update()
     {
         $eid = $this->globals->getParam('eid');
@@ -69,26 +89,44 @@ class Hardware_Controller Extends Base_Controller
                                , $hardware->status
                                );
     }
-            
+
+    #-------------------------------------#
+    # Validates the new Hardware data and #
+    # refreshes the application           #
+    #-------------------------------------#
     public function Add_Hardware()
     {
         $this->validateHardware( false );
         $this->startFresh();
     }
-    
+
+    #-------------------------------------#
+    # Validates the updated Hardware data #
+    # and refreshes the application       #
+    #-------------------------------------#
     public function Update_Hardware()
     {
         $this->validateHardware( true );
         $this->startFresh();
     }
     
+    #--------------------------------------------------#
+    # Commands the model to mark the Hardware entry in #
+    # the database corresponding to the given eid as   #
+    # removed, then refreshes the application          #
+    #--------------------------------------------------#
     public function Delete_Hardware()
     {
         $eid = $this->globals->getParam( 'eid' );
         $this->model->deleteHardware( $eid, $this->user );
         $this->startFresh();
     }
-        
+
+    #--------------------------------------------------------#
+    # Validates the new / updated Hardware data and commands #
+    # the model to update the data or insert it as new, then #
+    # refreshes the application                              #
+    #--------------------------------------------------------# 
     public function validateHardware( $isUpdate )
     {
         $eid       = $this->globals->getParam('eid',null);

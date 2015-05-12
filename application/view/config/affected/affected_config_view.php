@@ -3,6 +3,10 @@ require APP . 'view\config\Ref_Config_Base_View.php';
 
 class Affected_Config_View Extends Ref_Config_Base_View
 {
+    #-------------------------------------------#
+    # displays configurable information for the #
+    # Affected Level options on service tickets #
+    #-------------------------------------------#
     public function renderForm( $recordList )
     {
         $description = "<br><br>This form changes the 'Affected Level' options available when creating or updating work tickets.
@@ -16,6 +20,10 @@ class Affected_Config_View Extends Ref_Config_Base_View
         $this->renderBaseForm( $recordList, $description );
     }
     
+    #----------------------------------------------------------#
+    # allows users to add new ticket Affected level options or #
+    # reassign current Affected Level options to other values  #
+    #----------------------------------------------------------#
     public function renderAddOrUpdate( $isUpdate, $aff_level, $name )
     {
         $body = "<br><br><br>"; 

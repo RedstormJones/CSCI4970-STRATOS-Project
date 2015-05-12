@@ -2,6 +2,9 @@
 include_once "Base_Chart.php";
 class Line_Chart extends Base_Chart
 {
+    #----------------------------------------#
+    # Sets up the dataset for the line chart #
+    #----------------------------------------#
     public function GetJavaScript_DataSet( $var_idx )
     {
         $count_data         = count($this->data);
@@ -45,6 +48,9 @@ class Line_Chart extends Base_Chart
         return $js;
     }
 
+    #------------------------#
+    # Creates the line chart #
+    #------------------------#
     public function GetJavaScript_CreateChart( $var_idx )
     {
         $js                 = '         var ctx                      = document.getElementById("chart-area' . $var_idx . '").getContext("2d");'. "\n";

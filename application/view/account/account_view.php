@@ -3,6 +3,8 @@ require APP . 'view\Base_View.php';
 
 class Account_View Extends Base_View
 {
+    # displays configurable information for the currently logged 
+    # on user and allows the user to change this information
     public function renderForm($pid, $fname, $lname, $user, $email, $phones)
     {
         $body = '<h3 title="Current User Information">Current ' . $user .' Information</h3>';

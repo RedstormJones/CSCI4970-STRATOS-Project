@@ -1,5 +1,8 @@
 <?php
-
+#--------------------------------------------------------#
+# Inherited class used by *_Chart.php files for creating #
+# and configuring charts for displaying STRATOS metrics  #
+#--------------------------------------------------------#
 abstract class Base_Chart
 {
     protected $data;

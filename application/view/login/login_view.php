@@ -3,6 +3,10 @@ include "..\Base_View.php";
 
 class Login_View Extends Base_View
 {
+        #-----------------------------------------------------#
+        # creates the html for displaying the login and then  #
+        # echos the html to actually render it on the webpage #
+        #-----------------------------------------------------#
 	public function showLogin()
 	{
         $body  = '<link rel="stylesheet" type="text/css" href="/public/css/style.css" />';

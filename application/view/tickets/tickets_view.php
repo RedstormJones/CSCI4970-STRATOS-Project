@@ -3,6 +3,11 @@ include "..\Base_View.php";
 
 class Tickets_View Extends Base_View
 {
+    #-------------------------------------------------------#
+    # creates the html to display the tickets, then sends   #
+    # the html to renderBody() in the base view to actually #
+    # render the html to the webpage                        #
+    #-------------------------------------------------------#
     public function renderTickets($ticketlist, $start)
     {
         $body = '<h3 "All Service Tickets">All Service Tickets</h3>';
@@ -69,6 +74,10 @@ class Tickets_View Extends Base_View
         $this->renderBody($body);
     }
 
+    #-----------------------------------------------#
+    # Creates the html for the drop down lists used #
+    # to set / update service ticket options        #
+    #-----------------------------------------------#
     public function renderDropdown($elementName, $label, $tuples, $selected)
     {
         $b = '<label style="margin-left: 15%" for="select">' . $label . '</label>';
@@ -89,6 +98,12 @@ class Tickets_View Extends Base_View
         return $b;
     }
 
+    #----------------------------------------------------------#
+    # Creates the html for the add / update tickets form which #
+    # makes use of the renderDropDown() method defined above.  #
+    # Then sends the html to the renderBody() method in the    #
+    # Base_View file for actual rendering to the webpage.      #
+    #----------------------------------------------------------#
     public function renderForm( $persons
                               , $users
                               , $categories

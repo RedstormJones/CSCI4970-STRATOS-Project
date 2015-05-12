@@ -3,6 +3,10 @@ require APP . 'view\Base_View.php';
 
 class Ref_Config_Base_View Extends Base_View
 {
+    #---------------------------------------------------------#
+    # used to render the actual html form for Affected Level, #
+    # Category, Priority, and Severity configurations         #
+    #---------------------------------------------------------#
     public function renderBaseForm( $recordList, $description )
     {
         $body                            = '<form id="Existing" name="DeleteOrUpdate" method="get" class="dark-matter" action="">';

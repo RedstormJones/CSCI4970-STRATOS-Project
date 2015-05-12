@@ -3,8 +3,10 @@ require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
 class Category_Config_Controller Extends Ref_Config_Base_Controller
 {
-    # gets data for the Category Configuration 
-    # form and instructs the view to render it
+    #------------------------------------------#
+    # gets data for the Category Configuration #
+    # form and instructs the view to render it #
+    #------------------------------------------#
    	public function noAction()
     {
         $resultList = $this->model->queryForm();
@@ -18,9 +20,11 @@ class Category_Config_Controller Extends Ref_Config_Base_Controller
         $this->view->renderForm( $formElements );
     }
 
-    # Validates user-added category and instructs the 
-    # model to update the database, then calls startFresh()
-    # to show the new Category configuration changes
+    #-------------------------------------------------------#
+    # Validates user-added category and instructs the       #
+    # model to update the database, then calls startFresh() #
+    # to show the new Category configuration changes        #
+    #-------------------------------------------------------#
     public function Add_Category()
     {
         $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
@@ -36,9 +40,11 @@ class Category_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    # Validates modified Category data and instructs the 
-    # model to update the database, then calls startFresh()
-    # to show the new Category configuration changes
+    #-------------------------------------------------------#
+    # Validates modified Category data and instructs the    #
+    # model to update the database, then calls startFresh() #
+    # to show the new Category configuration changes        #
+    #-------------------------------------------------------#
     public function Update_Category()
     {
         $cid = $this->globals->getParam( 'cid', null );
@@ -54,8 +60,10 @@ class Category_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    # Gets the Category configuration data using the model
-    # and renders the data to the webpage using the view
+    #------------------------------------------------------#
+    # Gets the Category configuration data using the model #
+    # and renders the data to the webpage using the view   #
+    #------------------------------------------------------#
     public function addOrUpdate( $isUpdate )
     {
         $cid        = $isUpdate ? $this->globals->getParam( 'original' ) : '';

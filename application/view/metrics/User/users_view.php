@@ -3,6 +3,14 @@ require APP . 'view\metrics\Base_View_Metrics.php';
 
 class Users_View Extends Base_View_Metrics
 {
+    #----------------------------------------------#
+    # Creates the buttons on the User Metrics page #
+    # for viewing metrics particular to one of the #
+    # systems users, then sends this preconfigured #
+    # html to the renderMetrics() in the           #
+    # Base_View_Metrics file for actual rendering  #
+    # to the webpage                               #
+    #----------------------------------------------#
 	public function renderUserMetrics( $charts, $currentUser, $userList )
 	{
         $userButtons = '<br>';

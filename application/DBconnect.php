@@ -1,6 +1,11 @@
 <?php
 require APP . 'config/configuration.php';
 
+	#-------------------------------------------------#
+	# Creates an instance of the database connection  #
+	# which can be extended to all models, instead of #
+	# having each model create it's own connection 	  #
+	#-------------------------------------------------#
 	class DBconnect
 	{
 		private static $instance = NULL;

@@ -3,6 +3,10 @@ require APP . 'view\config\Ref_Config_Base_View.php';
 
 class Primtx_Config_View Extends Ref_Config_Base_View
 {
+    #-----------------------------------#
+    # displays configurable information #
+    # for the Priority Matrix options   #
+    #-----------------------------------#
     public function renderForm( $recordList )
     {
         $description = "<br><br>This form changes the association between Affected Level and Severity to their respective Priority for tickets.<br><br>
@@ -17,6 +21,10 @@ class Primtx_Config_View Extends Ref_Config_Base_View
         $this->renderBaseForm( $recordList, $description );
     }
 
+    #-----------------------------------------#
+    # displays the actual html form for       #
+    # configuring the Priority Matrix options #
+    #-----------------------------------------#
     public function renderBaseForm( $recordList, $description )
     {
         $body                            = '<form id="Existing" name="DeleteOrUpdate" method="get" class="dark-matter" action="">';
@@ -67,6 +75,10 @@ class Primtx_Config_View Extends Ref_Config_Base_View
         $this->renderBody( $body );
     }
 
+    #-------------------------------------------------------#
+    # allows users to create new Priority Matrix options or #
+    # reassign current options to other existing values     #
+    #-------------------------------------------------------#
     public function renderAddOrUpdate( $isUpdate, $aff_levels, $severities, $priorities, $aff_level, $severity, $priority )
     {
         $body  = '<br><br><br>'; 

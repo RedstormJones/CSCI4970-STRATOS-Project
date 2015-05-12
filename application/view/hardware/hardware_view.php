@@ -3,6 +3,11 @@ require APP . 'view\Base_View.php';
 
 class Hardware_View Extends Base_View
 {
+	#-------------------------------------------------#
+	# creates the html to display the hardware, then  #
+	# sends the html to renderBody() in the base view #
+	# to actually render the html to the webpage	  #
+	#-------------------------------------------------#
     public function renderHardware($hardwarelist, $start)
     {
         $body  = '<h3 title="All Active Hardware">All Active Hardware</h3>';
@@ -76,6 +81,11 @@ class Hardware_View Extends Base_View
         $this->renderBody($body);
     }
 
+	#------------------------------------------------#
+    # creates the html for the add / update hardware #
+    # form, then sends the html to renderBody() in 	 #
+    # the base view to render it to the webpage		 #
+    #------------------------------------------------#
     public function renderForm($isUpdate
                                 , $eid = ''
                                 , $name = ''

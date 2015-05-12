@@ -2,6 +2,9 @@
 include_once "Base_Chart.php";
 class Doughnut_Chart extends Base_Chart
 {
+    #--------------------------------------------#
+    # Sets up the dataset for the doughnut chart #
+    #--------------------------------------------#
     public function GetJavaScript_DataSet( $var_idx )
     {
         $js                 = '   var data' . $var_idx . ' = ' . "\n";
@@ -28,6 +31,9 @@ class Doughnut_Chart extends Base_Chart
         return $js;
     }
 
+    #----------------------------#
+    # Creates the doughnut chart #
+    #----------------------------#
     public function GetJavaScript_CreateChart( $var_idx )
     {
         $js                 = '         var ctx                      = document.getElementById("chart-area' . $var_idx . '").getContext("2d");'. "\n";

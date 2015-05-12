@@ -3,6 +3,10 @@ require APP . 'view\config\Ref_Config_Base_View.php';
 
 class Lifecycle_Config_View Extends Ref_Config_Base_View
 {
+    #-------------------------------------------#
+    # displays configurable information for the #
+    # Lifecycle options on service tickets      #
+    #-------------------------------------------#
     public function renderForm( $recordList )
     {
         $description = "<br><br>This form changes the 'Lifecyle' options available when creating or updating work tickets. <br><br>
@@ -15,6 +19,10 @@ class Lifecycle_Config_View Extends Ref_Config_Base_View
         $this->renderBaseForm( $recordList, $description );
     }
 
+    #-----------------------------------------------#
+    # displays the actual html form for configuring #
+    # the Lifecycle options on service tickets      #
+    #-----------------------------------------------#
     public function renderBaseForm( $recordList, $description )
     {
         $body                            = '<form id="Existing" name="DeleteOrUpdate" method="get" class="dark-matter" action="">';
@@ -70,6 +78,10 @@ class Lifecycle_Config_View Extends Ref_Config_Base_View
         $this->renderBody( $body );
     }
 
+    #-----------------------------------------------------#
+    # allows users to add new ticket Lifecycle options or #
+    # reassign current Lifecycle options to other values  #
+    #-----------------------------------------------------#
     public function renderAddOrUpdate( $isUpdate, $life_cycl_id, $name, $timed )
     {
         $body  = '<br><br><br>'; 

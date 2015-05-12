@@ -3,6 +3,17 @@ require APP . 'view\Base_View.php';
 
 class Base_View_Metrics Extends Base_View
 {
+    #----------------------------------------------------#
+    # Creates the html for displaying the metrics charts #
+    # for both global and user based metrics. To create  #
+    # the metrics charts, this view makes use of the     #
+    # following methods in the PHP chart file            #
+    # corresponding to the chart name value set with     #
+    # $name=$chart->GetName() :                          #
+    #                                                    #
+    #       GetJavaScript_DataSet()                      #
+    #       GetJavaScript_CreateChart()                  #
+    #----------------------------------------------------#
 	public function renderMetrics($title, $charts, $additionalHeader = '')
 	{
         $metrics  = '<h3 "' . $title . '">' . $title . '</h3>' . "\n";
