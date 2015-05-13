@@ -3,10 +3,10 @@ require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
 class Primtx_Config_Controller Extends Ref_Config_Base_Controller
 {
-    #-------------------------------------------------#
-    # Gets data for the Priority Matrix configuration # 
-    # form and instructs the view to render it        #
-    #-------------------------------------------------#
+    /**
+    * Uses the model to get data for rendering the Priority Matrix configuration form.
+    * Then commands the view to render the form to the webpage
+    */
    	public function noAction()
     {
         $resultList = $this->model->queryForm();
@@ -43,11 +43,11 @@ class Primtx_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    #-------------------------------------------------------------#
-    # Validates user-added Priority Matrix data and instructs the #
-    # model to update the database, then calls startFresh()       #
-    # to show the new Priority Matrix configuration changes       #
-    #-------------------------------------------------------------#
+    /**
+    * Validates user-added Priority Matrix data and instructs the model 
+    * to update the database, then calls startFresh() to show the new 
+    * Priority Matrix configuration changes
+    */
     public function Add_Entry()
     {
         $aff_level = $this->globals->getParam( 'AffMenu', null );
@@ -60,11 +60,11 @@ class Primtx_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    #-----------------------------------------------------------#
-    # Validates modified Priority Matrix data and instructs the #
-    # model to update the database, then calls startFresh()     #
-    # to show the new Priority Matrix configuration changes     #
-    #-----------------------------------------------------------#
+    /**
+    * Validates modified Priority Matrix data and instructs the model 
+    * to update the database, then calls startFresh() to show the new 
+    * Priority Matrix configuration changes
+    */
     public function Update_Entry()
     {
         $aff_level = $this->globals->getParam( 'AffMenu', null );
@@ -77,10 +77,12 @@ class Primtx_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    #-------------------------------------------------------------#
-    # Gets the Priority Matrix configuration data using the model #
-    # and renders the data to the webpage using the view          #
-    #-------------------------------------------------------------#
+    /**
+    * Enumerates the original Priority Matrix configuration data and the new or udpated
+    * Priority Matrix configuration data and commands the view to render it to the webpage
+    *
+    * @param $isUpdate : Boolean (specifies whether the data is new or is an update)
+    */
     public function addOrUpdate( $isUpdate )
     {
         $ids        = $isUpdate ? $this->getIds( $this->globals->getParam("original") ) : array('','','');
@@ -118,9 +120,13 @@ class Primtx_Config_Controller Extends Ref_Config_Base_Controller
         $this->view->renderAddOrUpdate( $isUpdate, $aff_levels, $severities, $priorities, $aff_level, $severity, $priority );
     }
 
-    #------------------------------------------------------#
-    # Gets the Priority IDs of the original Priorty Matrix #
-    #------------------------------------------------------#
+    /**
+    * Gets the Priority IDs of the original Priorty Matrix
+    *
+    * @param $original
+    * 
+    * @return a set of Priority IDs
+    */
     protected function getIds( $original )
     {
         return explode( '|' , $original );

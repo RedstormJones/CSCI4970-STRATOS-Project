@@ -3,10 +3,11 @@ require APP . 'controller\Base_Controller.php';
 
 class Account_Controller Extends Base_Controller
 {
-    #-------------------------------------------------------#
-    # Aggregates user data for the currently logged on user # 
-    # and instructs the view to render it to the webpage    #
-    #-------------------------------------------------------#
+    /**
+    * Aggregates user data for the currently logged on user by commanding the model to query the 
+    * database for information on account and phone settings corresponding to the user with a pid
+    * matching the $_pid session variable - then instructs the view to render data to the webpage
+    */
 	public function showUserSettings()
 	{
 		$_pid               = $_SESSION['pid'];
@@ -30,19 +31,20 @@ class Account_Controller Extends Base_Controller
         $this->view->renderForm($_pid, $fname, $lname, $user, $email, $rows);
     }
 
-    #------------------------------------------------#
-    # directs control to display the user's settings #
-    #------------------------------------------------#
+    /**
+    * Acts as the default controller method if no specific method to execute is specified 
+    * and directs application control to the showUserSettings() method 
+    */
     public function noAction()
     {
         $this->showUserSettings();
     }
     
-    #----------------------------------------------------#
-    # Executed from within the account settings view.    #
-    # Pulls in the data and validates it, then instructs #
-    # the model to update the database.                  #
-    #----------------------------------------------------#
+    /**
+    * Enumerates and validates updated account settings data and, if all data validation checks  
+    * pass, then commands the model to update the database with the new information.
+    * Lastly, the function calls startFresh() to refresh the webpage and display updated data
+    */
     public function Update_Account_Settings()
     {
         $pid                = $this->globals->getParam("pid");

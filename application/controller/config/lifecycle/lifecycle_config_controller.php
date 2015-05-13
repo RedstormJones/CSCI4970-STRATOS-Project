@@ -3,10 +3,10 @@ require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
 class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
 {
-    #-------------------------------------------#
-    # gets data for the Lifecycle Configuration #
-    # form and instructs the view to render it  #
-    #-------------------------------------------#
+    /**
+    * Uses the model to get data for rendering the Lifecycle configuration form.
+    * Then commands the view to render the form to the webpage
+    */
    	public function noAction()
     {
         $resultList = $this->model->queryForm();
@@ -21,11 +21,11 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
         $this->view->renderForm( $formElements );
     }
 
-    #--------------------------------------------------------#
-    # Validates user-added Lifecycle and instructs the       #
-    # model to update the database, then calls startFresh()  #
-    # to show the new Lifecycle configuration changes        #
-    #--------------------------------------------------------#
+    /**
+    * First validates the user-added Lifecycle and checks that $name is not empty.
+    * Then commands the model to add the new Lifecycle to the database and finally
+    * calls startFresh() to refresh the application for displaying the changes
+    */
     public function Add_LifeCycle()
     {
         $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
@@ -42,11 +42,11 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    #-------------------------------------------------------#
-    # Validates modified Lifecycle and instructs the        #
-    # model to update the database, then calls startFresh() #
-    # to show the new Lifecycle configuration changes       #
-    #-------------------------------------------------------#
+    /**
+    * First gets and validates the updated Lifecycle and checks that $name is not empty.
+    * Then commands the model to add the new Lifecycle to the database and finally
+    * calls startFresh() to refresh the application for displaying the changes
+    */
     public function Update_Lifecycle()
     {
         $life_cycl_id = $this->globals->getParam( 'life_cycl_id', null );
@@ -63,10 +63,12 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    #-------------------------------------------------------#
-    # Gets the Lifecycle configuration data using the model #
-    # and renders the data to the webpage using the view    #
-    #-------------------------------------------------------#
+    /**
+    * Enumerates the original Lifecycle configuration data and the new or udpated
+    * Lifecycle configuration data and commands the view to render it to the webpage
+    *
+    * @param $isUpdate : Boolean (specifies whether the data is new or is an update)
+    */
     public function addOrUpdate( $isUpdate )
     {
         $life_cycl_id   = $isUpdate ? $this->globals->getParam( 'original' ) : '';

@@ -3,10 +3,11 @@ require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
 class Affected_Config_Controller Extends Ref_Config_Base_Controller
 {
-    #------------------------------------------#
-    # gets data for the Affected Configuration #
-    # form and instructs the view to render it #
-    #------------------------------------------#
+    /**
+    * Uses the model to get data for rendering the
+    * Affected Level configuration form. Then commands
+    * the view to render the form to the webpage
+    */
     public function noAction()
     {
         $resultList = $this->model->queryForm();
@@ -20,11 +21,11 @@ class Affected_Config_Controller Extends Ref_Config_Base_Controller
         $this->view->renderForm( $formElements );
     }
 
-    #-------------------------------------------------------#
-    # Validates user-added affected level and instructs the #
-    # model to update the database, then calls startFresh() #
-    # to show the new Affected level configuration changes  #
-    #-------------------------------------------------------#
+    /**
+    * First validates the user-added Affected Level and checks that $name is not empty.
+    * Then commands the model to add the new Affected Level to the database and finally
+    * calls startFresh() to refresh the application for displaying the changes
+    */
     public function Add_Affected()
     {
         $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
@@ -39,11 +40,11 @@ class Affected_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    #----------------------------------------------------------#
-    # Validates modified affected level data and instructs the #
-    # model to update the database, then calls startFresh()    #
-    # to show the new Affected level configuration changes     #
-    #----------------------------------------------------------#
+    /**
+    * First gets and validates the updated Affected Level and checks that $name is not empty.
+    * Then commands the model to add the new Affected Level to the database and finally
+    * calls startFresh() to refresh the application for displaying the changes
+    */
     public function Update_Affected()
     {
         $aff_level = $this->globals->getParam( 'aff_level', null );
@@ -59,10 +60,12 @@ class Affected_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    #------------------------------------------------------------#
-    # Gets the Affected level configuration data using the model #
-    # and renders the data to the webpage using the view         #
-    #------------------------------------------------------------#
+    /**
+    * Enumerates the original Affected Level configuration data and the new or udpated
+    * Affected Level configuration data and commands the view to render it to the webpage
+    *
+    * @param $isUpdate : Boolean (specifies whether the data is new or is an update)
+    */
     public function addOrUpdate( $isUpdate )
     {
         $aff_level  = $isUpdate ? $this->globals->getParam( 'original' ) : '';

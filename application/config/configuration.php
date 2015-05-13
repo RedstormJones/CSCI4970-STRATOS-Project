@@ -1,7 +1,7 @@
 <?php
-
-# Configuration for URL
-
+/**
+* Configurations for URL data and database connection settings
+*/
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
@@ -17,5 +17,4 @@ define('DB_NAME', 'pki_stratos');
 define('DB_USER', 'root');
 define('DB_PASS', 'section80');
 define('DB_CHARSET', 'utf8');
-
 ?>
