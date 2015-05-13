@@ -1,31 +1,39 @@
 <?php
 
-#--------------------#
-# Starts the session #
-#--------------------#
+/**
+* Starts the session for the currently logged on user
+*/
 if (session_status() !== PHP_SESSION_ACTIVE) 
 {
    session_start();
 }
 
 
-#-------------------------------------#
-# define global variables and include #
-# the database connection information #
-#-------------------------------------#
+/**
+* Define global variables and include the database connection information
+*/
 define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 define('APP', ROOT . 'application' . DIRECTORY_SEPARATOR);
-include 'DBconnect.php';
 $URL_BASE = "http://127.0.0.1/";
+include 'DBconnect.php';
 
 
-
+/**
+* The Globals class defines utility methods used throughout the   
+* application for URL parameter parsing and user session data
+*/
 class Globals
 {
-    #----------------------------------------------#
-    # Gets the parameters from either the URL _GET #
-    # variables or the session _POST variables     #
-    #----------------------------------------------#
+    /**
+    * Gets an arbitrary parameter from either the _GET or _SESSION environment variables
+    *
+    * @param $param : String (the index provided for retreiving the proper parameter)
+    * @param $default : String (used to pass through a default value if no parameters are set)
+    *
+    * 		<note> $default = '' if no parameter provided in function call
+    *
+    * @return the value stored in the environment variables for the given index or the default value
+    */
     function getParam($param, $default = '' )
     {
         $result = $default;
@@ -35,11 +43,12 @@ class Globals
         return $result;
     }
 
-    #-----------------------------------------------#
-    # Parses the URL to execute the correct methods #
-    # in the controllers and uses the getParam()    #
-    # method to get the actual method name          #
-    #-----------------------------------------------#
+    /**
+    * Uses the getParam() method to find the name of the controller method 
+    * specified in either the $_GET[] or $_SESSION[] environment variables
+    *
+    * @param $contr : Controller object (the controller to use for executing the method)
+    */
     function handleURL($contr)
     {
         $func = $this->getParam('action' , 'noAction');
@@ -61,11 +70,11 @@ class Globals
         $contr->postCall( $succeeded );
     }
 
-    #----------------------------------------------#
-    # Gets the username of the currently logged on #
-    # user from the session data, which was set    #
-    # during the login process                     #
-    #----------------------------------------------#
+    /**
+    * Gets the username of the currently logged on user from the session data, if it's set
+    *
+    * @return username of the currently logged on user, if set
+    */
     function getCurrentUserName()
     {
         if(isset($_SESSION['user']))
@@ -74,11 +83,11 @@ class Globals
         }
     }
 
-    #----------------------------------------------#
-    # Gets the pid of the currently logged on user #
-    # from the session data, which was set during  #
-    # the login process                            #
-    #----------------------------------------------#
+    /**
+    * Gets the pid of the currently logged on user from the session data, if it's set
+    *
+    * @return pid of the currently logged on user, if set
+    */
     function getCurrentUserPid()
     {
         if(isset($_SESSION['pid']))
