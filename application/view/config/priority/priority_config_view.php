@@ -1,12 +1,14 @@
 <?php
 require APP . 'view\config\Ref_Config_Base_View.php';
 
-class Priority_Config_View Extends Ref_Config_Base_View
+class Priority_Config_View extends Ref_Config_Base_View
 {
-    #-------------------------------------------#
-    # displays configurable information for the #
-    # Priority options on service tickets       #
-    #-------------------------------------------#
+    /**
+     *  Displays configurable information for the priority options on service
+     * tickets. Uses the function in base class to display form.
+     * 
+     * @param $recordList : Array (this holds the information about priority configuration)
+     */
     public function renderForm( $recordList )
     {
         $description = "<br><br>This form changes the 'Priority' options available when creating or updating work tickets.<br><br>
@@ -19,10 +21,14 @@ class Priority_Config_View Extends Ref_Config_Base_View
         $this->renderBaseForm( $recordList, $description, '' );
     }
 
-    #----------------------------------------------------#
-    # allows users to add new ticket Priority options or #
-    # reassign current Priority options to other values  #
-    #----------------------------------------------------#
+    /**
+     *  Allows users to add new ticket priority options or reassign current
+     * priority options to other values. 
+     * 
+     * @param $isUpdate : Boolean (this will decide whether user is adding or updating)
+     * @param $priority : Integer (holds number of priority)
+     * @param $name : String (string that holds the name of the priority corresponding to the number)
+     */
     public function renderAddOrUpdate( $isUpdate, $priority, $name )
     {
         $body = "<br><br><br>"; 

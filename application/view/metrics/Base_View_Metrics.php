@@ -1,21 +1,24 @@
 <?php
 require APP . 'view\Base_View.php';
 
-class Base_View_Metrics Extends Base_View
+class Base_View_Metrics extends Base_View
 {
-    #----------------------------------------------------#
-    # Creates the html for displaying the metrics charts #
-    # for both global and user based metrics. To create  #
-    # the metrics charts, this view makes use of the     #
-    # following methods in the PHP chart file            #
-    # corresponding to the chart name value set with     #
-    # $name=$chart->GetName() :                          #
-    #                                                    #
-    #       GetJavaScript_DataSet()                      #
-    #       GetJavaScript_CreateChart()                  #
-    #----------------------------------------------------#
-	public function renderMetrics($title, $charts, $additionalHeader = '')
-	{
+    /** 
+     * Creates the html for displaying the metrics charts for both global and user based
+     * metrics. To create the metrics charts, this view makes use of the following methods
+     * in the PGP chart file corresponding to the chart name value set with
+     * $name=$chart->GetName() :
+     *      GetJavaScript_DataSet()
+     *      GetJavaScript_CreateChart()
+     * 
+     * @param $title : String (Holds the title of the chart)
+     * @param $charts : Array (Holds the data values of the charts)
+     * @param $additionalHeader : String (Used to pass header)
+     * 
+     *      <note> $additionalHeader = '' if no parameter provided in function call
+     */
+    public function renderMetrics($title, $charts, $additionalHeader = '')
+    {
         $metrics  = '<h3 "' . $title . '">' . $title . '</h3>' . "\n";
         $metrics .= '<br>' . "\n";
 
@@ -57,7 +60,7 @@ class Base_View_Metrics Extends Base_View
         $metrics .= '   }'. "\n";
         $metrics .= '</script>';
 
-		$this->renderBody($metrics);
-	}
+        $this->renderBody($metrics);
+    }
 }
 ?>

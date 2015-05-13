@@ -1,13 +1,15 @@
 <?php
 include "..\Base_View.php";
 
-class Tickets_View Extends Base_View
+class Tickets_View extends Base_View
 {
-    #-------------------------------------------------------#
-    # creates the html to display the tickets, then sends   #
-    # the html to renderBody() in the base view to actually #
-    # render the html to the webpage                        #
-    #-------------------------------------------------------#
+    /**
+     * Creates the html to display the Global tickes, then sends the html to 
+     * renderBody() function in the base view to render the html to web
+     * 
+     * @param $ticketlist : : Array (holds the lists of tickets objects)
+     * @param $start : Integer (holds the starting number of tickets to be displayed in webpage)
+     */
     public function renderTickets($ticketlist, $start)
     {
         $body = '<h3 "All Service Tickets">All Service Tickets</h3>';
@@ -74,10 +76,17 @@ class Tickets_View Extends Base_View
         $this->renderBody($body);
     }
 
-    #-----------------------------------------------#
-    # Creates the html for the drop down lists used #
-    # to set / update service ticket options        #
-    #-----------------------------------------------#
+    /**
+     * Creates the html for the drop down lists used to set/update service tickets
+     * options.
+     * 
+     * @param $elementName : String (holds the variable name of the menu)
+     * @param $label : String (Holds the title name of the menu)
+     * @param $tuples : Array (holds the information id and name on the genneral data)
+     * @param $selected : String (holds the selected option to be displayed in the menu)
+     * 
+     * @return string that has the html for creating dropdown.
+     */
     public function renderDropdown($elementName, $label, $tuples, $selected)
     {
         $b = '<label style="margin-left: 15%" for="select">' . $label . '</label>';
@@ -98,12 +107,29 @@ class Tickets_View Extends Base_View
         return $b;
     }
 
-    #----------------------------------------------------------#
-    # Creates the html for the add / update tickets form which #
-    # makes use of the renderDropDown() method defined above.  #
-    # Then sends the html to the renderBody() method in the    #
-    # Base_View file for actual rendering to the webpage.      #
-    #----------------------------------------------------------#
+    /**
+     * Creates the html for the add/update hardware form, then calls the function
+     * renderBody() in the base view to display in the webpage and renderDropDown()
+     * from this same file to get drop down menus.
+     * 
+     * @param $persons : Array (holds all the person's information)
+     * @param $users : Array (holds all the user's information)
+     * @param $categories : Array (holds all the category information)
+     * @param $affectedLevels : Array (holds all the affected level information)
+     * @param $severityLevels : Array (holds all the severity level information)
+     * @param $lifecycles : Array (holds all the lifecycle's information)
+     * @param $isUpdate : Boolean (whether to add or update ticket)
+     * @param $title : String (Holds the title of the ticket)
+     * @param $desc : String (holds the description of the ticket)
+     * @param $cust : String (holds the customer of the ticket)
+     * @param $assigned : String (holds the assigned to of the ticket)
+     * @param $category : String (holds the category of the ticket)
+     * @param $affected : String (holds the affected level of the ticket)
+     * @param $severity : String (holds the severity of the ticket)
+     * @param $lifecycle : String (holds the lifecycle of the ticket)
+     * @param $est : Integer (holds the estimated of the ticket)
+     * @param $tid : Integer (holds the eid of the ticket)
+     */
     public function renderForm( $persons
                               , $users
                               , $categories

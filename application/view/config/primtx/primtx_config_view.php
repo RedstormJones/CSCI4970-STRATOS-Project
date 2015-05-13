@@ -1,12 +1,13 @@
 <?php
 require APP . 'view\config\Ref_Config_Base_View.php';
 
-class Primtx_Config_View Extends Ref_Config_Base_View
+class Primtx_Config_View extends Ref_Config_Base_View
 {
-    #-----------------------------------#
-    # displays configurable information #
-    # for the Priority Matrix options   #
-    #-----------------------------------#
+    /**
+     *  Displays configurable information for the Priority Matrix
+     * 
+     * @param $recordList : Array (this holds the information about priority matrix configuration)
+     */
     public function renderForm( $recordList )
     {
         $description = "<br><br>This form changes the association between Affected Level and Severity to their respective Priority for tickets.<br><br>
@@ -21,10 +22,13 @@ class Primtx_Config_View Extends Ref_Config_Base_View
         $this->renderBaseForm( $recordList, $description );
     }
 
-    #-----------------------------------------#
-    # displays the actual html form for       #
-    # configuring the Priority Matrix options #
-    #-----------------------------------------#
+    /**
+     *  Displays the actual html form for configuring the Priority Matrix
+     * options on the service tickets. It overrides the actual base function.
+     * 
+     * @param $recordList : Array (that holds the data about Lifecyle configuration id and name)
+     * @param $description : String (string holding the instruction that is to be displayed on form)
+     */
     public function renderBaseForm( $recordList, $description )
     {
         $body                            = '<form id="Existing" name="DeleteOrUpdate" method="get" class="dark-matter" action="">';
@@ -75,10 +79,18 @@ class Primtx_Config_View Extends Ref_Config_Base_View
         $this->renderBody( $body );
     }
 
-    #-------------------------------------------------------#
-    # allows users to create new Priority Matrix options or #
-    # reassign current options to other existing values     #
-    #-------------------------------------------------------#
+    /**
+     *  Allows users to add new Priority Matrix options or delete
+     * Priority Matrix options. 
+     * 
+     * @param $isUpdate : Boolean (this will decide whether user is adding or updating)
+     * @param $aff_levels : Array (that holds affected level id and name)
+     * @param $severities : Array (that holds severity id and name)
+     * @param $priorities : Array (that holds priority id and name)
+     * @param $aff_level : Integer (that holds the number for the affected level)
+     * @param $severity : Integer (that holds the number for the severity)
+     * @param $priority : Integer (that holds the number for the priority) 
+     */
     public function renderAddOrUpdate( $isUpdate, $aff_levels, $severities, $priorities, $aff_level, $severity, $priority )
     {
         $body  = '<br><br><br>'; 

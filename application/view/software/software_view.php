@@ -1,14 +1,15 @@
 <?php
 include "..\Base_View.php";
 
-class Software_View Extends Base_View
+class Software_View extends Base_View
 {
-
-    #-------------------------------------------------#
-    # creates the html to display the software, then  #
-    # sends the html to renderBody() in the base view #
-    # to actually render the html to the webpage      #
-    #-------------------------------------------------#
+    /**
+     * Create the htmls to display the software, then sends the html to renderBody()
+     * in the base view to actually render the html to the webpage.
+     * 
+     * @param $softwarelist : Array (holds the lists of software objects)
+     * @param $start : Integer (holds the starting number of software to be displayed in webpage)
+     */
     public function renderSoftware($softwarelist, $start)
     {
         $body = '<h3 title="All Active Software">All Active Software</h3>';
@@ -77,11 +78,14 @@ class Software_View Extends Base_View
         $this->renderBody($body);
     }
 
-    #------------------------------------------------#
-    # creates the html for the add / update software #
-    # form, then sends the html to renderBody() in   #
-    # the base view to render it to the webpage      #
-    #------------------------------------------------#
+    /** 
+     * Creates the html for the add/update software form, then calls the function
+     * renderBody() in the base view to display in the webpage.
+     * 
+     * @param $isUpdate : Boolean (whether to add or update)
+     * @param $sid : Integer (holds the id of the software)
+     * @param $name : String (holds the name of the software)
+     */
     public function renderForm($isUpdate, $sid = '', $name = '')
     {
         $body  = '<br><br><br>';

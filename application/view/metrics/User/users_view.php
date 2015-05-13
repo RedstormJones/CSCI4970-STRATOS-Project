@@ -1,18 +1,19 @@
 <?php
 require APP . 'view\metrics\Base_View_Metrics.php';
 
-class Users_View Extends Base_View_Metrics
+class Users_View extends Base_View_Metrics
 {
-    #----------------------------------------------#
-    # Creates the buttons on the User Metrics page #
-    # for viewing metrics particular to one of the #
-    # systems users, then sends this preconfigured #
-    # html to the renderMetrics() in the           #
-    # Base_View_Metrics file for actual rendering  #
-    # to the webpage                               #
-    #----------------------------------------------#
-	public function renderUserMetrics( $charts, $currentUser, $userList )
-	{
+    /**
+     * Creates the buttons on the User Metrics page for viewing metrics particular
+     * to one of the systems users, then sends this preconfigured html to the
+     * renderMetrics() in the Base_View_Metrics file for actual rendering to webpage.
+     * 
+     * @param $charts : Array (holding the charts)
+     * @param $currentUser : Integer (holds the pid of current user)
+     * @param $userList : Array (Had the lists of other users)
+     */
+    public function renderUserMetrics( $charts, $currentUser, $userList )
+    {
         $userButtons = '<br>';
         foreach ( $userList as $user )
         {
@@ -30,9 +31,9 @@ class Users_View Extends Base_View_Metrics
         }
         $userButtons .= '<br><br><br>';
 
-        // Add currentUser to title
+        # Add currentUser to title #
 
-		$this->renderMetrics('Users - Ticket Metrics', $charts, $userButtons);
-	}
+        $this->renderMetrics('Users - Ticket Metrics', $charts, $userButtons);
+    }
 }
 ?>

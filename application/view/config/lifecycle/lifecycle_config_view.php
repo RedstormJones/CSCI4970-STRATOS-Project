@@ -1,12 +1,14 @@
 <?php
 require APP . 'view\config\Ref_Config_Base_View.php';
 
-class Lifecycle_Config_View Extends Ref_Config_Base_View
+class Lifecycle_Config_View extends Ref_Config_Base_View
 {
-    #-------------------------------------------#
-    # displays configurable information for the #
-    # Lifecycle options on service tickets      #
-    #-------------------------------------------#
+    /**
+     *  Displays configurable information for the Lifecycle options on service
+     * tickets. Uses the function in base class to display form.
+     * 
+     * @param $recordList : Array (this holds the information about Life Cycle configuration)
+     */
     public function renderForm( $recordList )
     {
         $description = "<br><br>This form changes the 'Lifecyle' options available when creating or updating work tickets. <br><br>
@@ -19,10 +21,13 @@ class Lifecycle_Config_View Extends Ref_Config_Base_View
         $this->renderBaseForm( $recordList, $description );
     }
 
-    #-----------------------------------------------#
-    # displays the actual html form for configuring #
-    # the Lifecycle options on service tickets      #
-    #-----------------------------------------------#
+    /**
+     *  Displays the actual html form for configuring the Lifecycle
+     * options on the service tickets. It overrides the actual base function.
+     * 
+     * @param $recordList : Array (that holds the data about Lifecyle configuration id and name)
+     * @param $description : String (string holding the instruction that is to be displayed on form)
+     */
     public function renderBaseForm( $recordList, $description )
     {
         $body                            = '<form id="Existing" name="DeleteOrUpdate" method="get" class="dark-matter" action="">';
@@ -78,10 +83,15 @@ class Lifecycle_Config_View Extends Ref_Config_Base_View
         $this->renderBody( $body );
     }
 
-    #-----------------------------------------------------#
-    # allows users to add new ticket Lifecycle options or #
-    # reassign current Lifecycle options to other values  #
-    #-----------------------------------------------------#
+    /**
+     *  Allows users to add new ticket Lifecycle options or reassign current
+     * Lifecycle options to other values. 
+     * 
+     * @param $isUpdate : Boolean (this will decide whether user is adding or updating)
+     * @param $life_cycle_id : Integer (holds number of lifecycle)
+     * @param $name : String (string that holds the name of the lifecycle corresponding to the number)
+     * @param $timed : Boolean (holds whether or not it is timed or not)
+     */
     public function renderAddOrUpdate( $isUpdate, $life_cycl_id, $name, $timed )
     {
         $body  = '<br><br><br>'; 

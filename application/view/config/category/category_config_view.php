@@ -1,12 +1,14 @@
 <?php
 require APP . 'view\config\Ref_Config_Base_View.php';
 
-class Category_Config_View Extends Ref_Config_Base_View
+class Category_Config_View extends Ref_Config_Base_View
 {
-    #-------------------------------------------#
-    # displays configurable information for the #
-    # Category options on service tickets       #
-    #-------------------------------------------#
+    /**
+     *  Displays information for the Category options on service
+     * tickets. Uses the function in base class to display form.
+     * 
+     * @param $recordList : Array (this holds the information about Category configuration)
+     */
     public function renderForm( $recordList )
     {
         $description = "<br><br>This form changes the 'Category' options available when creating or updating work tickets.<br><br>
@@ -19,10 +21,14 @@ class Category_Config_View Extends Ref_Config_Base_View
         $this->renderBaseForm( $recordList, $description, '' );    
     }
 
-    #----------------------------------------------------#
-    # allows users to add new ticket Category options or #
-    # reassign current Category options to other values  #
-    #----------------------------------------------------#
+    /**
+     *  Allows users to add new ticket Category options or reassign current
+     * Category options to other values. 
+     * 
+     * @param $isUpdate : Boolean (this will decide whether user is adding or updating)
+     * @param $cid : Integer (holds number of category)
+     * @param $name : String (string that holds the name of the category corresponding to the number)
+     */
     public function renderAddOrUpdate( $isUpdate, $cid, $name )
     {
         $body = "<br><br><br>"; 

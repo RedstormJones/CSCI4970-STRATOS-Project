@@ -1,12 +1,15 @@
 <?php
 require APP . 'view\config\Ref_Config_Base_View.php';
 
-class Affected_Config_View Extends Ref_Config_Base_View
+class Affected_Config_View extends Ref_Config_Base_View
 {
-    #-------------------------------------------#
-    # displays configurable information for the #
-    # Affected Level options on service tickets #
-    #-------------------------------------------#
+    
+    /**
+     *  Displays configurable information for the Affected Level options on service
+     * tickets. Uses the function in base class to display form.
+     * 
+     * @param $recordList : Array (this holds the information about Affected Level configuration)
+     */
     public function renderForm( $recordList )
     {
         $description = "<br><br>This form changes the 'Affected Level' options available when creating or updating work tickets.
@@ -20,10 +23,14 @@ class Affected_Config_View Extends Ref_Config_Base_View
         $this->renderBaseForm( $recordList, $description );
     }
     
-    #----------------------------------------------------------#
-    # allows users to add new ticket Affected level options or #
-    # reassign current Affected Level options to other values  #
-    #----------------------------------------------------------#
+    /**
+     *  Allows users to add new ticket Affected Level options or reassign current
+     * Affected Level options to other values. 
+     * 
+     * @param $isUpdate : Boolean (this will decide whether user is adding or updating)
+     * @param $aff_level : Integer (holds number of affected level)
+     * @param $name : String (string that holds the name of the affected level corresponding to the number)
+     */
     public function renderAddOrUpdate( $isUpdate, $aff_level, $name )
     {
         $body = "<br><br><br>"; 

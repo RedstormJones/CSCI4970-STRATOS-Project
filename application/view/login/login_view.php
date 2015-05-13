@@ -1,14 +1,14 @@
 <?php
 include "..\Base_View.php";
 
-class Login_View Extends Base_View
+class Login_View extends Base_View
 {
-        #-----------------------------------------------------#
-        # creates the html for displaying the login and then  #
-        # echos the html to actually render it on the webpage #
-        #-----------------------------------------------------#
-	public function showLogin()
-	{
+    /** 
+     * Creates the html for displaying the login and then echos the html
+     * to actually render it on the webpage.
+     */
+    public function showLogin()
+    {
         $body  = '<link rel="stylesheet" type="text/css" href="/public/css/style.css" />';
         $body .= '<div class="container">';
         $body .= '  <section id="content">';
@@ -28,5 +28,5 @@ class Login_View Extends Base_View
         $body .= '</div>';
 
         echo $body;
-	}
+    }
 }

@@ -1,13 +1,15 @@
 <?php
 require APP . 'view\Base_View.php';
 
-class Hardware_View Extends Base_View
+class Hardware_View extends Base_View
 {
-	#-------------------------------------------------#
-	# creates the html to display the hardware, then  #
-	# sends the html to renderBody() in the base view #
-	# to actually render the html to the webpage	  #
-	#-------------------------------------------------#
+    /**
+     * Creates the html to display the hardware, then sends the html to 
+     * renderBody() function in the base view to render the html to web
+     * 
+     * @param $hardwarelist : Array (holds the lists of hardware objects)
+     * @param $start : Integer (holds the starting number of hardware to be displayed in webpage)
+     */
     public function renderHardware($hardwarelist, $start)
     {
         $body  = '<h3 title="All Active Hardware">All Active Hardware</h3>';
@@ -81,11 +83,20 @@ class Hardware_View Extends Base_View
         $this->renderBody($body);
     }
 
-	#------------------------------------------------#
-    # creates the html for the add / update hardware #
-    # form, then sends the html to renderBody() in 	 #
-    # the base view to render it to the webpage		 #
-    #------------------------------------------------#
+    /**
+     * Creates the html for the add/update hardware form, then calls the function
+     * in the base view to display in the webpage.
+     * 
+     * @param $isUpdate : Boolean (whether to add or update)
+     * @param $eid : Integer (holds the id of the hardware)
+     * @param $name : String (holds the name of the Hardware)
+     * @param $vendor : String (holds the vendor of the Hardware)
+     * @param $model : String (holds the model of the Hardware)
+     * @param $serial : String (holds the serial of the Hardware)
+     * @param $type : String (holds the type of the Hardware)
+     * @param $location : String (holds the location of the Hardware)
+     * @param $status : String (holds the status of the Hardware)
+     */
     public function renderForm($isUpdate
                                 , $eid = ''
                                 , $name = ''
