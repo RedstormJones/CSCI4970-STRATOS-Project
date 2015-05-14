@@ -5,8 +5,11 @@ echo '<div id="cssmenu">
             <li>
                 <a href="/application/view/home/home_index.php"><span>Home</span></a>
             </li>
-            <li>
-                <a href="/application/view/tickets/tickets_index.php"><span>Tickets</span></a>
+            <li class="has-sub"><a href=""><span>Tickets</span></a>
+                <ul> 
+                    <li><a href="/application/view/tickets/tickets_index.php"><span>Global Tickets</span></a></li>
+                    <li><a href="/application/view/ticketsUsers/ticketsUsers_index.php"><span>User Tickets</span></a></li>
+                </ul>
             </li>
             <li class="has-sub"><a href=""><span>Inventory</span></a>
                 <ul> 
@@ -26,6 +29,7 @@ echo '<div id="cssmenu">
                     <li><a href="/application/view/config/category/category_config_index.php"><span>Category</span></a></li>
                     <li><a href="/application/view/config/lifecycle/lifecycle_config_index.php"><span>Lifecycle</span></a></li>
                     <li><a href="/application/view/config/priority/priority_config_index.php"><span>Priority</span></a></li>
+                    <li><a href="/application/view/config/primtx/primtx_config_index.php"><span>Priority Matrix</span></a></li>
                     <li><a href="/application/view/config/severity/severity_config_index.php"><span>Severity</span></a></li>
                 </ul>
             </li>

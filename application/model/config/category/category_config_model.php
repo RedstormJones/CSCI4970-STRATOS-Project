@@ -1,15 +1,21 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'model\config\Ref_Config_Base_Model.php';
 
 class Category_Config_Model Extends Ref_Config_Base_Model
 {
     public function __construct()
     {
-        parent::__construct( 'StCatgConf', 'cid', 'name' );
+        parent::__construct( 'StCatgConf' );
     }
    
-    protected function updateReferences( $old, $new )
+   /**
+	* Update the Category drop down menu that display on the add or update ticket form on the ticket page
+	*
+	* @param $old : String ( the current Category value)
+	* @param $new : String ( the new Category value)
+	* @param $user : String ( hold the name of the current logged in user)
+	*/
+    protected function updateReferences( $old, $new, $user )
     {
         $this->query_GetAffectedTickets->execute( array( ':old' => $old ) );
         $affectedTickets = $this->query_GetAffectedTickets->fetchAll();
@@ -21,40 +27,66 @@ class Category_Config_Model Extends Ref_Config_Base_Model
                     array( ':tid'               => $ticket->tid
                          , ':new'               => $new
                          , ':last_open_time'    => $last_open_time
-                         , ':last_mdfd_user'    => getCurrentUserName()
+                         , ':last_mdfd_user'    => $user
                          )
                 );
         }
     }
 
-    protected function deleteConfig( $old )
+	/**
+	* Delete the selected Category
+	*
+	* @param $old : String ( hold the name of the selected Category)
+	* @param $user : string ( hold the name of the user who commit the deletion) 
+	*/
+    protected function deleteConfig( $old, $user )
     {
         $this->query_DeleteCategory->execute( 
                 array( ':cid'                   => $old 
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
     }
 
-	public function updateCategory( $cid, $name )
+	/**
+	* Update the selected Category
+	*
+	* @param $cid : Integer ( hold Category number)
+	* @param $name : String ( hold the name of the selected Category)
+	* @param $user : string ( hold the name of the user who commit the update) 
+	*/
+	public function updateCategory( $cid, $name, $user )
 	{
 		$this->query_UpdateCategory->execute( 
                 array( ':cid'                   => $cid
                      , ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}
 
-	public function addCategory( $name )
+	/**
+	* Add a new Category
+	*
+	* @param $name : String ( hold the name of the Category )
+	* @param $user : string ( hold the name of the user who commit the add) 
+	*/
+	public function addCategory( $name, $user )
 	{
 		$this->query_AddCategory->execute( 
                 array( ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}
 
+	/**
+	* return the Category number
+	*
+	* @param $cid : Integer ( hold the Category number)
+	* 
+	* return the Category number
+	*/
 	public function getCategory( $cid )
 	{
 		$this->query_GetCategory->execute( 
@@ -64,6 +96,12 @@ class Category_Config_Model Extends Ref_Config_Base_Model
 		return $this->query_GetCategory->fetch();
 	}
 
+	/**
+	* Database Queries
+	* Find affected level, update ticket reference
+	* Delete, update, and add Category
+	* return Category number
+	*/
     protected function SetUpQueries()
     {
         parent::SetUpQueries();

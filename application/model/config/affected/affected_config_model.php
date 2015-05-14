@@ -1,15 +1,21 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'model\config\Ref_Config_Base_Model.php';
 
 class Affected_Config_Model Extends Ref_Config_Base_Model
 {
     public function __construct()
     {
-        parent::__construct( 'StAffLvlConf', 'aff_level', 'name' );
+        parent::__construct( 'StAffLvlConf' );
     }
 
-    protected function updateReferences( $old, $new )
+	/**
+	* Update the Affected Level drop down menu that display on the add or update ticket form on the ticket page 
+	*
+	* @param $old : String ( the current Affected Level)
+	* @param $new : String ( the new Affected Level value)
+	* @param $user : String ( hold the name of the current logged in user)
+	*/
+    protected function updateReferences( $old, $new, $user )
     {
         $this->query_GetAffectedTickets->execute( array( ':old' => $old ) );
         $affectedTickets = $this->query_GetAffectedTickets->fetchAll();
@@ -21,49 +27,81 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
                     array( ':tid'               => $ticket->tid
                          , ':new'               => $new
                          , ':last_open_time'    => $last_open_time
-                         , ':last_mdfd_user'    => getCurrentUserName()
+                         , ':last_mdfd_user'    => $user
                          )
                 );
         }
     }
-
-    protected function deleteReferences( $old )
+	
+	/**
+	* Delete the Affected Level reference that display on the priority matrices page
+	*
+	* @param $old : String ( hold the value of the selected Affected Level)
+	* @param $user : string ( hold the name of the user who commit the deletion) 
+	*/
+    protected function deleteReferences( $old, $user )
     {
         $this->query_DeletePriMtxReferences->execute( 
                 array( ':old'                   => $old 
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
     }
 
-    protected function deleteConfig( $old )
+	/**
+	* Delete the selected Affected Level
+	*
+	* @param $old : String ( hold the name of the selected Affected Level)
+	* @param $user : string ( hold the name of the user who commit the deletion) 
+	*/
+    protected function deleteConfig( $old, $user )
     {
         $this->query_DeleteAffected->execute( 
                 array( ':aff_level'             => $old 
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
     }
-
-	public function updateAffected( $aff_level, $name )
+	
+	/**
+	* Update the selected Affected Level
+	*
+	* @param $aff_level : Integer ( hold the selected Affected Level number )
+	* @param $name : String ( hold the name of the Affected Level)
+	* @param $user : string ( hold the name of the user who commit the update) 
+	*/
+	public function updateAffected( $aff_level, $name, $user )
 	{
 		$this->query_UpdateAffected->execute( 
                 array( ':aff_level'             => $aff_level
                      , ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}
 
-	public function addAffected( $name )
+	/**
+	* Add a new Affected Level
+	*
+	* @param $name : String ( hold the name of the Affected Level)
+	* @param $user : string ( hold the name of the user who commit the add) 
+	*/
+	public function addAffected( $name, $user )
 	{
 		$this->query_AddAffected->execute( 
                 array( ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}
-
+	
+	/**
+	* return the Affected Level number
+	*
+	* @param $aff_level : Integer ( hold the Affected Level number)
+	* 
+	* return the Affected Level number
+	*/
 	public function getAffected( $aff_level )
 	{
 		$this->query_GetAffected->execute( 
@@ -73,6 +111,12 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
 		return $this->query_GetAffected->fetch();
 	}
 
+	/**
+	* Database Queries
+	* Find affected level, update ticket reference, Delete Priority Matrix References
+	* Delete, update, and add affected level 
+	* return affected level number
+	*/
     protected function SetUpQueries()
     {
         parent::SetUpQueries();

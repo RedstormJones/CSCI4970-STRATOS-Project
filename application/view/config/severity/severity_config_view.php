@@ -1,9 +1,14 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'view\config\Ref_Config_Base_View.php';
 
-class Severity_Config_View Extends Ref_Config_Base_View
+class Severity_Config_View extends Ref_Config_Base_View
 {
+    /** 
+     * Displays configurable information for the severity options on service
+     * tickets. Uses the function in base class to display form.
+     * 
+     * @param $recordList : Array (this holds the information about severity configuration)
+     */
     public function renderForm( $recordList )
     {
         $description = "<br><br>This form changes the 'Severity' options available when creating or updating work tickets.<br><br>
@@ -16,6 +21,14 @@ class Severity_Config_View Extends Ref_Config_Base_View
         $this->renderBaseForm( $recordList, $description );
     }
 
+    /**
+     *  Allows users to add new ticket severity options or reassign current
+     * severity options to other values. 
+     * 
+     * @param $isUpdate : Boolean (this will decide whether user is adding or updating)
+     * @param $severity : Integer (holds number of severity)
+     * @param $name : String (string that holds the name of the severity corresponding to the number)
+     */
     public function renderAddOrUpdate( $isUpdate, $severity, $name )
     {
         $body = "<br><br><br>"; 

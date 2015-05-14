@@ -1,9 +1,14 @@
 <?php
-require_once('../../globals.php');
 require APP . 'model\Base_Model.php';
 
 class Tickets_Model Extends Base_Model
 {
+
+	/**
+	* Collect and display all tickets information from the tickets table 
+	* 
+	* @param $start : String ( hold the table information)
+	*/
     public function showAllTickets($start)
     {
         $this->query_ShowAllTickets->bindParam(':start',$start,PDO::PARAM_INT);
@@ -11,43 +16,78 @@ class Tickets_Model Extends Base_Model
         return $this->query_ShowAllTickets->fetchAll();
     }
 
+	/**
+	* return all users name from the database 
+	*/
     public function getAllPersons()
     {
         $this->query_GetAllPersons->execute();
         return $this->query_GetAllPersons->fetchAll();
     }
 
+	/**
+	* return all Categories name from the database 
+	*/
     public function getAllCategories()
     {
         $this->query_GetAllCategories->execute();
         return $this->query_GetAllCategories->fetchAll();
     }
 
+	/**
+	* return all Affected Levels name from the database 
+	*/
     public function getAllAffectedLevels()
     {
         $this->query_GetAllAffectedLevels->execute();
         return $this->query_GetAllAffectedLevels->fetchAll();
     }
 
+	/**
+	* return the all Severities name from the database 
+	*/
     public function getAllSeverityLevels()
     {
         $this->query_GetAllSeverityLevels->execute();
         return $this->query_GetAllSeverityLevels->fetchAll();
     }
 
+	/**
+	* return the all Life cycles name from the database 
+	*/
     public function getAllLifecycles()
     {
         $this->query_GetAllLifecycles->execute();
         return $this->query_GetAllLifecycles->fetchAll();
     }
 
+	/**
+	* return a ticket information using a ticket number from the database 
+	*/
     public function getTicket( $tid )
     {
         $this->query_GetTicket->execute( array( ':tid' => $tid ) );
         return $this->query_GetTicket->fetch();
     }
 
-    public function updateTicket( $tid, $title, $description, $opener, $assignee, $category, $aff_level, $severity, $expct_hours, $life_cycl_id )
+
+
+	/**
+	* Update ticket 
+	* After updating the ticket the system is going to send an email to the current user and assignee user.
+	*
+	* @param $tid : Integer ( hold the number of the next ticket)
+	* @param $title : String ( hold the ticket title )
+	* @param $description : String ( hold the ticket description)
+	* @param $assignee : integer ( hold the correspond pid number of assignee user)
+	* @param $category : Integer ( hold the correspond category number "cid" of the selected category)
+	* @param $aff_level : integer ( hold the correspond affected level number "aff_level" of the selected affected level)
+	* @param $severity : integer ( hold the correspond severity number "severity" of the selected severity)
+	* @param $expct_hours : Integer ( hold the number of hours that needed to close the ticket)
+	* @param $life_cycl_id : Integer ( hold the correspond Life Cycle number "life_cycl_id" of the selected Life Cycle ) 
+	* @param $user : String ( hold the name of the user who modify the account setting information)
+	*/
+    public function updateTicket( $tid, $title, $description, $opener, $assignee, $category, $aff_level, $severity, $expct_hours, $life_cycl_id, $user )
     {
         $this->query_UpdateTicket->execute(
             array( ':tid'                => $tid
@@ -61,23 +101,46 @@ class Tickets_Model Extends Base_Model
                  , ':life_cycl_id'       => $life_cycl_id
                  , ':expct_hours'        => $expct_hours
                  , ':last_open_time'     => $this->GetUpdatedTicketTimeByTid( $tid )
-                 , ':last_mdfd_user'     => getCurrentUserName()
+                 , ':last_mdfd_user'     => $user
                  )
         );
-        MailUpdateorAdd(TRUE, $title, $customer, $assignee);
+        $this->MailUpdateorAdd(TRUE, $title, $customer, $assignee);
     }
 
-    public function deleteTicket( $tid )
+	/**
+	* Delete a ticket 
+	* After deleting the ticket the system will subtract and adjust the number of the ticket 
+	* depends on the number of tickets that have been deleted
+	* 
+	* @param $tid : Integer ( hold the number of the next ticket)
+	* @param $user : String ( hold the name of the user who modify the account setting information)
+	*/
+    public function deleteTicket( $tid, $user )
     {
         $this->query_DeleteTicket->execute( 
             array( ':tid'               => $tid 
                  , ':last_open_time'    => $this->GetUpdatedTicketTimeByTid( $tid )
-                 , ':last_mdfd_user'    => getCurrentUserName()
+                 , ':last_mdfd_user'    => $user
                  )   
         );
     }
 
-    public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $lifecycle, $estTime)
+	/**
+	* Add a ticket 
+	* After adding the ticket the system is going to send an email to the current user and assignee user.
+	*
+	* @param $tid : Integer ( hold the number of the next ticket)
+	* @param $title : String ( hold the ticket title )
+	* @param $description : String ( hold the ticket description)
+	* @param $assignee : integer ( hold the correspond pid number of assignee user)
+	* @param $category : Integer ( hold the correspond category number "cid" of the selected category)
+	* @param $aff_level : integer ( hold the correspond affected level number "aff_level" of the selected affected level)
+	* @param $severity : integer ( hold the correspond severity number "severity" of the selected severity)
+	* @param $expct_hours : Integer ( hold the number of hours that needed to close the ticket)
+	* @param $life_cycl_id : Integer ( hold the correspond Life Cycle number "life_cycl_id" of the selected Life Cycle ) 
+	* @param $user : String ( hold the name of the user who modify the account setting information)
+	*/
+    public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $lifecycle, $estTime, $user)
     {
         $this->query_InsertTicket->execute(
             array( ':opener'             => $customer
@@ -89,38 +152,19 @@ class Tickets_Model Extends Base_Model
                  , ':catg'               => $category
                  , ':life_cycl_id'       => $lifecycle
                  , ':expct_hours'        => $estTime 
-                 , ':last_mdfd_user'     => getCurrentUserName()
+                 , ':last_mdfd_user'     => $user
                  )
             );
-        MailUpdateorAdd(FALSE, $title, $customer, $assignee);
-    }
-    
-    public function MailUpdateorAdd($isUpdate, $title, $customer, $assignee)
-    {
-        if ($isUpdate)
-        {
-            $subject = "Ticket Updated: " .$title;
-            $message = "The ticket has been updated.";
-        }
-        else
-        {
-            $subject = "Ticket Added: " .$title;
-            $message = "The ticket has been added.";
-        }
-        
-        $headers = "From: stpkiproject@gmail.com";
-        
-        // Sends email to the Customer
-        $this->query_GetEmail->execute(array( ':pid' => $customer));
-        $to = $this->query_GetEmail->fetch(0);
-        mail($to->email, $subject, $message, $headers);
-        
-        // Sends email to the Assignee
-        $this->query_GetEmail->execute(array( ':pid' => $assignee));
-        $to = $this->query_GetEmail->fetch(0);
-        mail($to->email, $subject, $message, $headers);
+        $this->MailUpdateorAdd(FALSE, $title, $customer, $assignee);
     }
 
+	/**
+	* Database Queries
+	* Display tickets 
+	* Delete, update, and add tickets
+	* return the user, Categories, Affected Level, Severities, and Life Cycle information 
+	* return ticket ID
+	*/
     protected function SetUpQueries()
     {
         parent::SetUpQueries();

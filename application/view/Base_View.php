@@ -7,6 +7,13 @@ class Base_View
 
 	}
 
+        /** 
+         * Creates the html for rendering the three sections (head, body, tail) for 
+         * each of the STRATOS web application webpages, then
+         * echos this html out to the webpage for actual rendering.
+         * 
+         * @param $body : String (a string of html that gets echo-ed out to the webpage in the view)
+         */
 	public function renderBody($body)
 	{
         $head = '<html>

@@ -1,10 +1,13 @@
 <?php
-require_once('../../globals.php');
 require APP . 'model\Base_Model.php';
-#include "..\Base_Model.php";
 
 class Software_Model Extends Base_Model
 {
+	/**
+	* Collect all software information from the software table 
+	* 
+	* @param $start : String ( hold the table information)
+	*/
     public function showAllSoftware($start)
     {
         $this->query_ShowAllSoftware->bindParam(':start',$start,PDO::PARAM_INT);
@@ -12,40 +15,69 @@ class Software_Model Extends Base_Model
         return $this->query_ShowAllSoftware->fetchAll();
     }
     
+	/**
+	* Collect specific software information from the database using the software number
+	* 
+	* @param $sid : Integer ( hold the software number)
+	*/
     public function getSoftware( $sid )
     {
         $this->query_GetSoftware->execute( array( ':sid' => $sid ) );
         return $this->query_GetSoftware->fetch();
     }
 
-    public function addSoftware($name)
+	/**
+	* Add a new software to the database
+	* 
+	* @param $name : String ( hold the software's name)
+	* @param $user : String ( hold the name of the user who commit the addition) 
+	*/
+    public function addSoftware($name, $user)
     {
         $this->query_InsertSoftware->execute(
             array( ':name'              => $name
-                 , ':last_mdfd_user'    => getCurrentUsername()
+                 , ':last_mdfd_user'    => $user
                  )
         );
     }
     
-    public function deleteSoftware( $sid )
+	/**
+	* delete a software from the database
+	* 
+	* @param $sid : Integer ( hold the software's number)
+	* @param $user : String ( hold the name of the user who commit the deletion) 
+	*/
+    public function deleteSoftware( $sid, $user )
     {
         $this->query_DeleteSoftware->execute( 
             array( ":sid"               => $sid 
-                 , ":last_mdfd_user"    => getCurrentUserName()
+                 , ":last_mdfd_user"    => $user
                  )             
         );
     }
     
-    public function updateSoftware( $sid, $name)
+	/**
+	* Update a software information to the database
+	* 
+	* @param $sid : Integer ( hold the software number)
+	* @param $name : String ( hold the software name)
+	* @param $user : String ( hold the name of the user who commit the update) 
+	*/
+    public function updateSoftware( $sid, $name, $user)
     {
         $this->query_UpdateSoftware->execute(
             array( ':sid'               => $sid
                  , ':name'              => $name
-                 , ':last_mdfd_user'    => getCurrentUserName()
+                 , ':last_mdfd_user'    => $user
                  )
         );
     }
 
+	/**
+	* Database Queries
+	* Display software
+	* Delete, update, and add software
+	*/
     protected function SetUpQueries()
     {
         parent::SetUpQueries();

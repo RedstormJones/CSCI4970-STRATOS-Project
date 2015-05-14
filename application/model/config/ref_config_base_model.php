@@ -1,46 +1,67 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'model\Base_Model.php';
 
 class Ref_Config_Base_Model Extends Base_Model
 {
-    public function __construct( $table, $prikey_col, $label_col )
+
+	/**
+	* Collect the value from the Affected Level, Category, Priority, or Severity database tables
+	* 
+	* @param $table : String ( hold the table data) 
+	*/
+    public function __construct( $table )
     {
         $this->table = $table;
-        $this->prikey_col = $prikey_col;
-        $this->label_col = $label_col;
-
+        
         parent::__construct();
     }
 
-	public function reassignAndDelete( $old, $new )
+	/**
+	* Reassign and delete a value from the database
+	*/
+	public function reassignAndDelete( $old, $new, $user )
 	{
-		$this->updateReferences( $old, $new );
-        $this->deleteReferences( $old );
-        $this->deleteConfig( $old );
+		$this->updateReferences( $old, $new, $user );
+        $this->deleteReferences( $old, $user );
+        $this->deleteConfig( $old, $user );
 	}
 	
+	/**
+	* execute the query
+	*/
 	public function queryForm()
 	{
 		$this->query_SelectFormElements->execute();
 		return $this->query_SelectFormElements->fetchAll();
 	}
 
-    protected function updateReferences( $old, $new )
+	/**
+	* Override the old value with the new value 
+	*/
+    protected function updateReferences( $old, $new, $user )
     {
-        // Override in children as necessary
+        
+    }
+	
+	/**
+	* Override in children as necessary
+	*/
+    protected function deleteReferences( $old, $user )
+    {
+        
     }
 
-    protected function deleteReferences( $old )
+	/**
+	* Override in children as necessary
+	*/
+    protected function deleteConfig( $old, $user )
     {
-        // Override in children as necessary
+        
     }
 
-    protected function deleteConfig( $old )
-    {
-        // Override in children as necessary
-    }
-
+	/**
+	* Database Query 
+	*/
     protected function SetUpQueries()
     {
         parent::SetUpQueries();

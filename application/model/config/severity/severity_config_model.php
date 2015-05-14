@@ -1,15 +1,21 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'model\config\Ref_Config_Base_Model.php';
 
 class Severity_Config_Model Extends Ref_Config_Base_Model
 {
     public function __construct()
     {
-        parent::__construct( 'StSvrLvlConf', 'severity', 'name' );
+        parent::__construct( 'StSvrLvlConf' );
     }
 
-    protected function updateReferences( $old, $new )
+	/**
+	* Update the Severity drop down menu that display on the add or update ticket form on the ticket page 
+	*
+	* @param $old : String ( the selected Severity value)
+	* @param $new : String ( the new Severity value)
+	* @param $user : String ( hold the name of the current logged in user)
+	*/
+    protected function updateReferences( $old, $new, $user )
     {
         $this->query_GetAffectedTickets->execute( array( ':old' => $old ) );
         $affectedTickets = $this->query_GetAffectedTickets->fetchAll();
@@ -21,49 +27,81 @@ class Severity_Config_Model Extends Ref_Config_Base_Model
                     array( ':tid'               => $ticket->tid
                          , ':new'               => $new
                          , ':last_open_time'    => $last_open_time
-                         , ':last_mdfd_user'    => getCurrentUserName()
+                         , ':last_mdfd_user'    => $user
                          )
                 );
         }
     }
 
-    protected function deleteReferences( $old )
+	/**
+	* Delete the Severity reference that display on the priority matrices page
+	*
+	* @param $old : String ( hold the selected value of the Severity)
+	* @param $user : string ( hold the name of the user who commit the deletion) 
+	*/
+    protected function deleteReferences( $old, $user )
     {
         $this->query_DeletePriMtxReferences->execute( 
                 array( ':old'                   => $old 
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
     }
 
-    protected function deleteConfig( $old )
+	/**
+	* Delete the selected Severity
+	*
+	* @param $old : String ( hold the selected name of the Severity)
+	* @param $user : string ( hold the name of the user who commit the deletion) 
+	*/
+    protected function deleteConfig( $old, $user )
     {
         $this->query_DeleteSeverity->execute( 
                 array( ':severity'              => $old 
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
     }
 
-	public function updateSeverity( $severity, $name )
+	/**
+	* Update the selected Severity
+	*
+	* @param $severity : Integer ( hold the selected Severity number )
+	* @param $name : String ( hold the selected name of the Severity)
+	* @param $user : string ( hold the name of the user who commit the update) 
+	*/
+	public function updateSeverity( $severity, $name, $user )
 	{
 		$this->query_UpdateSeverity->execute( 
                 array( ':severity'              => $severity
                      , ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}
 
-	public function addSeverity( $name )
+	/**
+	* Add a new Severity
+	*
+	* @param $name : String ( hold the name of the Severity)
+	* @param $user : string ( hold the name of the user who commit the addition) 
+	*/
+	public function addSeverity( $name, $user )
 	{
 		$this->query_AddSeverity->execute( 
                 array( ':name'                  => $name
-                     , ':last_mdfd_user'        => getCurrentUserName()
+                     , ':last_mdfd_user'        => $user
                      ) 
             );
 	}
 
+	/**
+	* return the Severity number
+	*
+	* @param $severity : Integer ( hold the Severity number)
+	* 
+	* return the Severity number
+	*/
 	public function getSeverity( $severity )
 	{
 		$this->query_GetSeverity->execute( 
@@ -73,6 +111,12 @@ class Severity_Config_Model Extends Ref_Config_Base_Model
 		return $this->query_GetSeverity->fetch();
 	}
 
+	/**
+	* Database Queries
+	* Find affected level, update ticket reference
+	* Delete, update, and add Severities
+	* return Severities number
+	*/
     protected function SetUpQueries()
     {
         parent::SetUpQueries();

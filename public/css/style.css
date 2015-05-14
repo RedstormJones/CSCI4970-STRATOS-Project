@@ -29,7 +29,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 body {
 	color: #000;
-	font: 14px Arial;
+	font: 16px Segoe UI;
 	margin: 0px;
 	padding: 0px;
 	position: relative;
@@ -37,7 +37,7 @@ body {
 h1{ font-size:28px;}
 h2{ font-size:26px;}
 h3{ font-size:18px;}
-h4{ font-size:16px;}
+h4{ font-size:18px;}
 h5{ font-size:14px;}
 h6{ font-size:12px;}
 h1,h2,h3,h4,h5,h6{ color:black;}

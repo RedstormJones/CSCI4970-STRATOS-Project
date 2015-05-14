@@ -1,21 +1,34 @@
 <?php
 require APP . 'view\Base_View.php';
 
-class Hardware_View Extends Base_View
+class Hardware_View extends Base_View
 {
+    /**
+     * Creates the html to display the hardware, then sends the html to 
+     * renderBody() function in the base view to render the html to web
+     * 
+     * @param $hardwarelist : Array (holds the lists of hardware objects)
+     * @param $start : Integer (holds the starting number of hardware to be displayed in webpage)
+     */
     public function renderHardware($hardwarelist, $start)
     {
         $body  = '<h3 title="All Active Hardware">All Active Hardware</h3>';
-        $body .= '<div class="pull-right">
-                <form class="form-inline" role="form">
-                    <div class="form-group">
-                        <label class="sr-only" for="search-text">Search Hardware :</label>
-                        <input type="text" id="search-text" placeholder="Enter Hardware #">
-                        <button type="button" id="search-btn">Search</button>
-                    </div>
-                </form>
-            </div>';
-        $body .= "<br><br><br>";
+        
+        #---------------------------------------------------#
+        # Uncomment the addition to $body below to make the #
+        # search bar appear on the STRATOS Hardware page    #
+        #---------------------------------------------------#        
+        #$body .= '<div class="pull-right">
+        #        <form class="form-inline" role="form">
+        #            <div class="form-group">
+        #                <label class="sr-only" for="search-text">Search Hardware :</label>
+        #                <input type="text" id="search-text" placeholder="Enter Hardware #">
+        #                <button type="button" id="search-btn">Search</button>
+        #            </div>
+        #        </form>
+        #    </div>';
+        
+        $body .= "<br><br>";
 
         $body .= '<table>';
         $body .= '  <tr>';
@@ -70,6 +83,20 @@ class Hardware_View Extends Base_View
         $this->renderBody($body);
     }
 
+    /**
+     * Creates the html for the add/update hardware form, then calls the function
+     * in the base view to display in the webpage.
+     * 
+     * @param $isUpdate : Boolean (whether to add or update)
+     * @param $eid : Integer (holds the id of the hardware)
+     * @param $name : String (holds the name of the Hardware)
+     * @param $vendor : String (holds the vendor of the Hardware)
+     * @param $model : String (holds the model of the Hardware)
+     * @param $serial : String (holds the serial of the Hardware)
+     * @param $type : String (holds the type of the Hardware)
+     * @param $location : String (holds the location of the Hardware)
+     * @param $status : String (holds the status of the Hardware)
+     */
     public function renderForm($isUpdate
                                 , $eid = ''
                                 , $name = ''

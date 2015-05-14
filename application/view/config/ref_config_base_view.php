@@ -1,9 +1,15 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'view\Base_View.php';
 
-class Ref_Config_Base_View Extends Base_View
+class Ref_Config_Base_View extends Base_View
 {
+    
+    /* Renders the actual html form for Affected Level, Category,
+     * Priority, and Severity configurations. 
+     * 
+     * @param $recordList : Array (that holds the data about each of the configuration id and name)
+     * @param $description : String (string holding the instruction that is to be displayed on form)
+     */
     public function renderBaseForm( $recordList, $description )
     {
         $body                            = '<form id="Existing" name="DeleteOrUpdate" method="get" class="dark-matter" action="">';

@@ -1,23 +1,34 @@
 <?php
 include "..\Base_View.php";
 
-
-class Software_View Extends Base_View
+class Software_View extends Base_View
 {
-
+    /**
+     * Create the htmls to display the software, then sends the html to renderBody()
+     * in the base view to actually render the html to the webpage.
+     * 
+     * @param $softwarelist : Array (holds the lists of software objects)
+     * @param $start : Integer (holds the starting number of software to be displayed in webpage)
+     */
     public function renderSoftware($softwarelist, $start)
     {
         $body = '<h3 title="All Active Software">All Active Software</h3>';
-        $body .= '<div class="pull-right">
-                <form class="form-inline" role="form">
-                    <div class="form-group">
-                        <label class="sr-only" for="search-text">Search Software :</label>
-                        <input type="text" id="search-text" placeholder="Enter Software #">
-                        <button type="button" id="search-btn">Search</button>
-                    </div>
-                </form>
-            </div>';
-        $body .= "<br><br><br>";
+        
+        #---------------------------------------------------#
+        # Uncomment the addition to $body below to make the #
+        # search bar appear on the STRATOS Software page    #
+        #---------------------------------------------------#
+        #$body .= '<div class="pull-right">
+        #        <form class="form-inline" role="form">
+        #            <div class="form-group">
+        #                <label class="sr-only" for="search-text">Search Software :</label>
+        #                <input type="text" id="search-text" placeholder="Enter Software #">
+        #                <button type="button" id="search-btn">Search</button>
+        #            </div>
+        #        </form>
+        #    </div>';
+        
+        $body .= "<br><br>";
 
         $body .= '<table>';
         $body .= '    <tr>';
@@ -67,6 +78,14 @@ class Software_View Extends Base_View
         $this->renderBody($body);
     }
 
+    /** 
+     * Creates the html for the add/update software form, then calls the function
+     * renderBody() in the base view to display in the webpage.
+     * 
+     * @param $isUpdate : Boolean (whether to add or update)
+     * @param $sid : Integer (holds the id of the software)
+     * @param $name : String (holds the name of the software)
+     */
     public function renderForm($isUpdate, $sid = '', $name = '')
     {
         $body  = '<br><br><br>';

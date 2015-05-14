@@ -1,9 +1,12 @@
 <?php
-require_once('../../../globals.php');
 require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
 class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
 {
+    /**
+    * Uses the model to get data for rendering the Lifecycle configuration form.
+    * Then commands the view to render the form to the webpage
+    */
    	public function noAction()
     {
         $resultList = $this->model->queryForm();
@@ -18,9 +21,14 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
         $this->view->renderForm( $formElements );
     }
 
+    /**
+    * First validates the user-added Lifecycle and checks that $name is not empty.
+    * Then commands the model to add the new Lifecycle to the database and finally
+    * calls startFresh() to refresh the application for displaying the changes
+    */
     public function Add_LifeCycle()
     {
-        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
         
         if ($name == '')
         {
@@ -29,15 +37,20 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
             exit;
         }
         
-        $timed = getParam( 'timed', '' ) == 'on';
-        $this->model->addLifecycle( $name, $timed );
+        $timed = $this->globals->getParam( 'timed', '' ) == 'on';
+        $this->model->addLifecycle( $name, $timed, $this->user );
         $this->startFresh();
     }
 
+    /**
+    * First gets and validates the updated Lifecycle and checks that $name is not empty.
+    * Then commands the model to add the new Lifecycle to the database and finally
+    * calls startFresh() to refresh the application for displaying the changes
+    */
     public function Update_Lifecycle()
     {
-        $life_cycl_id = getParam( 'life_cycl_id', null );
-        $name = $this->validateInputNotEmpty(getParam( 'name', null ));
+        $life_cycl_id = $this->globals->getParam( 'life_cycl_id', null );
+        $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
         
         if ($name == '')
         {
@@ -45,14 +58,20 @@ class Lifecycle_Config_Controller Extends Ref_Config_Base_Controller
             $this->view->renderBody($body);
             exit;
         }
-        $timed = getParam( 'timed', '' ) == 'on';
-        $this->model->updateLifecycle( $life_cycl_id, $name, $timed );
+        $timed = $this->globals->getParam( 'timed', '' ) == 'on';
+        $this->model->updateLifecycle( $life_cycl_id, $name, $timed, $this->user );
         $this->startFresh();
     }
 
+    /**
+    * Enumerates the original Lifecycle configuration data and the new or udpated
+    * Lifecycle configuration data and commands the view to render it to the webpage
+    *
+    * @param $isUpdate : Boolean (specifies whether the data is new or is an update)
+    */
     public function addOrUpdate( $isUpdate )
     {
-        $life_cycl_id   = $isUpdate ? getParam( 'original' ) : '';
+        $life_cycl_id   = $isUpdate ? $this->globals->getParam( 'original' ) : '';
         $name           = '';
         $timed          = false;
         if ( $isUpdate )

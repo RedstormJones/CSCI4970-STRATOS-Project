@@ -3,11 +3,19 @@ require APP . 'controller\Base_Controller.php';
 
 class Tickets_Controller Extends Base_Controller
 {
+    #----------------------------------#
+    # Redirects application control to #
+    # the showAllTickets() method      #
+    #----------------------------------#
     public function noAction()
     {
         $this->showAllTickets( 0 );
     }
 
+    #-------------------------------------#
+    # Creates the array of ticket objects #
+    # to render in the tickets view       #
+    #-------------------------------------#
     public function showAllTickets( $start )
     {
         $ticket_objects = $this->model->showAllTickets($start);
@@ -27,10 +35,13 @@ class Tickets_Controller Extends Base_Controller
         $this->view->renderTickets($rows, $start);
     }
 
+    #---------------------------------------------------#
+    # Renders the next 10 ticket objects to the webpage #
+    #---------------------------------------------------#
     public function Next()
     {
-        $start = (int)getParam( 'start' , 0 );
-        $prev_displayed = getParam( 'displayed', '10' );
+        $start = (int)$this->globals->getParam( 'start' , 0 );
+        $prev_displayed = $this->globals->getParam( 'displayed', '10' );
         if ( $prev_displayed == '10' )
         {
             $start += 10; 
@@ -39,21 +50,33 @@ class Tickets_Controller Extends Base_Controller
         $this->showAllTickets( $start );
     }
 
+    #---------------------------------------------------#
+    # Renders the last 10 ticket objects to the webpage #
+    #---------------------------------------------------#
     public function Previous()
     {
-        $start = (int)getParam( 'start' , 10 ) - 10;
+        $start = (int)$this->globals->getParam( 'start' , 10 ) - 10;
         if ( $start < 0 ) $start = 0;
         $this->showAllTickets( $start );
     }
 
+    #----------------------------------#
+    # Redirects application control to #
+    # the _Ticket_Form() method        #
+    #----------------------------------#
     public function New_Ticket()
     {
         $this->_Ticket_Form( false );
     }
 
+    #---------------------------------------#
+    # Redirects appliation control to the   #
+    # _Ticket_Form() method and supplies    #
+    # data to populate the form fields with #
+    #---------------------------------------#
     public function Update()
     {
-        $tid = getParam('tid');
+        $tid = $this->globals->getParam('tid');
         $ticket = $this->model->getTicket( $tid );
 
         $this->_Ticket_Form( true
@@ -70,6 +93,10 @@ class Tickets_Controller Extends Base_Controller
                            );
     }
 
+    #----------------------------------------------------#
+    # Sets up data for use in the ticket form fields and #
+    # then commands the view to render the ticket form   #
+    #----------------------------------------------------#
     private function _Ticket_Form( $isUpdate = false
                                  , $db_title = ''
                                  , $db_desc = ''
@@ -141,37 +168,55 @@ class Tickets_Controller Extends Base_Controller
                                , $db_title, $db_desc, $db_cust, $db_assigned, $db_catg, $db_affected, $db_severity, $db_lifecycle, $db_est, $db_tid );
     }
 
+    #-----------------------------------#
+    # Validates the updated ticket data #
+    # and refreshes the application     #
+    #-----------------------------------#
     public function Update_Ticket()
     {
         $this->validateTicket( true );
         $this->startFresh();
     }
 
+    #-----------------------------------#
+    # Validates the new ticket data and #
+    # refreshes the application         #
+    #-----------------------------------#
     public function Add_Ticket()
     {
         $this->validateTicket( false );
         $this->startFresh();
     }
 
+    #------------------------------------------------#
+    # Commands the model to mark the ticket entry in #
+    # the database corresponding to the given tid as #
+    # removed, then refreshes the application        #
+    #------------------------------------------------#
     public function Delete_Ticket()
     {
-        $tid = getParam( 'tid' );
-        $this->model->deleteTicket( $tid );
+        $tid = $this->globals->getParam( 'tid' );
+        $this->model->deleteTicket( $tid, $this->user );
         $this->startFresh();
     }
 
+    #------------------------------------------------------#
+    # Validates the new / updated ticket data and commands #
+    # the model to update the data or insert it as new,    #
+    # then refreshes the application                       #
+    #------------------------------------------------------# 
     public function validateTicket( $isUpdate )
     {
-        $tid                            = getParam("tid", null);
-        $title                          = $this->validateInputNotEmpty(    getParam("title"    , null) );
-        $description                    = $this->validateInput(            getParam("des"      , null) );
-        $customer                       = $this->validateInputNotEmpty(    getParam("cust"     , null) );
-        $assignee                       = $this->validateInputNotEmpty(    getParam("assignee" , null) );
-        $category                       = $this->validateInputNotEmpty(    getParam("cid"      , null) );
-        $affLvl                         = $this->validateInputNotEmpty(    getParam("affLvl"   , null) );
-        $severity                       = $this->validateInputNotEmpty(    getParam("sev"      , null) );
-        $estTime                        = $this->validateInputNotEmpty(    getParam("estHrs"   , null) );
-        $life_cycl_id                   = $this->validateInputNotEmpty(    getParam("lifecycle", null) );
+        $tid                            = $this->globals->getParam("tid", null);
+        $title                          = $this->validateInputNotEmpty(    $this->globals->getParam("title"    , null) );
+        $description                    = $this->validateInput(            $this->globals->getParam("des"      , null) );
+        $customer                       = $this->validateInputNotEmpty(    $this->globals->getParam("cust"     , null) );
+        $assignee                       = $this->validateInputNotEmpty(    $this->globals->getParam("assignee" , null) );
+        $category                       = $this->validateInputNotEmpty(    $this->globals->getParam("cid"      , null) );
+        $affLvl                         = $this->validateInputNotEmpty(    $this->globals->getParam("affLvl"   , null) );
+        $severity                       = $this->validateInputNotEmpty(    $this->globals->getParam("sev"      , null) );
+        $estTime                        = $this->validateInputNotEmpty(    $this->globals->getParam("estHrs"   , null) );
+        $life_cycl_id                   = $this->validateInputNotEmpty(    $this->globals->getParam("lifecycle", null) );
         
         if ($title == '' || $customer == '' || $assignee == '' || $affLvl == '' 
                 || $category == '' || $severity == '' || $estTime == '' 
@@ -185,11 +230,11 @@ class Tickets_Controller Extends Base_Controller
         if ( $isUpdate )
         {
             $result = $this->model->updateTicket( $tid, $title, $description, $customer, $assignee, $category
-                                                , $affLvl, $severity, $estTime, $life_cycl_id );
+                                                , $affLvl, $severity, $estTime, $life_cycl_id, $this->user );
         }
         else
         {
-            $result = $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $life_cycl_id, $estTime);        
+            $result = $this->model->addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $life_cycl_id, $estTime, $this->user);        
             
         }
 

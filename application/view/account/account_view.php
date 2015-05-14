@@ -1,8 +1,20 @@
 <?php
 require APP . 'view\Base_View.php';
 
-class Account_View Extends Base_View
+class Account_View extends Base_View
 {
+
+    /** 
+     * Displays the configurable information for the currently logged
+     * on user and allows the user to change this information
+     * 
+     * @param $pid : Integer (that hold the person identification number)
+     * @param $fname : String (a string that holds the first name)
+     * @param $lname : String (a string that holds the last name)
+     * @param $user : String (a string that holds the user name)
+     * @param $email : String (a string that holds the email address)
+     * @param $phone : String (a string that holds the phone number)
+     */
     public function renderForm($pid, $fname, $lname, $user, $email, $phones)
     {
         $body = '<h3 title="Current User Information">Current ' . $user .' Information</h3>';
