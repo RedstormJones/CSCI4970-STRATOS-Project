@@ -1,12 +1,12 @@
 <?php
 require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
-class Severity_Config_Controller Extends Ref_Config_Base_Controller
+class Severity_Config_Controller extends Ref_Config_Base_Controller
 {
-    #-----------------------------------------------#
-    # Gets data for the Severity configuration form #
-    # and instructs the view to render it           #
-    #-----------------------------------------------#
+    /**
+    * Uses the model to get data for rendering the Severity configuration form.
+    * Then commands the view to render the form to the webpage
+    */
    	public function noAction()
         {
             $resultList = $this->model->queryForm();
@@ -20,11 +20,11 @@ class Severity_Config_Controller Extends Ref_Config_Base_Controller
             $this->view->renderForm( $formElements );
         }
 
-    #-------------------------------------------------------#
-    # Validates user-added Severity data and instructs the  #
-    # model to update the database, then calls startFresh() #
-    # to show the new Severity configuration changes        #
-    #-------------------------------------------------------#
+    /**
+    * First validates the user-added Severity and checks that $name is not empty.
+    * Then commands the model to add the new Severity to the database and finally
+    * calls startFresh() to refresh the application for displaying the changes
+    */
     public function Add_Severity()
     {
         $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
@@ -39,11 +39,11 @@ class Severity_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    #-------------------------------------------------------#
-    # Validates modified Severity data and instructs the    #
-    # model to update the database, then calls startFresh() #
-    # to show the new Severity configuration changes        #
-    #-------------------------------------------------------#
+    /**
+    * First gets and validates the updated Severity and checks that $name is not empty.
+    * Then commands the model to add the new Severity to the database and finally
+    * calls startFresh() to refresh the application for displaying the changes
+    */
     public function Update_Severity()
     {
         $severity = $this->globals->getParam( 'severity', null );
@@ -59,10 +59,12 @@ class Severity_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    #------------------------------------------------------#
-    # Gets the Severity configuration data using the model #
-    # and renders the data to the webpage using the view   #
-    #------------------------------------------------------#
+    /**
+    * Enumerates the original Severity configuration data and the new or udpated
+    * Severity configuration data and commands the view to render it to the webpage
+    *
+    * @param $isUpdate : Boolean (specifies whether the data is new or is an update)
+    */
     public function addOrUpdate( $isUpdate )
     {
         $severity   = $isUpdate ? $this->globals->getParam( 'original' ) : '';

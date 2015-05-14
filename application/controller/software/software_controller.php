@@ -1,21 +1,25 @@
 <?php
 require APP . 'controller\Base_Controller.php';
 
-class Software_Controller Extends Base_Controller
+class Software_Controller extends Base_Controller
 {
-    #----------------------------------#
-    # Redirects application control to #
-    # the showAllSoftware() method     #
-    #----------------------------------#
+    /**
+    * Default method to execute if no specific controller method is provided.
+    * Redirects application control to the showAllSoftware() method and passes
+    * the value of 0 so that the software rendered starts at the beginning of 
+    * the software dataset
+    */
     public function noAction()
     {
         $this->showAllSoftware(0);
     }
 
-    #---------------------------------------#
-    # Creates the array of Software objects #
-    # to render in the software view        #
-    #---------------------------------------#
+    /**
+    * Commands the model to get all software data and then builds an array of
+    * software objects to use in the view for rendering to the webpage
+    *
+    * @param $start : Int (used for paging the software data rendered to the webpage - 10 count)
+    */
 	public function showAllSoftware( $start )
 	{
 		$software_objects = $this->model->showAllSoftware( $start );
@@ -32,9 +36,9 @@ class Software_Controller Extends Base_Controller
 		$this->view->renderSoftware($rows, $start);
 	}
 
-    #-----------------------------------------------------#
-    # Renders the next 10 Software objects to the webpage #
-    #-----------------------------------------------------#
+    /**
+    * Displays the next 10 elements of software data.
+    */
     public function Next()
     {
         $start = (int)$this->globals->getParam( 'start' , 0 );
@@ -47,9 +51,9 @@ class Software_Controller Extends Base_Controller
         $this->showAllSoftware( $start );
     }
 
-    #-----------------------------------------------------#
-    # Renders the last 10 Software objects to the webpage #
-    #-----------------------------------------------------#
+    /**
+    * Displays the previous 10 elements of software data.
+    */
     public function Previous()
     {
         $start = (int)$this->globals->getParam( 'start' , 10 ) - 10;
@@ -57,17 +61,19 @@ class Software_Controller Extends Base_Controller
         $this->showAllSoftware( $start );
     }
 
-    #---------------------------------------------------#
-    # Commands the view to render the add Software form #
-    #---------------------------------------------------#
+    /**
+    * Commands the view to render the form for adding new software
+    */
     public function New_Software()
     {
         $this->view->renderForm( false );
     }
 
-    #------------------------------------------------------#
-    # Commands the view to render the update Software form #
-    #------------------------------------------------------#
+    /**
+    * Gets the current software data from the model and commands the view
+    * to render the form for updating software, passing the data received
+    * from the model as parameters to pre-populate the software fields
+    */
     public function Update()
     {
         $sid = $this->globals->getParam('sid');
@@ -75,31 +81,30 @@ class Software_Controller Extends Base_Controller
         $this->view->renderForm( true, $sid, $software->name);
     }
 
-    #-------------------------------------#
-    # Validates the updated Software data #
-    # and refreshes the application       #
-    #-------------------------------------#
+    /**
+    * Validates the updated software data and refreshes the application
+    */
     public function Update_Software()
     {
         $this->validateSoftware( true );
         $this->startFresh();
     }
 
-    #-------------------------------------#
-    # Validates the new Software data and #
-    # refreshes the application           #
-    #-------------------------------------#
+    /**
+    * Validates the new software data and refreshes the application
+    */
     public function Add_Software()
     {
         $this->validateSoftware( false );
         $this->startFresh();
     }
 
-    #-------------------------------------------------#
-    # Commands the model to remove the Software entry #
-    # in the database corresponding to the given eid, #
-    # then refreshes the application                  #
-    #-------------------------------------------------#
+    /**
+    * Gets the software ID from the environmet variables and 
+    * commands the model to mark the software entry in the 
+    * database corresponding to the given sid as removed, 
+    * then refreshes the application
+    */
     public function Delete_Software()
     {
         $sid = $this->globals->getParam( 'sid' );
@@ -107,11 +112,12 @@ class Software_Controller Extends Base_Controller
         $this->startFresh();
     }
 
-    #--------------------------------------------------------#
-    # Validates the new / updated Software data and commands #
-    # the model to update the data or insert it as new, then #
-    # refreshes the application                              #
-    #--------------------------------------------------------# 
+    /**
+    * Validates the new / updated software data and commands the model 
+    * to update the data or insert it as new, then refreshes the application
+    * 
+    * @param $isUpdate : Boolean (specifies whether this modification is new data or is updating existing data)
+    */
     public function validateSoftware($isUpdate)
 	{
         $sid        = $this->globals->getParam('sid', null);

@@ -1,12 +1,12 @@
 <?php
 require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
-class Priority_Config_Controller Extends Ref_Config_Base_Controller
+class Priority_Config_Controller extends Ref_Config_Base_Controller
 {
-    #-----------------------------------------------#
-    # Gets data for the Priority configuration form #
-    # and instructs the view to render it           #
-    #-----------------------------------------------#
+    /**
+    * Uses the model to get data for rendering the Priority configuration form.
+    * Then commands the view to render the form to the webpage
+    */
   	public function noAction()
     {
         $resultList = $this->model->queryForm();
@@ -20,11 +20,11 @@ class Priority_Config_Controller Extends Ref_Config_Base_Controller
         $this->view->renderForm( $formElements );
     }
 
-    #-------------------------------------------------------#
-    # Validates user-added Priority data and instructs the  #
-    # model to update the database, then calls startFresh() #
-    # to show the new Priority configuration changes        #
-    #-------------------------------------------------------#
+    /**
+    * First validates the user-added Priority and checks that $name is not empty.
+    * Then commands the model to add the new Priority to the database and finally
+    * calls startFresh() to refresh the application for displaying the changes
+    */
     public function Add_Priority()
     {
         $name = $this->validateInputNotEmpty($this->globals->getParam( 'name', null ));
@@ -39,11 +39,11 @@ class Priority_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    #-------------------------------------------------------#
-    # Validates modified Priority data and instructs the    #
-    # model to update the database, then calls startFresh() #
-    # to show the new Priority configuration changes        #
-    #-------------------------------------------------------#
+    /**
+    * First gets and validates the updated Priority and checks that $name is not empty.
+    * Then commands the model to add the new Priority to the database and finally
+    * calls startFresh() to refresh the application for displaying the changes
+    */
     public function Update_Priority()
     {
         $priority = $this->globals->getParam( 'priority', null );
@@ -59,10 +59,12 @@ class Priority_Config_Controller Extends Ref_Config_Base_Controller
         $this->startFresh();
     }
 
-    #------------------------------------------------------#
-    # Gets the Priority configuration data using the model #
-    # and renders the data to the webpage using the view   #
-    #------------------------------------------------------#
+    /**
+    * Enumerates the original Priority configuration data and the new or udpated
+    * Priority configuration data and commands the view to render it to the webpage
+    *
+    * @param $isUpdate : Boolean (specifies whether the data is new or is an update)
+    */
     public function addOrUpdate( $isUpdate )
     {
         $priority   = $isUpdate ? $this->globals->getParam( 'original' ) : '';

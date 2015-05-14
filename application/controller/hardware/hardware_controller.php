@@ -1,21 +1,25 @@
 <?php
 require APP . 'controller\Base_Controller.php';
 
-class Hardware_Controller Extends Base_Controller
+class Hardware_Controller extends Base_Controller
 {
-    #----------------------------------#
-    # Redirects application control to #
-    # the showAllHardware() method     #
-    #----------------------------------#
+    /**
+    * Default method to execute if no specific controller method is provided.
+    * Redirects application control to the showAllHardware() method and passes
+    * the value of 0 so that the hardware rendered starts at the beginning of 
+    * the hardware dataset
+    */
     public function noAction()
     {
         $this->showAllHardware(0);
     }
 
-    #---------------------------------------#
-    # Creates the array of hardware objects #
-    # to render in the hardware view        #
-    #---------------------------------------#
+    /**
+    * Commands the model to get all hardware data and then builds an array of
+    * hardware objects to use in the view for rendering to the webpage
+    *
+    * @param $start : Int (used for paging the hardware data rendered to the webpage - 10 count)
+    */
     public function showAllHardware($start)
     {
             $hardware_objects = $this->model->showAllHardware($start);
@@ -37,9 +41,9 @@ class Hardware_Controller Extends Base_Controller
             $this->view->renderHardware($rows, $start);
     }
     
-    #-----------------------------------------------------#
-    # Renders the next 10 hardware objects to the webpage #
-    #-----------------------------------------------------#
+    /**
+    * Displays the next 10 elements of hardware data.
+    */
     public function Next()
     {
         $start = (int)$this->globals->getParam( 'start' , 0 );
@@ -52,9 +56,9 @@ class Hardware_Controller Extends Base_Controller
         $this->showAllHardware( $start );
     }
 
-    #-----------------------------------------------------#
-    # Renders the last 10 hardware objects to the webpage #
-    #-----------------------------------------------------#
+    /**
+    * Displays the previous 10 elements of hardware data.
+    */
     public function Previous()
     {
         $start = (int)$this->globals->getParam( 'start' , 10 ) - 10;
@@ -62,17 +66,19 @@ class Hardware_Controller Extends Base_Controller
         $this->showAllHardware( $start );
     }
 
-    #---------------------------------------------------#
-    # Commands the view to render the add Hardware form #
-    #---------------------------------------------------#
+    /**
+    * Commands the view to render the form for adding new hardware
+    */
     public function New_Hardware()
     {
         $this->view->renderForm( false );
     }
 
-    #------------------------------------------------------#
-    # Commands the view to render the update Hardware form #
-    #------------------------------------------------------#
+    /**
+    * Gets the current hardware data from the model and commands the view
+    * to render the form for updating hardware, passing the data received
+    * from the model as parameters to pre-populate the hardware fields
+    */
     public function Update()
     {
         $eid = $this->globals->getParam('eid');
@@ -90,31 +96,30 @@ class Hardware_Controller Extends Base_Controller
                                );
     }
 
-    #-------------------------------------#
-    # Validates the new Hardware data and #
-    # refreshes the application           #
-    #-------------------------------------#
+    /**
+    * Validates the new Hardware data and refreshes the application
+    */
     public function Add_Hardware()
     {
         $this->validateHardware( false );
         $this->startFresh();
     }
 
-    #-------------------------------------#
-    # Validates the updated Hardware data #
-    # and refreshes the application       #
-    #-------------------------------------#
+    /**
+    * Validates the updated Hardware data and refreshes the application
+    */
     public function Update_Hardware()
     {
         $this->validateHardware( true );
         $this->startFresh();
     }
     
-    #--------------------------------------------------#
-    # Commands the model to mark the Hardware entry in #
-    # the database corresponding to the given eid as   #
-    # removed, then refreshes the application          #
-    #--------------------------------------------------#
+    /**
+    * Gets the hardware ID from the environmet variables and 
+    * commands the model to mark the Hardware entry in the 
+    * database corresponding to the given eid as removed, 
+    * then refreshes the application
+    */
     public function Delete_Hardware()
     {
         $eid = $this->globals->getParam( 'eid' );
@@ -122,11 +127,12 @@ class Hardware_Controller Extends Base_Controller
         $this->startFresh();
     }
 
-    #--------------------------------------------------------#
-    # Validates the new / updated Hardware data and commands #
-    # the model to update the data or insert it as new, then #
-    # refreshes the application                              #
-    #--------------------------------------------------------# 
+    /**
+    * Validates the new / updated Hardware data and commands the model 
+    * to update the data or insert it as new, then refreshes the application
+    * 
+    * @param $isUpdate : Boolean (specifies whether this modification is new data or is updating existing data)
+    */ 
     public function validateHardware( $isUpdate )
     {
         $eid       = $this->globals->getParam('eid',null);

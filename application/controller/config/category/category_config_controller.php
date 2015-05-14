@@ -1,7 +1,7 @@
 <?php
 require APP . 'controller\config\Ref_Config_Base_Controller.php';
 
-class Category_Config_Controller Extends Ref_Config_Base_Controller
+class Category_Config_Controller extends Ref_Config_Base_Controller
 {
     /**
     * Uses the model to get data for rendering the Category configuration form.

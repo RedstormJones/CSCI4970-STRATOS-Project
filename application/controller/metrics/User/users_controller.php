@@ -1,26 +1,33 @@
 <?php
 require APP . 'controller\metrics\Base_Controller_Metrics.php';
 
-class Users_Controller Extends Base_Controller_Metrics
+class Users_Controller extends Base_Controller_Metrics
 {
-    #--------------------------------------------------------#
-    # Redirects application control to the doRenderMetrics() #
-    # method using the currently logged on user's pid        #
-    #--------------------------------------------------------#
+    /**
+    * Redirects application control to the doRenderMetrics()
+    * method using the currently logged on user's pid
+    */
     public function noAction()
     {
         $this->doRenderMetrics( $this->globals->getCurrentUserPid() );
     }
 
-    #------------------------------------------------------------#
-    # Redirects application control to the doRenderMetrics()     #
-    # method using the pid set in the _GET or _SESSION variables #
-    #------------------------------------------------------------#
+    /**
+    * Redirects application control to the doRenderMetrics()
+    * method using the pid set in the environment variables
+    */
     public function QueryUser()
     {
         $this->doRenderMetrics( $this->getParam( 'pid' ) );
     }
 
+    /**
+    * Sets up three data sets corresponding to the code comments below and 
+    * sends each data set to a Charts method to format the user metrics data
+    * into graphs and/or visual displays
+    *
+    * @param $user : String (identifies the user who's metrics should be shown as default)
+    */
     public function doRenderMetrics( $user )
     {
         $metrics = array();
@@ -40,9 +47,7 @@ class Users_Controller Extends Base_Controller_Metrics
             $userList[] = array( $pid, $name );
         }
 
-        #--------------------------------------#
-        # Active tickets for this user control #
-        #--------------------------------------#
+        // Active tickets for this user control
         $name = "Active Tickets for " . $userName;
         $activeTickets_IEP = array();
         $results = $this->model->GetActiveTickets_IEP_ByUser( $user );
@@ -54,9 +59,7 @@ class Users_Controller Extends Base_Controller_Metrics
         }
         $metrics[] = new Pie_Chart( $name, $activeTickets_IEP );
 
-        #-----------------------------------------#
-        # Average time to finish a ticket control #
-        #-----------------------------------------#
+        // Average time to finish a ticket control
         $name = "Average Time [Non-Active Tickets]  -  " . $userName;
         $nonActiveTicketsTime_IEP = array();
         $results = $this->model->GetNonActiveTicketTime_IEP_ByUser( $user );
@@ -69,10 +72,7 @@ class Users_Controller Extends Base_Controller_Metrics
         }
         $metrics[] = new Bar_Chart( $name, $nonActiveTicketsTime_IEP );
 
-        #-----------------------------------------------#
-        # Average estimated difference between expected #
-        # close time and ticket's actual close time     #
-        #-----------------------------------------------#
+        // Average estimated difference between expected close time and ticket's actual close time
         $name = "Average Estimate Difference [Non-Active Tickets]  -  " . $userName;
         $averageDifferenceTime_IEP = array();
         $results = $this->model->GetAverageDifferenceTime_IEP_ByUser( $user );
@@ -86,9 +86,7 @@ class Users_Controller Extends Base_Controller_Metrics
         }
         $metrics[] = new Bar_Chart( $name, $averageDifferenceTime_IEP );
 
-        #----------------------------------------------------#
-        # Command view to render metrics data to the webpage #
-        #----------------------------------------------------#
+        // Command view to render metrics data to the webpage
         $this->view->renderUserMetrics( $metrics, $user, $userList );
     }
 }

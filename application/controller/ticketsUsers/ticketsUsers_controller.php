@@ -1,21 +1,22 @@
 <?php
 require APP . 'controller\Base_Controller.php';
 
-class TicketsUsers_Controller Extends Base_Controller
+class TicketsUsers_Controller extends Base_Controller
 {
-    #----------------------------------#
-    # Redirects application control to #
-    # the showUserTickets() method     #
-    #----------------------------------#
+    /**
+    * Redirects application control to the showUserTickets() method
+    */
     public function noAction()
     {
         $this->showUserTickets( 0 );
     }
 
-    #-------------------------------------#
-    # Creates the array of ticket objects #
-    # to render in the tickets view       #
-    #-------------------------------------#
+    /**
+    * Creates the array of ticket objects to render in the tickets view
+    * from data returned by the model
+    * 
+    * @param $start : Int (used for paging the tickets view - 10 count)
+    */
     public function showUserTickets( $start )
     {
         $ticket_objects = $this->model->showUserTickets($start, $this->globals->getCurrentUserPid());
@@ -35,9 +36,9 @@ class TicketsUsers_Controller Extends Base_Controller
         $this->view->renderTickets($rows, $start);
     }
 
-    #---------------------------------------------------#
-    # Renders the next 10 ticket objects to the webpage #
-    #---------------------------------------------------#
+    /**
+    * Displays the next 10 elements of ticket data.
+    */
     public function Next()
     {
         $start = (int)$this->globals->getParam( 'start' , 0 );
@@ -50,9 +51,9 @@ class TicketsUsers_Controller Extends Base_Controller
         $this->showUserTickets( $start );
     }
 
-    #---------------------------------------------------#
-    # Renders the last 10 ticket objects to the webpage #
-    #---------------------------------------------------#
+    /**
+    * Displays the previous 10 elements of ticket data.
+    */
     public function Previous()
     {
         $start = (int)$this->globals->getParam( 'start' , 10 ) - 10;
@@ -60,20 +61,21 @@ class TicketsUsers_Controller Extends Base_Controller
         $this->showUserTickets( $start );
     }
 
-    #----------------------------------#
-    # Redirects application control to #
-    # the _Ticket_Form() method        #
-    #----------------------------------#
+    /**
+    * Redirects application control to _Ticket_Form() and passes 
+    * false as the parameter to indicate this is a new ticket form
+    */
     public function New_Ticket()
     {
         $this->_Ticket_Form( false );
     }
 
-    #---------------------------------------#
-    # Redirects appliation control to the   #
-    # _Ticket_Form() method and supplies    #
-    # data to populate the form fields with #
-    #---------------------------------------#
+    /**
+    * Gets ticket information from the model using ticket
+    * ID store in the environment variables. Then sends 
+    * this data to the _Ticket_Form() method for rendering
+    * the pre-populated form to the webpage
+    */
     public function Update()
     {
         $tid = $this->globals->getParam('tid');
@@ -93,10 +95,22 @@ class TicketsUsers_Controller Extends Base_Controller
                            );
     }
 
-    #----------------------------------------------------#
-    # Sets up data for use in the ticket form fields and #
-    # then commands the view to render the ticket form   #
-    #----------------------------------------------------#
+    /**
+    * Sets up data for use in the ticket form fields and then 
+    * commands the view to render the ticket form
+    *
+    * @param $isUpdate : String (specifies whether this is a new ticket or updated information)
+    * @param $db_title : String (ticket title)
+    * @param $db_desc : String (ticket description)
+    * @param $db_cust : String (ticket customer)
+    * @param $db_assigned : String (ticket assignee)
+    * @param $db_catg : String (ticket category)
+    * @param $db_affected : String (ticket affected level)
+    * @param $db_severity : String (ticket severity level)
+    * @param $db_lifecycle : String (ticket lifecycle)
+    * @param $db_est : String (ticket estimated time)
+    * @param $db_tid : String (ticket ID)
+    */
     private function _Ticket_Form( $isUpdate = false
                                  , $db_title = ''
                                  , $db_desc = ''
@@ -168,31 +182,28 @@ class TicketsUsers_Controller Extends Base_Controller
                                , $db_title, $db_desc, $db_cust, $db_assigned, $db_catg, $db_affected, $db_severity, $db_lifecycle, $db_est, $db_tid );
     }
 
-    #-----------------------------------#
-    # Validates the updated ticket data #
-    # and refreshes the application     #
-    #-----------------------------------#
+    /**
+    * Validates the updated ticket data and refreshes the application
+    */
     public function Update_Ticket()
     {
         $this->validateTicket( true );
         $this->startFresh();
     }
 
-    #-----------------------------------#
-    # Validates the new ticket data and #
-    # refreshes the application         #
-    #-----------------------------------#
+    /**
+    * Validates the new ticket data and refreshes the application
+    */
     public function Add_Ticket()
     {
         $this->validateTicket( false );
         $this->startFresh();
     }
 
-    #------------------------------------------------#
-    # Commands the model to mark the ticket entry in #
-    # the database corresponding to the given tid as #
-    # removed, then refreshes the application        #
-    #------------------------------------------------#
+    /**
+    * Commands the model to mark the ticket entry in the database corresponding 
+    * to the given tid as removed, then refreshes the application
+    */
     public function Delete_Ticket()
     {
         $tid = $this->globals->getParam( 'tid' );
@@ -200,11 +211,11 @@ class TicketsUsers_Controller Extends Base_Controller
         $this->startFresh();
     }
 
-    #------------------------------------------------------#
-    # Validates the new / updated ticket data and commands #
-    # the model to update the data or insert it as new,    #
-    # then refreshes the application                       #
-    #------------------------------------------------------# 
+    /**
+    * Validates the new / updated ticket data and commands the 
+    * model to update the data or insert it as new, then refreshes 
+    * the application 
+    */
     public function validateTicket( $isUpdate )
     {
         $tid                            = $this->globals->getParam("tid", null);

@@ -1,7 +1,7 @@
 <?php
 require APP . 'controller\Base_Controller.php';
 
-class Account_Controller Extends Base_Controller
+class Account_Controller extends Base_Controller
 {
     /**
     * Aggregates user data for the currently logged on user by commanding the model to query the 

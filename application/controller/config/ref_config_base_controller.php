@@ -1,7 +1,7 @@
 <?php
 require APP . 'controller\Base_Controller.php';
 
-class Ref_Config_Base_Controller Extends Base_Controller
+class Ref_Config_Base_Controller extends Base_Controller
 {
    /**
    * Uses the getParam() method to find the original config value and the new config value to
