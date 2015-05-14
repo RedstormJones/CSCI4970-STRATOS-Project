@@ -8,7 +8,6 @@ class Primtx_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StPriMtxConf' );
     }
 
-<<<<<<< HEAD
 	/**
 	* Delete the selected Priority Matrix
 	*
@@ -17,8 +16,6 @@ class Primtx_Config_Model Extends Ref_Config_Base_Model
 	* @param $priority : Integer  ( hold the number of the selected Priority)
 	* @param $user : string ( hold the name of the user who commit the deletion) 
 	*/
-=======
->>>>>>> origin/dev
     public function deletePriMtx( $aff_level, $severity, $priority, $user)
     {
         $this->query_DeletePriMtx->execute( 
@@ -30,7 +27,7 @@ class Primtx_Config_Model Extends Ref_Config_Base_Model
             );
     }
 
-<<<<<<< HEAD
+	
 	/**
 	* Update the selected Priority Matrix
 	*
@@ -39,8 +36,7 @@ class Primtx_Config_Model Extends Ref_Config_Base_Model
 	* @param $priority : Integer( hold the number of the selected Priority)
 	* @param $user : string ( hold the name of the user who commit the update) 
 	*/
-=======
->>>>>>> origin/dev
+
 	public function updatePriMtx( $aff_level, $severity, $priority, $user )
 	{
 		$this->query_UpdatePriMtx->execute( 
@@ -51,7 +47,7 @@ class Primtx_Config_Model Extends Ref_Config_Base_Model
                      )  
             );
 	}
-<<<<<<< HEAD
+
 	
 	/**
 	* Add a new Priority Matrix
@@ -62,9 +58,6 @@ class Primtx_Config_Model Extends Ref_Config_Base_Model
 	* @param $priority : Integer ( hold the number of the selected Priority)
 	* @param $user : string ( hold the name of the user who commit the add) 
 	*/
-=======
-
->>>>>>> origin/dev
 	public function addPriMtx( $aff_level, $severity, $priority, $user )
 	{
         $this->query_PriMtxExists->execute(
@@ -88,14 +81,12 @@ class Primtx_Config_Model Extends Ref_Config_Base_Model
         }
 	}
 
-<<<<<<< HEAD
+
 	/**
 	* The function will return all the Affected Level fields from the database
 	* 
 	* return the Affected Level
 	*/
-=======
->>>>>>> origin/dev
 	public function getAffLevels()
 	{
 		$this->query_GetAffLevels->execute( 
@@ -103,14 +94,11 @@ class Primtx_Config_Model Extends Ref_Config_Base_Model
 		return $this->query_GetAffLevels->fetchAll();
 	}
 
-<<<<<<< HEAD
 	/**
 	* The function will return all the Severities fields from the database
 	* 
 	* return the Severities
 	*/
-=======
->>>>>>> origin/dev
 	public function getSeverities()
 	{
 		$this->query_GetSeverities->execute( 
@@ -118,21 +106,20 @@ class Primtx_Config_Model Extends Ref_Config_Base_Model
 		return $this->query_GetSeverities->fetchAll();
 	}
 
-<<<<<<< HEAD
+
 	/**
 	* The function will return all the Priority fields from the database
 	* 
 	* return the Priority 
 	*/
-=======
->>>>>>> origin/dev
+
 	public function getPriorities()
 	{
 		$this->query_GetPriorities->execute( 
             );
 		return $this->query_GetPriorities->fetchAll();
 	}
-<<<<<<< HEAD
+
 	
 	/**
 	* Database Queries
@@ -140,9 +127,6 @@ class Primtx_Config_Model Extends Ref_Config_Base_Model
 	* return the Affected Level, return the Severities, return the Priority 
 	* return Priority Matrix
 	*/
-=======
-
->>>>>>> origin/dev
     protected function SetUpQueries()
     {
         parent::SetUpQueries();
