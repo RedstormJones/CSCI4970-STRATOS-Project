@@ -3,6 +3,15 @@ require APP . 'model\Base_Model.php';
 
 class Ref_Config_Base_Model Extends Base_Model
 {
+<<<<<<< HEAD
+
+	/**
+	* Collect the value from the Affected Level, Category, Priority, or Severity database tables
+	* 
+	* @param $table : String ( hold the table data) 
+	*/
+=======
+>>>>>>> origin/dev
     public function __construct( $table )
     {
         $this->table = $table;
@@ -10,6 +19,12 @@ class Ref_Config_Base_Model Extends Base_Model
         parent::__construct();
     }
 
+<<<<<<< HEAD
+	/**
+	* Reassign and delete a value from the database
+	*/
+=======
+>>>>>>> origin/dev
 	public function reassignAndDelete( $old, $new, $user )
 	{
 		$this->updateReferences( $old, $new, $user );
@@ -17,27 +32,52 @@ class Ref_Config_Base_Model Extends Base_Model
         $this->deleteConfig( $old, $user );
 	}
 	
+	/**
+	* execute the query
+	*/
 	public function queryForm()
 	{
 		$this->query_SelectFormElements->execute();
 		return $this->query_SelectFormElements->fetchAll();
 	}
 
+<<<<<<< HEAD
+	/**
+	* Override the old value with the new value 
+	*/
+=======
+>>>>>>> origin/dev
     protected function updateReferences( $old, $new, $user )
     {
-        // Override in children as necessary
+        
     }
+<<<<<<< HEAD
+	
+	/**
+	* Override in children as necessary
+	*/
+=======
 
+>>>>>>> origin/dev
     protected function deleteReferences( $old, $user )
     {
-        // Override in children as necessary
+        
     }
 
+<<<<<<< HEAD
+	/**
+	* Override in children as necessary
+	*/
+=======
+>>>>>>> origin/dev
     protected function deleteConfig( $old, $user )
     {
-        // Override in children as necessary
+        
     }
 
+	/**
+	* Database Query 
+	*/
     protected function SetUpQueries()
     {
         parent::SetUpQueries();

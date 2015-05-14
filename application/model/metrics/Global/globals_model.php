@@ -3,30 +3,47 @@ require APP . 'model/metrics/Base_Model_Metrics.php';
 
 class Globals_Model extends Base_Model_Metrics
 {
+	
+	/**
+	* return the number of active tickets by their priority
+	*/
     public function GetActiveTickets_IEP()
     {
         $this->query_GetActiveTicketsInEachPriority->execute();
         return $this->query_GetActiveTicketsInEachPriority->fetchAll();
     }
 
+	/**
+	* return the number of recently opened tickets in the last 30 days by their priority
+	*/
     public function GetNewTicketsInLastMonth_IEP()
     {
         $this->query_GetNewTicketsInLastMonthInEachPriority->execute();
         return $this->query_GetNewTicketsInLastMonthInEachPriority->fetchAll();
     }
 
+	/**
+	* return the average time of close ticket "non active tickets" by their Severity 
+	*/
     public function GetAverageTicketTimeForNonActive_IEP()
     {
         $this->query_GetAverageTicketTimeForNonActiveInEachPriorty->execute();
         return $this->query_GetAverageTicketTimeForNonActiveInEachPriorty->fetchAll();
     }
 
+	/**
+	* return the average estimate difference of close ticket "non active tickets" by their Severity 
+	*/
     public function GetAverageDifferenceTime_IEP()
     {
         $this->query_GetAverageDifferenceTimeInEachPriority->execute();
         return $this->query_GetAverageDifferenceTimeInEachPriority->fetchAll();
     }
 
+	/**
+	* Database Queries to collect the data
+	*
+	*/
     public function SetUpQueries()
     {
         parent::SetUpQueries();

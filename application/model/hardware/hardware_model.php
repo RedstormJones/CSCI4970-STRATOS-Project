@@ -3,6 +3,12 @@ require APP . 'model\Base_Model.php';
 
 class Hardware_Model Extends Base_Model
 {
+
+	/**
+	* Collect all hardware information from the hardware table 
+	* 
+	* @param $start : String ( hold the table information)
+	*/
     public function showAllHardware($start)
     {
         $this->query_ShowAllHardware->bindParam(':start',$start,PDO::PARAM_INT);
@@ -10,12 +16,32 @@ class Hardware_Model Extends Base_Model
         return $this->query_ShowAllHardware->fetchAll();
     }
     
+	/**
+	* Collect specific hardware information from the database using the hardware number
+	* 
+	* @param $eid : Integer ( hold the hardware number )
+	*/
     public function getHardware( $eid )
     {
         $this->query_GetHardware->execute( array( ':eid' => $eid ) );
         return $this->query_GetHardware->fetch();
     }
 
+<<<<<<< HEAD
+	/**
+	* Add a new hardware to the database
+	* 
+	* @param $name : String ( hold the new hardware's name )
+	* @param $vendor : String ( hold the new hardware's vendor)
+	* @param $model : String ( hold the new hardware's model)
+	* @param $serial : String ( hold the new hardware's serial number)
+	* @param $type : String ( hold the new hardware's type)
+	* @param $loc : String ( hold the new hardware's location)
+	* @param $status : String ( hold the new hardware's status)
+	* @param $user : String ( hold the name of the user who commit the addition) 
+	*/
+=======
+>>>>>>> origin/dev
     public function addHardware($name, $vendor, $model, $serial, $type, $loc, $status, $user)
     {
         $this->query_InsertHardware->execute(
@@ -31,6 +57,15 @@ class Hardware_Model Extends Base_Model
         );
     }
     
+<<<<<<< HEAD
+	/**
+	* delete a hardware from the database
+	* 
+	* @param $eid : Integer ( hold the hardware number)
+	* @param $user : String ( hold the name of the user who commit the deletion) 
+	*/
+=======
+>>>>>>> origin/dev
     public function deleteHardware( $eid, $user )
     {
         $this->query_DeleteHardware->execute( 
@@ -40,6 +75,22 @@ class Hardware_Model Extends Base_Model
         );
     }
     
+<<<<<<< HEAD
+	/**
+	* Update a hardware information to the database
+	* 
+	* @param $eid : Integer ( hold the hardware number)
+	* @param $name : String ( hold the hardware's name)
+	* @param $vendor : String ( hold the hardware's vendor)
+	* @param $model : String ( hold the hardware's model)
+	* @param $serial : String ( hold the hardware's serial number)
+	* @param $type : String ( hold the hardware's type)
+	* @param $loc : String ( hold the hardware's location)
+	* @param $status : String ( hold the hardware's status)
+	* @param $user : String ( hold the name of the user who commit the addition) 
+	*/
+=======
+>>>>>>> origin/dev
     public function updateHardware( $eid, $name, $vendor, $model, $serial, $type, $loc, $status, $user)
     {
         $this->query_UpdateHardware->execute(
@@ -56,6 +107,11 @@ class Hardware_Model Extends Base_Model
         );
     }
 
+	/**
+	* Database Queries
+	* Display hardware
+	* Delete, update, and add hardware
+	*/
     protected function SetUpQueries()
     {
         parent::SetUpQueries();

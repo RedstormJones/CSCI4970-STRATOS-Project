@@ -8,6 +8,15 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StPriConf' );
     }
 
+<<<<<<< HEAD
+	/**
+	* Update the priority matrix drop down menu that display on the add or update of priority matrix form on the priority matrix page
+	*
+	* @param $old : String ( the current priority matrix value)
+	* @param $user : String ( hold the name of the current logged in user)
+	*/
+=======
+>>>>>>> origin/dev
     protected function deleteReferences( $old, $user )
     {
         $this->query_DeletePriMtxReferences->execute( 
@@ -17,6 +26,15 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
             );
     }
 
+<<<<<<< HEAD
+	/**
+	* Delete the selected Priority
+	*
+	* @param $old : String ( hold the name of the selected Priority)
+	* @param $user : string ( hold the name of the user who commit the deletion) 
+	*/
+=======
+>>>>>>> origin/dev
     protected function deleteConfig( $old, $user )
     {
         $this->query_DeletePriority->execute( 
@@ -26,6 +44,16 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
             );
     }
 
+<<<<<<< HEAD
+	/**
+	* Update the selected Priority
+	*
+	* @param $life_cycl_id : Integer ( hold the selected Life Priority number)
+	* @param $name : String ( hold the selected name of the Priority)
+	* @param $user : string ( hold the name of the user who commit the update) 
+	*/
+=======
+>>>>>>> origin/dev
 	public function updatePriority( $priority, $name, $user )
 	{
 		$this->query_UpdatePriority->execute( 
@@ -36,6 +64,15 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
             );
 	}
 
+<<<<<<< HEAD
+	/**
+	* Add a new Priority
+	*
+	* @param $name : String ( hold the name of the Priority )
+	* @param $user : string ( hold the name of the user who commit the add) 
+	*/
+=======
+>>>>>>> origin/dev
 	public function addPriority( $name, $user )
 	{
 		$this->query_AddPriority->execute( 
@@ -45,6 +82,13 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
             );
 	}
 
+	/**
+	* return the Priority
+	*
+	* @param $priority : Integer ( hold the Priority number)
+	* 
+	* return the Priority number
+	*/
 	public function getPriority( $priority )
 	{
 		$this->query_GetPriority->execute( 
@@ -54,6 +98,12 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
 		return $this->query_GetPriority->fetch();
 	}
 
+	/**
+	* Database Queries
+	* Delete Priority Matrix references 
+	* Delete, update, and add Priority 
+	* return Priority number
+	*/
     protected function SetUpQueries()
     {
         parent::SetUpQueries();
