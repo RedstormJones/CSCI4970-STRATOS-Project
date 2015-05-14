@@ -1,7 +1,7 @@
 <?php
 require APP . 'model\Base_Model.php';
 
-class Tickets_Model Extends Base_Model
+class Tickets_Model extends Base_Model
 {
 
 	/**
@@ -61,9 +61,12 @@ class Tickets_Model Extends Base_Model
         return $this->query_GetAllLifecycles->fetchAll();
     }
 
-	/**
-	* return a ticket information using a ticket number from the database 
-	*/
+    /**
+     * Returns the ticket information corresponding to the ticket ID
+     * 
+     * @param $tid : Integer (Holds the ticket ID)
+     * @return The corresponding ticket to the ID
+     */
     public function getTicket( $tid )
     {
         $this->query_GetTicket->execute( array( ':tid' => $tid ) );
@@ -104,7 +107,7 @@ class Tickets_Model Extends Base_Model
                  , ':last_mdfd_user'     => $user
                  )
         );
-        $this->MailUpdateorAdd(TRUE, $title, $customer, $assignee);
+        $this->MailUpdateorAdd(TRUE, $title, $opener, $assignee);
     }
 
 

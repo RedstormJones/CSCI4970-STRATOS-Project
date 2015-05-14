@@ -1,7 +1,7 @@
 <?php
 require APP . 'model\Base_Model.php';
 
-class Base_Model_Metrics Extends Base_Model
+class Base_Model_Metrics extends Base_Model
 {
 
 }

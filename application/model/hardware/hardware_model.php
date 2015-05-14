@@ -1,7 +1,7 @@
 <?php
 require APP . 'model\Base_Model.php';
 
-class Hardware_Model Extends Base_Model
+class Hardware_Model extends Base_Model
 {
 
 	/**

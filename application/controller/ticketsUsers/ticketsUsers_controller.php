@@ -215,6 +215,8 @@ class TicketsUsers_Controller extends Base_Controller
     * Validates the new / updated ticket data and commands the 
     * model to update the data or insert it as new, then refreshes 
     * the application 
+    * 
+    * @param @isUpdate : Boolean (Whether to update or add)
     */
     public function validateTicket( $isUpdate )
     {

@@ -41,10 +41,10 @@ class Base_Model
 	/**
 	* Send an email to the customer and the assignee person if the customer add or update a ticket
 	*
-	* @ param $isUpdate : Boolean ( if true: ticket exist and it's updated /else false : a new ticket )
-	* @ param $title : String ( hold the appropriate title "Update / Add" of the email)
-	* @ param $customer: String ( hold the customer information)
-	* @ param $assignee: String ( hold the assignee person information)
+	* @param $isUpdate : Boolean ( if true: ticket exist and it's updated /else false : a new ticket )
+	* @param $title : String ( hold the appropriate title "Update / Add" of the email)
+	* @param $customer: String ( hold the customer information)
+	* @param $assignee: String ( hold the assignee person information)
 	*/
     public function MailUpdateorAdd($isUpdate, $title, $customer, $assignee)
     {
@@ -77,10 +77,11 @@ class Base_Model
         mail($to->email, $subject, $message, $headers);
     }
     
-
-	/**
-	* Update the ticket number 
-	*/
+    /** 
+     * Updates the ticket number
+     * @param $tid : Integer (holds the ticket id)
+     * @return The updated ticket time
+     */
     public function GetUpdatedTicketTimeByTid( $tid )
     {
         $this->query_GetTicket->execute( array( ':tid' => $tid ) );
@@ -92,6 +93,7 @@ class Base_Model
 	/**
 	* Update ticket time 
 	*
+         * @param $ticket : Ticket Object (Holds the information about the ticket)
 	* return $last_open_time : String ( hold the ticket time)
 	*/
     public function GetUpdatedTicketTime( $ticket )
@@ -111,7 +113,7 @@ class Base_Model
     }
 
 	/**
-	* Database Queries 
+	* Database Queries to get lifecycletimed, and ticket
 	*/
     protected function SetUpQueries()
     {

@@ -1,14 +1,14 @@
 <?php
 require APP . 'model\Base_Model.php';
 
-class TicketsUsers_Model Extends Base_Model
+class TicketsUsers_Model extends Base_Model
 {
 
 	/**
 	* Collect and display all tickets information for the current logged in user from the tickets table 
 	* 
-	* @param $start : String ( hold the table information)
-	* @param $pid : String ( hold the user pid number)
+	* @param $start : Integer ( hold the number per display info)
+	* @param $pid : Integer ( hold the user pid number)
 	*/
     public function showUserTickets($start, $pid)
     {
@@ -67,9 +67,12 @@ class TicketsUsers_Model Extends Base_Model
     }
 
 
-	/**
-	* return a ticket information using a ticket number from the database 
-	*/
+/**
+     * Returns the ticket information corresponding to the ticket ID
+     * 
+     * @param $tid : Integer (Holds the ticket ID)
+     * @return The corresponding ticket to the ID
+     */
     public function getTicket( $tid )
     {
         $this->query_GetTicket->execute( array( ':tid' => $tid ) );
@@ -110,7 +113,7 @@ class TicketsUsers_Model Extends Base_Model
                  , ':last_mdfd_user'     => $user
                  )
         );
-        $this->MailUpdateorAdd(TRUE, $title, $customer, $assignee);
+        $this->MailUpdateorAdd(TRUE, $title, $opener, $assignee);
     }
 
 	/**

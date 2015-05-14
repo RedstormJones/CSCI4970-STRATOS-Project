@@ -4,28 +4,36 @@ require APP . 'model/metrics/Base_Model_Metrics.php';
 class Users_Model extends Base_Model_Metrics
 {
 
-	/**
-	* return the number of current or specific user active tickets by their priority
-	*/
+    /**
+     * Returns the number of current of specific user active tickets by their priority
+     * 
+     * @param $target_user_pid : Integer (holds the current user PID)
+     * @return Active tickets by user
+     */
     public function GetActiveTickets_IEP_ByUser( $target_user_pid )
     {
         $this->query_GetActiveTickets_IEP_ByUser->execute( array( ':target_user_pid' => $target_user_pid) );
         return $this->query_GetActiveTickets_IEP_ByUser->fetchAll();
     }
 
-
-	/**
-	* return the number of current or specific user recently opened tickets in the last 30 days by their priority
-	*/
+    /**
+     * return the number of current or specific user recently opened tickets in the last 30 days by their priority
+     * 
+     * @param type $target_user_pid : Integer (holds the current user PID)
+     * @return Non active tickets time by user
+     */
     public function GetNonActiveTicketTime_IEP_ByUser( $target_user_pid )
     {
         $this->query_GetNonActiveTicketTime_IEP_ByUser->execute( array( ':target_user_pid' => $target_user_pid) );
         return $this->query_GetNonActiveTicketTime_IEP_ByUser->fetchAll();
     }
 
-	/**
-	* return the average time of current or specific user close ticket "non active tickets" by their Severity 
-	*/
+    /**
+     * Returns the averahe time of current or specific user close ticket by their severity
+     * 
+     * @param $target_user_pid : Integer (Holds the current user PID)
+     * @return Average difference time by user
+     */
     public function GetAverageDifferenceTime_IEP_ByUser( $target_user_pid )
     {
         $this->query_GetAverageDifferenceTime_IEP_ByUser->execute( array( ':target_user_pid' => $target_user_pid) );

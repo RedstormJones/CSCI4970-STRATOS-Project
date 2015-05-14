@@ -1,7 +1,7 @@
 <?php
 require APP . 'model\Base_Model.php';
 
-class Software_Model Extends Base_Model
+class Software_Model extends Base_Model
 {
 	/**
 	* Collect all software information from the software table 

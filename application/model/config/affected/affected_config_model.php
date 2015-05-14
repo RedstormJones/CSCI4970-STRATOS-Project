@@ -1,7 +1,7 @@
 <?php
 require APP . 'model\config\Ref_Config_Base_Model.php';
 
-class Affected_Config_Model Extends Ref_Config_Base_Model
+class Affected_Config_Model extends Ref_Config_Base_Model
 {
     public function __construct()
     {

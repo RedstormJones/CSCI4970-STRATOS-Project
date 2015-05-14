@@ -1,7 +1,7 @@
 <?php
 require APP . 'model\Base_Model.php';
 
-class Login_Model Extends Base_Model
+class Login_Model extends Base_Model
 {
 
 	/**

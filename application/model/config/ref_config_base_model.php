@@ -1,7 +1,7 @@
 <?php
 require APP . 'model\Base_Model.php';
 
-class Ref_Config_Base_Model Extends Base_Model
+class Ref_Config_Base_Model extends Base_Model
 {
 
 	/**
@@ -16,9 +16,13 @@ class Ref_Config_Base_Model Extends Base_Model
         parent::__construct();
     }
 
-	/**
-	* Reassign and delete a value from the database
-	*/
+    /**
+     * Reassign and deletes the old configuration
+     * 
+     * @param $old : (Holds the old confuration)
+     * @param $new : (Holds the new configuration)
+     * @param $user : (Holds the user information)
+     */
 	public function reassignAndDelete( $old, $new, $user )
 	{
 		$this->updateReferences( $old, $new, $user );
