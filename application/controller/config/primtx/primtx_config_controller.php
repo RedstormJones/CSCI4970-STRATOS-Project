@@ -28,9 +28,10 @@ class Primtx_Config_Controller extends Ref_Config_Base_Controller
         $this->view->renderForm( $formElements );
     }
 
-    #-------------------------------------------------------------#
-    # Removes the original Priority Matrix data from the database #
-    #-------------------------------------------------------------#
+    /**
+    * Gathers and removes the original Priority Matrix  
+    * data from the database using the model 
+    */
     public function Delete()
     {
         $ids        = $this->getIds( $this->globals->getParam('original') );
