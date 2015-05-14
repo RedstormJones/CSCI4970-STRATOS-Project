@@ -8,12 +8,15 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StPriConf' );
     }
 
+<<<<<<< HEAD
 	/**
 	* Update the priority matrix drop down menu that display on the add or update of priority matrix form on the priority matrix page
 	*
 	* @param $old : String ( the current priority matrix value)
 	* @param $user : String ( hold the name of the current logged in user)
 	*/
+=======
+>>>>>>> origin/dev
     protected function deleteReferences( $old, $user )
     {
         $this->query_DeletePriMtxReferences->execute( 
@@ -23,12 +26,15 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
             );
     }
 
+<<<<<<< HEAD
 	/**
 	* Delete the selected Priority
 	*
 	* @param $old : String ( hold the name of the selected Priority)
 	* @param $user : string ( hold the name of the user who commit the deletion) 
 	*/
+=======
+>>>>>>> origin/dev
     protected function deleteConfig( $old, $user )
     {
         $this->query_DeletePriority->execute( 
@@ -38,6 +44,7 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
             );
     }
 
+<<<<<<< HEAD
 	/**
 	* Update the selected Priority
 	*
@@ -45,6 +52,8 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
 	* @param $name : String ( hold the selected name of the Priority)
 	* @param $user : string ( hold the name of the user who commit the update) 
 	*/
+=======
+>>>>>>> origin/dev
 	public function updatePriority( $priority, $name, $user )
 	{
 		$this->query_UpdatePriority->execute( 
@@ -55,12 +64,15 @@ class Priority_Config_Model Extends Ref_Config_Base_Model
             );
 	}
 
+<<<<<<< HEAD
 	/**
 	* Add a new Priority
 	*
 	* @param $name : String ( hold the name of the Priority )
 	* @param $user : string ( hold the name of the user who commit the add) 
 	*/
+=======
+>>>>>>> origin/dev
 	public function addPriority( $name, $user )
 	{
 		$this->query_AddPriority->execute( 

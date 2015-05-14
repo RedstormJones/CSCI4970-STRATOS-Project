@@ -8,6 +8,7 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StLfeCyclConf' );
     }
 
+<<<<<<< HEAD
 	/**
 	* Update the Life Cycle drop down menu that display on the add or update ticket form on the ticket page
 	*
@@ -15,6 +16,8 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
 	* @param $new : String ( the new Life Cycle value)
 	* @param $user : String ( hold the name of the current logged in user)
 	*/
+=======
+>>>>>>> origin/dev
     protected function updateReferences( $old, $new, $user )
     {
         $this->query_GetAffectedTickets->execute( array( ':old' => $old ) );
@@ -33,12 +36,15 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
         }
     }
 
+<<<<<<< HEAD
 	/**
 	* Delete the selected Life Cycle
 	*
 	* @param $old : String ( hold the name of the selceted Life Cycle)
 	* @param $user : string ( hold the name of the user who commit the deletion) 
 	*/
+=======
+>>>>>>> origin/dev
     protected function deleteConfig( $old, $user )
     {
         $this->query_DeleteLifecycle->execute( 
@@ -48,6 +54,7 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
             );
     }
 
+<<<<<<< HEAD
 	/**
 	* Update the selected Life Cycle
 	*
@@ -56,6 +63,8 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
 	* @param $is_timed : Integer ( hold the value if the Life Cycle is timed or not: 1 timed / 0 not timed)
 	* @param $user : string ( hold the name of the user who commit the update) 
 	*/
+=======
+>>>>>>> origin/dev
 	public function updateLifecycle( $life_cycl_id, $name, $is_timed, $user )
 	{
 		$this->query_UpdateLifecycle->execute( 
@@ -67,6 +76,7 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
             );
 	}
 
+<<<<<<< HEAD
 	/**
 	* Add a new Life Cycle
 	*
@@ -74,6 +84,8 @@ class Lifecycle_Config_Model Extends Ref_Config_Base_Model
 	* @param $is_timed : Integer ( hold the value if the Life Cycle is timed or not: 1 timed / 0 not timed)	
 	* @param $user : string ( hold the name of the user who commit the add) 
 	*/
+=======
+>>>>>>> origin/dev
 	public function addLifecycle( $name, $is_timed, $user )
 	{
 		$this->query_AddLifecycle->execute( 

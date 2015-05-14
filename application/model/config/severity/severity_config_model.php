@@ -8,6 +8,7 @@ class Severity_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StSvrLvlConf' );
     }
 
+<<<<<<< HEAD
 	/**
 	* Update the Severity drop down menu that display on the add or update ticket form on the ticket page 
 	*
@@ -15,6 +16,8 @@ class Severity_Config_Model Extends Ref_Config_Base_Model
 	* @param $new : String ( the new Severity value)
 	* @param $user : String ( hold the name of the current logged in user)
 	*/
+=======
+>>>>>>> origin/dev
     protected function updateReferences( $old, $new, $user )
     {
         $this->query_GetAffectedTickets->execute( array( ':old' => $old ) );
@@ -33,12 +36,15 @@ class Severity_Config_Model Extends Ref_Config_Base_Model
         }
     }
 
+<<<<<<< HEAD
 	/**
 	* Delete the Severity reference that display on the priority matrices page
 	*
 	* @param $old : String ( hold the selected value of the Severity)
 	* @param $user : string ( hold the name of the user who commit the deletion) 
 	*/
+=======
+>>>>>>> origin/dev
     protected function deleteReferences( $old, $user )
     {
         $this->query_DeletePriMtxReferences->execute( 
@@ -48,12 +54,15 @@ class Severity_Config_Model Extends Ref_Config_Base_Model
             );
     }
 
+<<<<<<< HEAD
 	/**
 	* Delete the selected Severity
 	*
 	* @param $old : String ( hold the selected name of the Severity)
 	* @param $user : string ( hold the name of the user who commit the deletion) 
 	*/
+=======
+>>>>>>> origin/dev
     protected function deleteConfig( $old, $user )
     {
         $this->query_DeleteSeverity->execute( 
@@ -63,6 +72,7 @@ class Severity_Config_Model Extends Ref_Config_Base_Model
             );
     }
 
+<<<<<<< HEAD
 	/**
 	* Update the selected Severity
 	*
@@ -70,6 +80,8 @@ class Severity_Config_Model Extends Ref_Config_Base_Model
 	* @param $name : String ( hold the selected name of the Severity)
 	* @param $user : string ( hold the name of the user who commit the update) 
 	*/
+=======
+>>>>>>> origin/dev
 	public function updateSeverity( $severity, $name, $user )
 	{
 		$this->query_UpdateSeverity->execute( 
@@ -80,12 +92,15 @@ class Severity_Config_Model Extends Ref_Config_Base_Model
             );
 	}
 
+<<<<<<< HEAD
 	/**
 	* Add a new Severity
 	*
 	* @param $name : String ( hold the name of the Severity)
 	* @param $user : string ( hold the name of the user who commit the addition) 
 	*/
+=======
+>>>>>>> origin/dev
 	public function addSeverity( $name, $user )
 	{
 		$this->query_AddSeverity->execute( 

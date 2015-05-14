@@ -3,28 +3,37 @@ require APP . 'model/metrics/Base_Model_Metrics.php';
 
 class Users_Model extends Base_Model_Metrics
 {
+<<<<<<< HEAD
 
 	/**
 	* return the number of current or specific user active tickets by their priority
 	*/
+=======
+>>>>>>> origin/dev
     public function GetActiveTickets_IEP_ByUser( $target_user_pid )
     {
         $this->query_GetActiveTickets_IEP_ByUser->execute( array( ':target_user_pid' => $target_user_pid) );
         return $this->query_GetActiveTickets_IEP_ByUser->fetchAll();
     }
 
+<<<<<<< HEAD
 	/**
 	* return the number of current or specific user recently opened tickets in the last 30 days by their priority
 	*/
+=======
+>>>>>>> origin/dev
     public function GetNonActiveTicketTime_IEP_ByUser( $target_user_pid )
     {
         $this->query_GetNonActiveTicketTime_IEP_ByUser->execute( array( ':target_user_pid' => $target_user_pid) );
         return $this->query_GetNonActiveTicketTime_IEP_ByUser->fetchAll();
     }
 
+<<<<<<< HEAD
 	/**
 	* return the average time of current or specific user close ticket "non active tickets" by their Severity 
 	*/
+=======
+>>>>>>> origin/dev
     public function GetAverageDifferenceTime_IEP_ByUser( $target_user_pid )
     {
         $this->query_GetAverageDifferenceTime_IEP_ByUser->execute( array( ':target_user_pid' => $target_user_pid) );

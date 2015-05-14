@@ -3,6 +3,7 @@ require APP . 'model\Base_Model.php';
 
 class TicketsUsers_Model Extends Base_Model
 {
+<<<<<<< HEAD
 
 	/**
 	* Collect and display all tickets information for the current logged in user from the tickets table 
@@ -10,6 +11,8 @@ class TicketsUsers_Model Extends Base_Model
 	* @param $start : String ( hold the table information)
 	* @param $pid : String ( hold the user pid number)
 	*/
+=======
+>>>>>>> origin/dev
     public function showUserTickets($start, $pid)
     {
         $this->query_ShowUserTickets->bindParam(':start',$start,PDO::PARAM_INT);
@@ -18,54 +21,72 @@ class TicketsUsers_Model Extends Base_Model
         return $this->query_ShowUserTickets->fetchAll();
     }
 
+<<<<<<< HEAD
 	/**
 	* return all users name from the database 
 	*/
+=======
+>>>>>>> origin/dev
     public function getAllPersons()
     {
         $this->query_GetAllPersons->execute();
         return $this->query_GetAllPersons->fetchAll();
     }
 
+<<<<<<< HEAD
 	/**
 	* return all Categories name from the database 
 	*/
+=======
+>>>>>>> origin/dev
     public function getAllCategories()
     {
         $this->query_GetAllCategories->execute();
         return $this->query_GetAllCategories->fetchAll();
     }
 
+<<<<<<< HEAD
 	/**
 	* return all Affected Levels name from the database 
 	*/
+=======
+>>>>>>> origin/dev
     public function getAllAffectedLevels()
     {
         $this->query_GetAllAffectedLevels->execute();
         return $this->query_GetAllAffectedLevels->fetchAll();
     }
 
+<<<<<<< HEAD
 	/**
 	* return the all Severities name from the database 
 	*/
+=======
+>>>>>>> origin/dev
     public function getAllSeverityLevels()
     {
         $this->query_GetAllSeverityLevels->execute();
         return $this->query_GetAllSeverityLevels->fetchAll();
     }
 
+<<<<<<< HEAD
 	/**
 	* return the all Life cycles name from the database 
 	*/
+=======
+>>>>>>> origin/dev
     public function getAllLifecycles()
     {
         $this->query_GetAllLifecycles->execute();
         return $this->query_GetAllLifecycles->fetchAll();
     }
 
+<<<<<<< HEAD
 	/**
 	* return a ticket information using a ticket number from the database 
 	*/
+=======
+>>>>>>> origin/dev
     public function getTicket( $tid )
     {
         $this->query_GetTicket->execute( array( ':tid' => $tid ) );
@@ -74,6 +95,7 @@ class TicketsUsers_Model Extends Base_Model
 
 
 
+<<<<<<< HEAD
 	/**
 	* Update ticket that created by the current user
 	* After updating the ticket the system is going to send an email to the current user and assignee user.
@@ -90,6 +112,8 @@ class TicketsUsers_Model Extends Base_Model
 	* @param $life_cycl_id : Integer ( hold the correspond Life Cycle number "life_cycl_id" of the selected Life Cycle ) 
 	* @param $user : String ( hold the name of the user who modify the account setting information)
 	*/
+=======
+>>>>>>> origin/dev
     public function updateTicket( $tid, $title, $description, $opener, $assignee, $category, $aff_level, $severity, $expct_hours, $life_cycl_id, $user )
     {
         $this->query_UpdateTicket->execute(
@@ -110,6 +134,7 @@ class TicketsUsers_Model Extends Base_Model
         $this->MailUpdateorAdd(TRUE, $title, $customer, $assignee);
     }
 
+<<<<<<< HEAD
 	/**
 	* Delete a ticket that created by the current user 
 	* After deleting the ticket the system will subtract and adjust the number of the ticket 
@@ -118,6 +143,8 @@ class TicketsUsers_Model Extends Base_Model
 	* @param $tid : Integer ( hold the number of the next ticket)
 	* @param $user : String ( hold the name of the user who modify the account setting information)
 	*/
+=======
+>>>>>>> origin/dev
     public function deleteTicket( $tid, $user )
     {
         $this->query_DeleteTicket->execute( 
@@ -128,6 +155,7 @@ class TicketsUsers_Model Extends Base_Model
         );
     }
 
+<<<<<<< HEAD
 	
 	/**
 	* Add a ticket for the current user 
@@ -145,6 +173,8 @@ class TicketsUsers_Model Extends Base_Model
 	* @param $estTime : Integer ( hold the number of hours that needed to close the ticket)
 	* @param $user : String ( hold the name of the user who modify the account setting information)
 	*/
+=======
+>>>>>>> origin/dev
     public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $lifecycle, $estTime, $user)
     {
         $this->query_InsertTicket->execute(
@@ -163,6 +193,7 @@ class TicketsUsers_Model Extends Base_Model
         $this->MailUpdateorAdd(FALSE, $title, $customer, $assignee);
     }
 
+<<<<<<< HEAD
 	/**
 	* Database Queries
 	* Display tickets 
@@ -170,6 +201,8 @@ class TicketsUsers_Model Extends Base_Model
 	* return the user, Categories, Affected Level, Severities, and Life Cycle information 
 	* return ticket ID
 	*/
+=======
+>>>>>>> origin/dev
     protected function SetUpQueries()
     {
         parent::SetUpQueries();

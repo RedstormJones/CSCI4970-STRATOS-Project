@@ -26,12 +26,15 @@ class Software_Model Extends Base_Model
         return $this->query_GetSoftware->fetch();
     }
 
+<<<<<<< HEAD
 	/**
 	* Add a new software to the database
 	* 
 	* @param $name : String ( hold the software's name)
 	* @param $user : String ( hold the name of the user who commit the addition) 
 	*/
+=======
+>>>>>>> origin/dev
     public function addSoftware($name, $user)
     {
         $this->query_InsertSoftware->execute(
@@ -41,12 +44,15 @@ class Software_Model Extends Base_Model
         );
     }
     
+<<<<<<< HEAD
 	/**
 	* delete a software from the database
 	* 
 	* @param $sid : Integer ( hold the software's number)
 	* @param $user : String ( hold the name of the user who commit the deletion) 
 	*/
+=======
+>>>>>>> origin/dev
     public function deleteSoftware( $sid, $user )
     {
         $this->query_DeleteSoftware->execute( 
@@ -56,6 +62,7 @@ class Software_Model Extends Base_Model
         );
     }
     
+<<<<<<< HEAD
 	/**
 	* Update a software information to the database
 	* 
@@ -63,6 +70,8 @@ class Software_Model Extends Base_Model
 	* @param $name : String ( hold the software name)
 	* @param $user : String ( hold the name of the user who commit the update) 
 	*/
+=======
+>>>>>>> origin/dev
     public function updateSoftware( $sid, $name, $user)
     {
         $this->query_UpdateSoftware->execute(

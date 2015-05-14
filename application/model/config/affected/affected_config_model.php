@@ -8,6 +8,7 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StAffLvlConf' );
     }
 
+<<<<<<< HEAD
 	/**
 	* Update the Affected Level drop down menu that display on the add or update ticket form on the ticket page 
 	*
@@ -15,6 +16,8 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
 	* @param $new : String ( the new Affected Level value)
 	* @param $user : String ( hold the name of the current logged in user)
 	*/
+=======
+>>>>>>> origin/dev
     protected function updateReferences( $old, $new, $user )
     {
         $this->query_GetAffectedTickets->execute( array( ':old' => $old ) );
@@ -32,6 +35,7 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
                 );
         }
     }
+<<<<<<< HEAD
 	
 	/**
 	* Delete the Affected Level reference that display on the priority matrices page
@@ -39,6 +43,9 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
 	* @param $old : String ( hold the value of the selected Affected Level)
 	* @param $user : string ( hold the name of the user who commit the deletion) 
 	*/
+=======
+
+>>>>>>> origin/dev
     protected function deleteReferences( $old, $user )
     {
         $this->query_DeletePriMtxReferences->execute( 
@@ -48,12 +55,15 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
             );
     }
 
+<<<<<<< HEAD
 	/**
 	* Delete the selected Affected Level
 	*
 	* @param $old : String ( hold the name of the selected Affected Level)
 	* @param $user : string ( hold the name of the user who commit the deletion) 
 	*/
+=======
+>>>>>>> origin/dev
     protected function deleteConfig( $old, $user )
     {
         $this->query_DeleteAffected->execute( 
@@ -62,6 +72,7 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
                      ) 
             );
     }
+<<<<<<< HEAD
 	
 	/**
 	* Update the selected Affected Level
@@ -70,6 +81,9 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
 	* @param $name : String ( hold the name of the Affected Level)
 	* @param $user : string ( hold the name of the user who commit the update) 
 	*/
+=======
+
+>>>>>>> origin/dev
 	public function updateAffected( $aff_level, $name, $user )
 	{
 		$this->query_UpdateAffected->execute( 
@@ -80,12 +94,15 @@ class Affected_Config_Model Extends Ref_Config_Base_Model
             );
 	}
 
+<<<<<<< HEAD
 	/**
 	* Add a new Affected Level
 	*
 	* @param $name : String ( hold the name of the Affected Level)
 	* @param $user : string ( hold the name of the user who commit the add) 
 	*/
+=======
+>>>>>>> origin/dev
 	public function addAffected( $name, $user )
 	{
 		$this->query_AddAffected->execute( 

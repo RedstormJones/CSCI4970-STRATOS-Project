@@ -26,6 +26,7 @@ class Account_Model Extends Base_Model
         return $this->query_showUserSettings->fetch();
     }
 
+<<<<<<< HEAD
 	/**
 	* Update the current user account information 
 	* 
@@ -35,6 +36,8 @@ class Account_Model Extends Base_Model
 	* @param $email : String ( hold the user email address)
 	* @param $user : String ( hold the name of the user who modify the account setting information)
 	*/
+=======
+>>>>>>> origin/dev
     public function UpdateAccountSettingsUser($pid, $fname, $lname, $email, $user)
     {
         $this->query_UpdateUser->execute(
@@ -46,6 +49,7 @@ class Account_Model Extends Base_Model
                          )
             );
     }
+<<<<<<< HEAD
 	
 	/**
 	* Update 3 phone numbers for the current user
@@ -54,6 +58,8 @@ class Account_Model Extends Base_Model
 	* @param $phones : Integer ( hold the user phones number)
 	* @param $user : String ( hold the name of the user who modify the account setting information)
 	*/
+=======
+>>>>>>> origin/dev
     public function UpdateAccountSettingsPhone($pid, $phones, $user)
     {
         $this->query_DeletePhonesForUser->execute( array( ':pid' => $pid ) );

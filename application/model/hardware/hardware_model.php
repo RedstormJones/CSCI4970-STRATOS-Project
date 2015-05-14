@@ -27,6 +27,7 @@ class Hardware_Model Extends Base_Model
         return $this->query_GetHardware->fetch();
     }
 
+<<<<<<< HEAD
 	/**
 	* Add a new hardware to the database
 	* 
@@ -39,6 +40,8 @@ class Hardware_Model Extends Base_Model
 	* @param $status : String ( hold the new hardware's status)
 	* @param $user : String ( hold the name of the user who commit the addition) 
 	*/
+=======
+>>>>>>> origin/dev
     public function addHardware($name, $vendor, $model, $serial, $type, $loc, $status, $user)
     {
         $this->query_InsertHardware->execute(
@@ -54,12 +57,15 @@ class Hardware_Model Extends Base_Model
         );
     }
     
+<<<<<<< HEAD
 	/**
 	* delete a hardware from the database
 	* 
 	* @param $eid : Integer ( hold the hardware number)
 	* @param $user : String ( hold the name of the user who commit the deletion) 
 	*/
+=======
+>>>>>>> origin/dev
     public function deleteHardware( $eid, $user )
     {
         $this->query_DeleteHardware->execute( 
@@ -69,6 +75,7 @@ class Hardware_Model Extends Base_Model
         );
     }
     
+<<<<<<< HEAD
 	/**
 	* Update a hardware information to the database
 	* 
@@ -82,6 +89,8 @@ class Hardware_Model Extends Base_Model
 	* @param $status : String ( hold the hardware's status)
 	* @param $user : String ( hold the name of the user who commit the addition) 
 	*/
+=======
+>>>>>>> origin/dev
     public function updateHardware( $eid, $name, $vendor, $model, $serial, $type, $loc, $status, $user)
     {
         $this->query_UpdateHardware->execute(

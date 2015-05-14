@@ -72,6 +72,7 @@ class Tickets_Model Extends Base_Model
 
 
 
+<<<<<<< HEAD
 	/**
 	* Update ticket 
 	* After updating the ticket the system is going to send an email to the current user and assignee user.
@@ -87,6 +88,8 @@ class Tickets_Model Extends Base_Model
 	* @param $life_cycl_id : Integer ( hold the correspond Life Cycle number "life_cycl_id" of the selected Life Cycle ) 
 	* @param $user : String ( hold the name of the user who modify the account setting information)
 	*/
+=======
+>>>>>>> origin/dev
     public function updateTicket( $tid, $title, $description, $opener, $assignee, $category, $aff_level, $severity, $expct_hours, $life_cycl_id, $user )
     {
         $this->query_UpdateTicket->execute(
@@ -107,6 +110,7 @@ class Tickets_Model Extends Base_Model
         $this->MailUpdateorAdd(TRUE, $title, $customer, $assignee);
     }
 
+<<<<<<< HEAD
 	/**
 	* Delete a ticket 
 	* After deleting the ticket the system will subtract and adjust the number of the ticket 
@@ -115,6 +119,8 @@ class Tickets_Model Extends Base_Model
 	* @param $tid : Integer ( hold the number of the next ticket)
 	* @param $user : String ( hold the name of the user who modify the account setting information)
 	*/
+=======
+>>>>>>> origin/dev
     public function deleteTicket( $tid, $user )
     {
         $this->query_DeleteTicket->execute( 
@@ -125,6 +131,7 @@ class Tickets_Model Extends Base_Model
         );
     }
 
+<<<<<<< HEAD
 	/**
 	* Add a ticket 
 	* After adding the ticket the system is going to send an email to the current user and assignee user.
@@ -140,6 +147,8 @@ class Tickets_Model Extends Base_Model
 	* @param $life_cycl_id : Integer ( hold the correspond Life Cycle number "life_cycl_id" of the selected Life Cycle ) 
 	* @param $user : String ( hold the name of the user who modify the account setting information)
 	*/
+=======
+>>>>>>> origin/dev
     public function addTicket($title, $description, $customer, $assignee, $category, $affLvl, $severity, $lifecycle, $estTime, $user)
     {
         $this->query_InsertTicket->execute(

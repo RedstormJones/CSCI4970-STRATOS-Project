@@ -8,6 +8,7 @@ class Category_Config_Model Extends Ref_Config_Base_Model
         parent::__construct( 'StCatgConf' );
     }
    
+<<<<<<< HEAD
    /**
 	* Update the Category drop down menu that display on the add or update ticket form on the ticket page
 	*
@@ -15,6 +16,8 @@ class Category_Config_Model Extends Ref_Config_Base_Model
 	* @param $new : String ( the new Category value)
 	* @param $user : String ( hold the name of the current logged in user)
 	*/
+=======
+>>>>>>> origin/dev
     protected function updateReferences( $old, $new, $user )
     {
         $this->query_GetAffectedTickets->execute( array( ':old' => $old ) );
@@ -33,12 +36,15 @@ class Category_Config_Model Extends Ref_Config_Base_Model
         }
     }
 
+<<<<<<< HEAD
 	/**
 	* Delete the selected Category
 	*
 	* @param $old : String ( hold the name of the selected Category)
 	* @param $user : string ( hold the name of the user who commit the deletion) 
 	*/
+=======
+>>>>>>> origin/dev
     protected function deleteConfig( $old, $user )
     {
         $this->query_DeleteCategory->execute( 
@@ -48,6 +54,7 @@ class Category_Config_Model Extends Ref_Config_Base_Model
             );
     }
 
+<<<<<<< HEAD
 	/**
 	* Update the selected Category
 	*
@@ -55,6 +62,8 @@ class Category_Config_Model Extends Ref_Config_Base_Model
 	* @param $name : String ( hold the name of the selected Category)
 	* @param $user : string ( hold the name of the user who commit the update) 
 	*/
+=======
+>>>>>>> origin/dev
 	public function updateCategory( $cid, $name, $user )
 	{
 		$this->query_UpdateCategory->execute( 
@@ -65,12 +74,15 @@ class Category_Config_Model Extends Ref_Config_Base_Model
             );
 	}
 
+<<<<<<< HEAD
 	/**
 	* Add a new Category
 	*
 	* @param $name : String ( hold the name of the Category )
 	* @param $user : string ( hold the name of the user who commit the add) 
 	*/
+=======
+>>>>>>> origin/dev
 	public function addCategory( $name, $user )
 	{
 		$this->query_AddCategory->execute( 

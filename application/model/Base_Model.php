@@ -38,6 +38,7 @@ class Base_Model
         }
     }
 
+<<<<<<< HEAD
 	/**
 	* Send an email to the customer and the assignee person if the customer add or update a ticket
 	*
@@ -46,6 +47,8 @@ class Base_Model
 	* @ param $customer: String ( hold the customer information)
 	* @ param $assignee: String ( hold the assignee person information)
 	*/
+=======
+>>>>>>> origin/dev
     public function MailUpdateorAdd($isUpdate, $title, $customer, $assignee)
     {
         if ($isUpdate)
@@ -61,24 +64,35 @@ class Base_Model
         
         $headers = "From: stpkiproject@gmail.com";
         
+<<<<<<< HEAD
         /*  
 		* Sends email to the Customer 
 		*/
+=======
+        // Sends email to the Customer
+>>>>>>> origin/dev
         $this->query_GetEmail->execute(array( ':pid' => $customer));
         $to = $this->query_GetEmail->fetch(0);
         mail($to->email, $subject, $message, $headers);
         
+<<<<<<< HEAD
         /* 
 		* Sends email to the Assignee
 		*/
+=======
+        // Sends email to the Assignee
+>>>>>>> origin/dev
         $this->query_GetEmail->execute(array( ':pid' => $assignee));
         $to = $this->query_GetEmail->fetch(0);
         mail($to->email, $subject, $message, $headers);
     }
     
+<<<<<<< HEAD
 	/**
 	* Update the ticket number 
 	*/
+=======
+>>>>>>> origin/dev
     public function GetUpdatedTicketTimeByTid( $tid )
     {
         $this->query_GetTicket->execute( array( ':tid' => $tid ) );
